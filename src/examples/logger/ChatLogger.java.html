@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE>ChatLogger.java.html</TITLE>
+</HEAD>
+<BODY BGcolor=#ffffff TEXT=#000000>
+<PRE>
+
+<FONT color=#0000ff>import</FONT> org.relayirc.chatengine.*;
+<FONT color=#0000ff>import</FONT> org.relayirc.util.Debug;
+
+<FONT color=#008000>///////////////////////////////////////////////////////////////</FONT>
+<FONT color=#008000>/**</FONT><B><FONT color=#008000> </FONT></B>
+<FONT color=#008000> *</FONT><B><FONT color=#008000> ChatLogger will connect to Undernet, join the #chatzone channel,</FONT></B>
+<FONT color=#008000> *</FONT><B><FONT color=#008000> print out 10 messages and then quit.</FONT></B><FONT color=#008000> </FONT>
+<FONT color=#008000> */</FONT>
+<B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>class</FONT></B> ChatLogger <B><FONT color=#ff0000>extends</FONT></B> ServerAdapter {
+
+   <B><FONT color=#ff0000>private</FONT></B> Server _server;
+   <B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>static</FONT></B> ChatLogger chatLogger; <FONT color=#008000>// Exposed for ChannelLogger</FONT>
+
+   <FONT color=#008000>/**</FONT><B><FONT color=#008000> </FONT></B>
+<FONT color=#008000>    *</FONT><B><FONT color=#008000> Construct ChatLogger.</FONT></B><FONT color=#008000> Creates server, adds self as listener </FONT>
+<FONT color=#008000>    * connects to the chat server.</FONT>
+<FONT color=#008000>    */</FONT>
+   <B><FONT color=#ff0000>public</FONT></B> ChatLogger() {
+      System.out.println(<FONT color=#ff00ff>&quot;ChatLogger - Relay IRC Programming Example&quot;</FONT>);    
+      _server = <B><FONT color=#ff0000>new</FONT></B> Server(<FONT color=#ff00ff>&quot;irc.linux.com&quot;</FONT>,<FONT color=#ff00ff>6667</FONT>,<FONT color=#ff00ff>&quot;n/a&quot;</FONT>,<FONT color=#ff00ff>&quot;n/a&quot;</FONT>);
+      _server.addServerListener(<B><FONT color=#ff0000>this</FONT></B>);
+      _server.connect(<FONT color=#ff00ff>&quot;logdaddy&quot;</FONT>,<FONT color=#ff00ff>&quot;logdaddy_&quot;</FONT>,<FONT color=#ff00ff>&quot;pbunyan&quot;</FONT>,<FONT color=#ff00ff>&quot;Paul Bunyan&quot;</FONT>);
+   }
+   <FONT color=#008000>/**</FONT><B><FONT color=#008000> Once connected, join #chatzone.</FONT></B><FONT color=#008000> */</FONT> 
+   <B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>void</FONT></B> onConnect(ServerEvent event) {
+      System.out.println(<FONT color=#ff00ff>&quot;Connected to &quot;</FONT>+event.getServer());
+      _server.sendJoin(<FONT color=#ff00ff>&quot;#debian&quot;</FONT>);
+   }
+   <FONT color=#008000>/**</FONT><B><FONT color=#008000> Once channel is joined, create ChannelLogger to listen to log it.</FONT></B><FONT color=#008000> */</FONT>
+   <B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>void</FONT></B> onChannelJoin(ServerEvent event) {
+      Channel chan = (Channel)event.getChannel();
+      System.out.println(<FONT color=#ff00ff>&quot;Joined &quot;</FONT>+chan);
+      chan.addChannelListener(<B><FONT color=#ff0000>new</FONT></B> ChannelLogger());
+   }
+   <FONT color=#008000>/**</FONT><B><FONT color=#008000> Request disconnection from the chat server.</FONT></B><FONT color=#008000> */</FONT>
+   <B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>void</FONT></B> stop() {
+      System.out.println(<FONT color=#ff00ff>&quot;Stopping...&quot;</FONT>);
+      _server .disconnect();  
+   }
+   <FONT color=#008000>/**</FONT><B><FONT color=#008000> Once disconnected, print farewell message and exit.</FONT></B><FONT color=#008000> */</FONT>
+   <B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>void</FONT></B> onDisconnect(ServerEvent event) {
+      System.out.println(<FONT color=#ff00ff>&quot;Disconnected: good-bye!&quot;</FONT>);
+      System.exit(<FONT color=#ff00ff>0</FONT>);
+   }
+   <FONT color=#008000>/**</FONT><B><FONT color=#008000> Main method.</FONT></B><FONT color=#008000> */</FONT>
+   <B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>static</FONT></B> <B><FONT color=#ff0000>void</FONT></B> main(String args[]) {
+      <FONT color=#008000>//Debug.setDebug(true);</FONT>
+      chatLogger = <B><FONT color=#ff0000>new</FONT></B> ChatLogger();
+   }
+}
+
+<FONT color=#008000>///////////////////////////////////////////////////////////////</FONT>
+<FONT color=#008000>/**</FONT><B><FONT color=#008000> </FONT></B>
+<FONT color=#008000> *</FONT><B><FONT color=#008000> ChannelLogger will print out 10 messages and then ask </FONT></B>
+<FONT color=#008000> *</FONT><B><FONT color=#008000> that ChatLogger to disconnect from the chat server.</FONT></B>
+<FONT color=#008000> */</FONT>
+<B><FONT color=#ff0000>class</FONT></B> ChannelLogger <B><FONT color=#ff0000>extends</FONT></B> ChannelAdapter {
+   <B><FONT color=#ff0000>private</FONT></B> <B><FONT color=#ff0000>int</FONT></B> _msgCount = <FONT color=#ff00ff>0</FONT>;
+
+   <B><FONT color=#ff0000>public</FONT></B> <B><FONT color=#ff0000>void</FONT></B> onMessage(ChannelEvent event) {
+      System.out.println(
+         event.getOriginNick()+<FONT color=#ff00ff>&quot; says &quot;</FONT>+(String)event.getValue());
+
+      <B><FONT color=#ff0000>if</FONT></B> (_msgCount++ &gt; <FONT color=#ff00ff>10</FONT>) {
+         ChatLogger.chatLogger.stop();
+      }
+   }
+}
+
+</PRE>
+</BODY>
+</HTML>

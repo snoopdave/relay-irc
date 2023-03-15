@@ -1,0 +1,7 @@
+<!ELEMENT tasklist (taskgroup)*>
+<!ATTLIST tasklist name CDATA #REQUIRED>
+<!ELEMENT group (item)*>
+<!ATTLIST group name CDATA #REQUIRED>
+<!ELEMENT item (#PCDATA)>
+<!ATTLIST item status (open|done|closed) #REQUIRED>
+

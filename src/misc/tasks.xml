@@ -1,0 +1,172 @@
+<?xml version="1.0" ?>
+<!DOCTYPE tasklist SYSTEM "tasks.dtd">
+
+<tasklist name="Relay IRC todo list">
+
+<!-- =============================================================== -->
+<!-- Relay 0.8.1 Tasks -->
+<!-- =============================================================== -->
+
+<group name="Relay-JFC 0.8.1 - General">
+<item status="open"> Support for changing nickname</item>
+<item status="open"> Debug MIRC server.ini import function</item>
+<item status="open"> Build Install Anywhere installers for release</item>
+<item status="open"> Big-reorg: clean up and document the API</item>
+<!-- Completed tasks -->
+<item status="closed"> Update developer notes to reflect re-org</item>
+<item status="closed"> Combine user info, server info and connect dialog</item>
+<item status="closed"> Update ChatLogger.java example to work with re-org</item>
+<item status="closed"> Big re-org: move ChatEngine code into Server</item>
+<item status="closed"> Big re-org: move IRC*.java classes into core package</item>
+<item status="closed"> ChatApp: add a spinning progress indicator</item>
+<item status="closed"> Search: Channel popup-menu should allow add-to-favorites</item>
+<item status="closed"> Search: Channel popup-menu should allow join-channel</item>
+</group>
+
+<group name="Relay-JFC 0.8.1 - Basic scripting support">
+<item status="open"> Developer Note for Python scripting</item>
+<item status="open"> Bug: handling of statements containing START_PROMPT</item>
+<item status="open"> Allow setting Python script as a global channel listener</item>
+<item status="open"> Allow setting Python script as a server listener</item>
+<!-- Completed tasks -->
+<item status="closed"> Add support for IRC command actions</item>
+<item status="closed"> Built-in Python interpreter window</item>
+</group>
+
+<group name="Relay-JFC 0.8.1: Applet support">
+<item status="open"> Simple Example Java 1.1/AWT applet</item>
+<item status="open"> Developer Note for applet support</item>
+</group>
+
+<!-- =============================================================== -->
+<!-- Bugs: User reported bugs are in the SourceForge bug-tracker --> 
+<!-- =============================================================== -->
+
+<group name="Bugs">
+<item status="open"> Version shows up twice in the user popup menu</item> 
+<item status="open"> UserPanel should disallow nicks or altnicks greater than 8 chars</item>
+<item status="open"> Fave tree not updated when new fave channel added via JoinDlg</item>
+<item status="open"> Origin-nick is always displayed as null for actions.</item>
+<item status="open"> Installer: ZIP format installer needs README!  </item>
+<item status="open"> FavePanel: Tree icons badly clipped under Windows PLAF </item>
+<!-- Closed bugs -->
+<item status="closed"> ChatWin: If you /nick, channels are not informed </item>
+<item status="closed"> ChatApp: If you /quit, you disconnect but don't alert GUI  </item>
+<item status="closed"> ChatWin: My nick is not shown in bold!  </item>
+<item status="closed"> If initial server connection fails, can't reconnect </item>
+<item status="closed"> ConnDlg: If you add a server, it won't show up until next time.</item>
+<item status="closed"> ConnDlg: Group combo is doubling-up some entries.</item>
+<item status="closed"> ServerList: Remove cancel button, since it is bogus.</item>
+<item status="closed"> FavePanel: joining already joined results in 2nd (dead) window </item>
+<item status="closed"> FavePanel: Favorite servers not updating properly.  </item>
+<item status="closed"> FavePanel: Should be able to connect to any server </item>
+<item status="closed"> FavePanel: Remove channel, user, server: confirm not working </item>
+<item status="closed"> JoinDlg: When you add a channel, it should be selected </item>
+<item status="closed"> Search: Channel names not showing up </item>
+<item status="closed"> Exception thrown when channel window closed.  </item>
+<item status="closed"> Don't allow connect while connecting!  </item>
+<item status="closed"> Too many "unknown message" messages coming through console.  </item>
+<item status="closed"> Alternate nick not working.  </item>
+<item status="closed"> ChannelWindow, titles not working.  </item>
+<item status="closed"> ChatOptionsDlg: Server tab adds new server every time!  </item>
+<item status="closed"> Chat options not saved to consistant/convenient place </item>
+<item status="closed"> Need more feedback during connect time </item>
+</group>
+
+<!-- =============================================================== -->
+<!-- Relay-JFC 1.0 Tasks --> 
+<!-- =============================================================== -->
+
+<group name="Relay-JFC 1.0 General tasks">
+<item status="open"> Support for commands such as /nick, /part and /quit</item>
+<item status="open"> Full-featured Java 1.1/AWT compatible chat applet</item>
+<item status="open"> DCC file transfer</item>
+<item status="open"> Support for user and channel modes</item>
+<item status="open"> Add support for away</item>
+<item status="open"> Channel object should contain collection of User objects</item>
+<item status="open"> Kick/ban should popup dialog with comment, OK and Cancel</item>
+<item status="open"> Better keyboard handling (allow delete button, etc.)</item>
+<item status="open"> Flood protection</item>
+<item status="open"> Proxy/firewall support</item>
+<item status="open"> Java 1.2/JFC compatible applet</item>
+<item status="open"> Simultaneous connections to multiple servers</item>
+<item status="open"> Support for MIRC colors</item>
+</group>
+
+<group name="Relay-JFC 1.0 - Documentation">
+<item status="open"> User's Guide</item>
+<item status="open"> Developer's Guide</item>
+<item status="open"> Online help</item>
+</group>
+
+<group name="Relay-JFC 1.0 - JoinDlg">
+<item status="open"> Add more informative JLabels</item>
+<item status="open"> Add "Popup this dialog on connect" checkbox</item>
+</group>
+
+<group name="Relay-JFC 1.0 - Relay-JFC 1.0 - ChatOptions and OptionsDlg">
+<item status="open"> Add connect-on-startup option</item>
+<item status="open"> Add reconnect-on-disconnect option</item>
+<item status="open"> Add message highlighting</item>
+<item status="open"> Add timestamp-events option</item>
+<item status="open"> Add quit message option</item>
+</group>
+
+<group name="Relay-JFC 1.0 - ChannelPanel">
+<item status="open"> Allow user to set modes</item>
+<item status="open"> Confirm parting of channel</item>
+<item status="open"> Add ignore-user option to user popup</item>
+<item status="open"> Add a part-channel dialog</item>
+</group>
+
+<group name="Relay-JFC 1.0 - FavePanel">
+<item status="open"> Add popup-menu item for messaging users</item>
+<item status="open"> Double-click on user to send message to them</item>
+<item status="open"> Allow user to customize the user-object popup men</item>
+<item status="open"> Allow user to customize the channel-object popup men</item>
+</group>
+
+<group name="Relay-JFC 1.0 - ChannelSearch">
+<item status="open"> Make sortable columns work properly</item>
+<item status="open"> Limit searches to 100 items by default</item>
+<item status="open"> Save channel list to server object</item>
+<item status="open"> Cancel button to stop lengthy channel list thread</item>
+<item status="open"> Progress bar during channel list thread execution</item>
+<item status="open"> Allow user to size columns</item>
+<item status="open"> Add icons on buttons</item>
+</group>
+
+<!-- =============================================================== -->
+<!-- Relay-JFC 0.8.0 Tasks --> 
+<!-- =============================================================== -->
+
+<group name="Relay-JFC 0.8.0 - Released January 23, 2000">
+<item status="closed"> relay.swingui.ChatApp should be a singleton </item>
+<item status="closed"> Introduce IRCConnection class to run message loop </item>
+<item status="closed"> Elimintate ChatViewManager </item>
+<item status="closed"> Chat views should not use chat engine </item>
+<item status="closed"> ServerList: Make group name combo editable </item>
+<item status="closed"> ServerList: Make network name combo editable </item>
+<item status="closed"> ServerList: Favorite checkbox should be 2-clicks-to-edi </item>
+<item status="closed"> ServerList: Sortable column </item>
+<item status="closed"> ServerList: Editable server list tabl </item>
+<item status="closed"> ServerList: Table cell combo for group nam </item>
+<item status="closed"> ServerList: Table cell combo for network nam </item>
+<item status="closed"> ConnDlg: With Group, Server Name and Server port combos.    </item>
+<item status="closed"> ConnDlg: Connect, Edit Server List... and Cancel buttons </item>
+<item status="closed"> Use tool icon for options instead of light-bulb </item>
+<item status="closed"> New architecture: ChatEngineListener and ChannelListener </item>
+<item status="closed"> New architecture: package re-org </item>
+<item status="closed"> Search: Warn user that channel list may cause disconnection </item>
+<item status="closed"> Search: Hide save button until save is implemented </item>
+<item status="closed"> FavePanel: Double-click on server to connect </item>
+<item status="closed"> FavePanel: Double-click on channel to join </item>
+<item status="closed"> FavePanel: Make favorites panel dockable </item>
+<item status="closed"> Decide GPL vs. MPL vs. LGPL. - stick with MPL for now </item>
+<item status="closed"> Java doc comment clean-up </item>
+<item status="closed"> ChatWin: Display message nick names in bold font </item>
+</group>
+
+</tasklist>
+
+

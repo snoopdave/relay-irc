@@ -1,0 +1,120 @@
+
+Relay-JFC CHANGES.txt
+=====================
+
+--------------------------------------------------------------------------
+Relay Snapshot20010408 April 8, 2001 - Changes since Snapshot20010331
+--------------------------------------------------------------------------
+
+* Relay-JFC can now be started from an executable jar file.
+
+* The RELAYHOME and RELAYSRC environment variables are now optional. 
+
+  - If you don't set RELAYHOME and put RELAYHOME/bin in your path then you
+    must run the relay.bat/relay.sh startup script from the Relay 'bin' 
+    directory. This is not a bad default: most newbies will use either the 
+    Zero-G installed starter or the executable jar to start Relay anyway.
+
+  - If you don't set RELAYSRC, you'll have to run the build script from the 
+    Relay directory. This is not a bad default since most developers probably
+    expect to run build scripts from source directory anyway.
+
+* Jikes is great, but typically newbies don't have it. So, Jikes is no longer 
+  the default compiler for builds. If you want to uses Jikes, uncomment the 
+  Jikes lines in build.xml.
+
+* UNIX startup script no longer needs ksh, sh will do.
+
+* Now includes Jython 2.0 instead of JPython 1.1.
+
+* Also, includes the following bug fixes:
+
+     Bug #412775 Actions always have null nick
+     Bug #412776 JPython broken in 20010331 snapshot
+     Bug #210560 ENH: Please add ChannelListener.onDeop()
+     Bug #203541 ENH: Add support for ISON
+     Bug #210559 ENH: Add support for NOTICE
+
+
+--------------------------------------------------------------------------
+Relay Snapshot20010331 March 31, 2001 - Changes since Snapshot000601 
+--------------------------------------------------------------------------
+
+- In preparation for the 0.8.1 release, lots of bug fixes and requested 
+  enhancents have been addressed:
+
+     Bug #214029 PING/PONG not handled properly
+     Bug #222752 incorrect javadoc
+     Bug #227086 python panel bug
+     Bug #211402 If IRCConnection fails, then the IdentServer is not stopped.
+     Bug #211397 Calling Server.getChannel doesn't trigger onChannelJoin.
+     Bug #211585 Request of option in Channel to buffer outgoing messages.
+     Bug #211502 State of Channel._isConnected not being maintained.
+     Bug #211498 Request for a multiline sendPrivMsg (code included).
+     Bug #211855 IRCConnection.writeln does not appear threadsafe.
+     Bug #211583 Connection dropped while sending message is not detected.
+     Bug #222749 switch to ant
+     Bug #211587 Channel.setConnected should have package protection.
+     Bug #211380 "Server.getChannel" should be public
+     Bug #211383 User.toDescription does not work in JDK1.1 (code attached).
+     Bug #203519 ChatEngine.sendMessage() deprecation issue
+
+- Also, private messages (/msg) now work as they do in other chat programs. 
+
+---------------------------------------------------------------------------
+Relay Snapshot000601 June 1, 2000 - Changes since 0.80
+--------------------------------------------------------------------------
+- Better handling of connection and disconnection
+- JPython scripting support and interactive JPython console
+- Support for custom actions expresses as Java, JPython or IRC commands
+- Numerous bug fixes
+- Property dialogs for user, channel and server.
+- Added popup menu to channel search dialog so channels may be added to 
+  favorites. 
+
+--------------------------------------------------------------------------
+Relay 0.80 - January 18, 2000 - Changes since 0.70
+--------------------------------------------------------------------------
+- Favorites panel improvements
+- Better server list editor
+- Better connect dialog allows connection to any server in server list
+- Chat engine redesigned to use listeners
+- Packages reorganized to separate out utility classes 
+
+--------------------------------------------------------------------------
+Relay 0.70 - August 22, 1999 - Changes since 0.50
+--------------------------------------------------------------------------
+- Better server list management
+- Ability to import MIRC servers.ini file
+- Dockable message console window
+- Favorites window with tree view of servers, users and channels
+
+--------------------------------------------------------------------------
+Relay 0.50 - November 15, 1998 - Changes since 0.41
+--------------------------------------------------------------------------
+- Added Relay-WFC.
+- Added makefile for building Relay-JFC under GNU based
+  systems such as Linux or Windows with the Cygwin tools.
+- Added makefile for building Relay-WFC under Microsoft nmake.
+  systems such as Linux or Windows with the Cygwin tools.
+- Cleaned up source code for release and added Javadoc 
+  comments.
+
+--------------------------------------------------------------------------
+Relay 0.41 - April 21, 1998 - Changes since 0.40
+--------------------------------------------------------------------------
+- KICK, BAN, OP and VERSION messages now parsed correctly.
+- PARTs and JOINs are now handled properly by the channel used lists.
+- Support added for issuing KICK, BAN and OP commands.
+- Keyboard accelerators added to the menus.
+- Now stores used options files (relay.dat) in users home directory.
+- Support for alternate nick name added.
+
+--------------------------------------------------------------------------
+Relay 0.40 - April 17, 1998 - Changes since 0.31 
+--------------------------------------------------------------------------
+- Added tab to options dialog for selecting text display colors.
+- Added tab to options dialog for setting text display font.
+- Added a bunch of initial values for servers, channels, etc.
+- Now handles display of ACTIONS properly.
+

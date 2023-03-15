@@ -1,0 +1,56 @@
+
+<!ELEMENT ChatOptions (UserSettings,GuiSettings,Favorites,ServerList) >
+
+<!ELEMENT UserSettings (User,Server) >
+
+<!ELEMENT GuiSettings (ColorSettings,lookAndFeel,ScriptSettings) >
+
+   <!ELEMENT MessageColorMap (MessageColor)* >
+      <!ELEMENT MessageColor (messageType,colorName)* >
+
+   <!ELEMENT ScriptSettings (Listeners,Actions) >
+
+      <!ELEMENT Listeners (ServerListeners,ChannelListeners) >
+         <!ELEMENT ServerListeners (Listener)* >
+         <!ELEMENT ChannelListeners (Listener)* >
+
+      <!ELEMENT Actions (UserActions,ChannelAcions,ServerActions) >
+         <!ELEMENT UserActions (Action)* >
+         <!ELEMENT ChannelActions (Action)* >
+         <!ELEMENT ServerActions (Action)* >
+
+<!ELEMENT Favorites (FavoriteUsers,FavoriteChannels) >
+   <!ELEMENT FavoriteUsers (User)* > 
+   <!ELEMENT FavoriteChannels (Channel)* >
+
+<!ELEMENT ServerList (Server)* >
+
+
+<!-- Common tags -->
+
+<!ELEMENT Action (displayName,actionString)* >
+<!ATTLIST Action language (python|java|command) #REQUIRED >
+
+<!ELEMENT Listener (displayName,objectName)* >
+<!ATTLIST Listener targetName CDATA #REQUIRED >
+
+<!ELEMENT User (nick,altNick,userName,fullName,hostName,serverName,desc)* >
+<!ELEMENT Channel (name,network,topic,displayName)* >
+<!ELEMENT Server (name,network,Ports,displayName)* >
+<!ATTLIST Server favorite (true|false) #REQUIRED >
+
+<!ELEMENT altNick      (#PCDATA) >
+<!ELEMENT colorName    (#PCDATA) >
+<!ELEMENT actionString (#PCDATA) >
+<!ELEMENT desc         (#PCDATA) >
+<!ELEMENT displayName  (#PCDATA) >
+<!ELEMENT fullName     (#PCDATA) >
+<!ELEMENT hostName     (#PCDATA) >
+<!ELEMENT lookAndFeel  (#PCDATA) >
+<!ELEMENT messageType  (#PCDATA) >
+<!ELEMENT network      (#PCDATA) >
+<!ELEMENT nick         (#PCDATA) >
+<!ELEMENT serverName   (#PCDATA) >
+<!ELEMENT userName     (#PCDATA) >
+
+

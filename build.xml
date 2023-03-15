@@ -1,0 +1,307 @@
+<!-- ###################################################################### --> 
+<!-- 
+	FILE: build.xml
+	
+	Ant build file for Relay-IRC.
+
+	'default' - builds to distribution directory (useful for development).
+	'release' - builds timestamped release zip and tar files. 
+-->
+<!-- ###################################################################### --> 
+
+<project name="relay-irc" default="default">
+
+	<property name="relay.root"     value="."/>
+	<property name="relay.version"     value="20010408"/>
+	<property name="relay.dist-dir"    value="${relay.root}/dist"/>
+	<property name="relay.release-dir" value="${relay.root}/release"/>
+	<property name="relay.build-dir"   value="${relay.root}/build"/>
+
+	<!-- Uncomment these three lines to use Jikes 
+	<property name="build.compiler"            value="jikes"/>
+	<property name="build.compiler.warnings"   value="false"/>
+	<property name="build.compiler.fulldepend" value="true"/>
+	-->
+    
+	<!-- Default: build to distribution directory --> 
+	<target name="default" depends="dist-swingui,dist-files">
+	</target>
+
+	<!-- Build full release, both binary and source --> 
+	<target name="release">
+		<antcall target="clean"/>
+		<antcall target="release-files"/>
+	</target>
+
+	<!-- ################################################################## --> 
+	<!-- Paths, patternsets and utility targets -->
+	<!-- ################################################################## --> 
+
+  	<path id="jython.path">
+		<pathelement location="${relay.root}/lib/jython.jar" />
+  	</path>
+
+	<!-- Patternset for excluding IDE files -->
+	<patternset id="relay.exclude-ide-files">
+		<exclude name="**/CVS/**"/>
+		<!-- JBuilder files -->
+		<exclude name="**/*.jpr"/>
+		<exclude name="**/*.jpx"/>
+		<exclude name="**/*dfPackage*"/>
+		<!-- Together files -->
+		<exclude name="**/*.jbx"/>
+		<exclude name="**/*.tpr"/>
+		<exclude name="**/*.tcs"/>
+		<exclude name="**/*.tws"/>
+		<!-- NetBeans files -->
+		<exclude name="**/.nbattrs"/>
+	</patternset>
+
+	<target name="common-dirs">
+		<mkdir dir="${relay.build-dir}"/>
+		<mkdir dir="${relay.dist-dir}/bin"/>
+		<mkdir dir="${relay.dist-dir}/lib"/>
+		<mkdir dir="${relay.dist-dir}/scripts"/>
+	</target>
+
+	<!-- Delete build and distribution directories -->
+	<target name="clean" depends="">
+		<delete dir="${relay.build-dir}" />
+		<delete dir="${relay.dist-dir}" />
+		<delete dir="${relay.release-dir}" />
+	</target>
+
+
+	<!-- ################################################################## --> 
+	<!-- chatengine: the IRC class library -->
+	<!-- ################################################################## --> 
+
+	<!-- build chatengine to the build directory directory --> 
+	<target name="chatengine" depends="common-dirs">
+		<mkdir dir="${relay.build-dir}/chatengine"/>
+		<javac destdir="${relay.build-dir}/chatengine" debug="on" includeantruntime="true">
+			<src path = "${relay.root}/src/chatengine/src"/>
+		</javac>
+	</target>
+
+	<!-- build chatengine.jar in dist/lib directory --> 
+	<target name="dist-chatengine" depends="chatengine">
+		<jar jarfile="${relay.dist-dir}/lib/chatengine.jar" 
+			 basedir="${relay.build-dir}/chatengine" />
+	</target>
+
+	<!-- ################################################################## --> 
+	<!-- swingui: the Relay GUI application -->
+	<!-- ################################################################## --> 
+
+	<!-- build swingui to the build/chatengine directory directory --> 
+	<target name="swingui" depends="dist-chatengine,common-dirs">
+
+		<mkdir dir="${relay.build-dir}/swingui"/>
+
+		<javac destdir="${relay.build-dir}/swingui"
+			   excludes="**/awtui/**" 
+			   debug="on">
+			<src path = "${relay.root}/src/swingui/src"/>
+			<classpath>
+				<path refid = "jython.path"/> 
+				<pathelement location="${relay.dist-dir}/lib/chatengine.jar" />
+			</classpath>
+		</javac>
+
+	</target>
+
+	<!-- build relay-jfc.jar in dist/lib directory --> 
+	<target name="dist-swingui" depends="swingui">
+
+		<!-- Copy images to build dir -->
+		<copy todir="${relay.build-dir}/swingui">
+			<fileset 
+				dir="${relay.root}/src/swingui/src" 
+				includes="**/*.gif" />
+  		</copy>
+
+		<!-- Jar up classes and images to dist dir -->
+		<jar jarfile="${relay.dist-dir}/lib/relay-jfc.jar" 
+			 basedir="${relay.build-dir}/swingui"/>
+
+		<!-- Copy script/DOS-batch files to dist bin directory -->
+		<copy todir="${relay.dist-dir}/bin">
+			<fileset dir="${relay.root}/src/swingui/bin">
+				<patternset refid="relay.exclude-ide-files"/>
+			</fileset> 
+		</copy>
+
+		<!-- Copy supporing jars to dist lib -->
+		<copy todir="${relay.dist-dir}/lib">
+			<fileset dir="${relay.root}/lib" includes="jython.jar" />
+  		</copy>
+
+		<!-- Copy sample scripts to scripts dir -->
+		<copy todir="${relay.dist-dir}/scripts">
+			<fileset dir="${relay.root}/src/scripts" includes="*" />
+  		</copy>
+
+	</target>
+
+	<!-- ################################################################## --> 
+	<!-- File copying, javadocs, etc. -->
+	<!-- ################################################################## --> 
+
+	<!-- Copy source directories to distibution directory -->
+	<target name="dist-src" depends="javadocs,dist-files,dist-src-files">
+
+		<!-- Copy src to dist/src dir -->
+		<copy todir="${relay.dist-dir}/src">
+			<fileset dir="${relay.root}/src">
+				<patternset refid="relay.exclude-ide-files"/>
+			</fileset>
+  		</copy>
+
+		<!-- Copy javadocs to the dist/docs/javadocs dir -->
+		<mkdir dir="${relay.dist-dir}/docs/javadocs"/>
+		<copy todir="${relay.dist-dir}/docs/javadocs">
+			<fileset dir="${relay.build-dir}/javadocs"/>
+  		</copy>
+
+	</target>
+
+	<!-- Copy src distribution files to dist directory -->
+	<target name="dist-src-files">
+
+		<copy file="${relay.root}/build.xml" todir="${relay.dist-dir}"/>
+		<copy file="${relay.root}/build.bat" todir="${relay.dist-dir}"/>
+		<copy file="${relay.root}/build.sh" todir="${relay.dist-dir}"/>
+
+		<copy 	file="${relay.root}/lib/ant-1.3.jar" 
+				todir="${relay.dist-dir}/lib"/>
+
+		<copy 	file="${relay.root}/lib/jaxp-1.1.jar" 
+				todir="${relay.dist-dir}/lib"/>
+
+		<copy 	file="${relay.root}/lib/crimson-1.1.jar" 
+				todir="${relay.dist-dir}/lib"/>
+
+	</target>
+
+	<!-- Copy binary distribution jars to dist directory -->
+	<target name="dist-files">
+		<copy file="${relay.root}/README.txt" todir="${relay.dist-dir}"/>
+		<copy file="${relay.root}/CHANGES.txt" todir="${relay.dist-dir}"/>
+		<copy file="${relay.root}/LICENSE.txt" todir="${relay.dist-dir}"/>
+
+      <replace file="${relay.dist-dir}/README.txt" 
+               token="Z_VERSION_Z" 
+               value="${relay.version}"/>
+
+		<copy 	file="${relay.root}/lib/jython.jar" 
+				todir="${relay.dist-dir}/lib"/>
+	</target>
+
+	<!-- Build javadocs to the build/javadocs directory --> 
+	<target name="javadocs" depends="">
+
+		<mkdir dir="${relay.build-dir}/javadocs"/>
+
+      <javadoc packagenames="org.relayirc.core,org.relayirc.chatengine,org.relayirc.swingui.*,org.relayirc.swingutil.*,org.relayirc.util"
+			destdir="${relay.build-dir}/javadocs"
+			windowtitle="Relay-IRC API"
+			doctitle="Relay-IRC API">
+
+			<sourcepath path="${relay.root}/src/chatengine/src"/>
+			<sourcepath path="${relay.root}/src/swingui/src"/>
+
+			<group title="ChatEngine Packages (chatengine.jar)" 
+				packages="org.relayirc.c*"/> 
+			
+			<group title="Swing UI Packages (relay-jfc.jar)" 
+				packages="org.relayirc.swing*"/>
+		</javadoc> 
+
+      <copy file="${relay.root}/website/docs/org-relayirc-chatengine.gif" 
+            tofile="${relay.build-dir}/javadocs/org/relayirc/chatengine/org-relayirc-chatengine.gif" /> 
+
+      <copy file="${relay.root}/website/docs/org-relayirc-core.gif" 
+            tofile="${relay.build-dir}/javadocs/org/relayirc/core/org-relayirc-core.gif" /> 
+
+	</target>
+
+	<!-- ################################################################## -->
+	<!-- Build release tar and zip files -->
+	<!-- ################################################################## -->
+
+	<!-- Build release zip and tar files -->
+	<target name="release-files" depends="default,dist-src">
+
+		<mkdir dir ="${relay.release-dir}/relay-${relay.version}"/>
+		<copy todir="${relay.release-dir}/relay-${relay.version}">
+			<fileset dir="${relay.dist-dir}"/> 
+		</copy>
+
+	   <!-- Tar file for UNIX systems -->
+      <property name="reldir" 
+         value="${relay.root}/release/relay-${relay.version}"/>
+      <tar tarfile="${relay.root}/relay-${relay.version}.tar"
+           basedir="${relay.root}/release">
+         <!-- 
+         <tarfileset  dir="${relay.root}/release" 
+            mode="755" username="ant" group="ant">
+            <include name="**/**"/>
+         </tarfileset>
+         -->
+         <tarfileset  dir="${relay.root}/release" 
+            mode="644" username="ant" group="ant">
+            <include name="${reldir}/**"/>
+            <exclude name="${reldir}/bin/relay.sh"/>
+            <exclude name="${reldir}/build.sh"/>
+         </tarfileset> 
+         <tarfileset  dir="${relay.root}/release" 
+            mode="755" username="ant" group="ant">
+            <include name="${reldir}/bin/relay.sh"/>
+            <include name="${reldir}/build.sh"/>
+         </tarfileset> 
+      </tar>
+
+		<!-- Gzip the tar file -->
+		<gzip src    ="${relay.root}/relay-${relay.version}.tar" 
+			zipfile  ="${relay.root}/relay-${relay.version}.tar.gz" />
+
+		<delete file="${relay.root}/relay-${relay.version}.tar"/>
+
+		<!-- WinZip file for Windows systems --> 
+		<zip zipfile ="${relay.root}/relay-${relay.version}.zip"
+		     basedir ="${relay.root}/release" />
+
+	</target>
+
+	<!-- ################################################################## --> 
+	<!-- Update website directory -->
+	<!-- ################################################################## --> 
+
+	<!-- Copy javadocs and other updated to the website directory --> 
+	<!-- NOT part of build and must be run explicitly --> 
+	<target name="website" depends="javadocs">
+
+		<!-- Copy javadocs to the dist/docs/javadocs dir -->
+		<mkdir dir="${relay.root}/website/javadocs"/>
+		<copy todir="${relay.root}/website/javadocs">
+			<fileset dir="${relay.build-dir}/javadocs"/>
+  		</copy>
+
+		<copy file="${relay.root}/README.txt" 
+			todir="${relay.root}/website/docs"/>
+
+      <replace file="${relay.root}/website/docs/README.txt" 
+               token="Z_VERSION_Z" 
+               value="${relay.version}"/>
+
+		<copy file="${relay.root}/CHANGES.txt" 
+			todir="${relay.root}/website/docs"/>
+
+		<copy file="${relay.root}/LICENSE.txt" 
+			todir="${relay.root}/website/docs"/>
+
+	</target>
+
+</project>
+
