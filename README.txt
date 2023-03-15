@@ -1,7 +1,7 @@
 
-README: Relay-JFC Version Z_VERSION_Z
+README: Relay-IRC
 
-Copyright 1999, 2000, 2001 by David M. Johnson 
+Copyright 1999-2023 by David M. Johnson 
 
 
    TABLE OF CONTENTS
