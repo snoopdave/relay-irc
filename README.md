@@ -11,10 +11,6 @@
 * 4.0 INSTALLING & RUNNING RELAY-JFC
 * 5.0 BUILDING RELAY-JFC
 
-Here's Relay-JFC in action:
-
-![screenshot if Relay-JFC](docs/screenshot1.jpg "Relay-JFC running on Windows NT")
-
 ## 1.0 INTRODUCTION
 Relay-JFC is an Open Source IRC chat program with an easy-to-use graphical user
 interface. 
@@ -25,6 +21,10 @@ Relay-JFC is currently available under the terms of the Mozilla public license (
 LICENSE or the Mozilla web site for more on this license).
 
 There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855)
+
+Here's Relay-JFC in action:
+
+![screenshot if Relay-JFC](docs/screenshot1.jpg "Relay-JFC running on Windows NT")
 
 # 2.0 RELAY-JFC FEATURES
 The significant features of Relay-JFC are:
