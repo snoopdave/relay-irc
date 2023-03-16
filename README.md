@@ -11,6 +11,9 @@
 * 4.0 INSTALLING & RUNNING RELAY-JFC
 * 5.0 BUILDING RELAY-JFC
 
+Here's Relay-JFC in action:
+
+![screenshot if Relay-JFC](docs/screenshot1.jpg "Relay-JFC running on Windows NT")
 
 ## 1.0 INTRODUCTION
 Relay-JFC is an Open Source IRC chat program with an easy-to-use graphical user
