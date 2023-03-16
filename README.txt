@@ -23,6 +23,7 @@ Relay-JFC is currently available as a beta release in both executable and
 source code forms under the terms of the Mozilla public license (see the file 
 LICENSE.txt or the Mozilla web site for more on this license).
 
+There is an article about Relay-JFC in Dr. Dobb's: https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855
 
 2.0 RELAY-JFC FEATURES
 ----------------------
