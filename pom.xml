@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.relayirc</groupId>
-  <artifactId>relay-jfc</artifactId>
+  <artifactId>relay-irc</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <properties>

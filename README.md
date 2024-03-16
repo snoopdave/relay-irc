@@ -1,32 +1,32 @@
 
 # Relay-IRC
 
-*Copyright 1999-2023 by David M. Johnson*
-
+*Copyright 1999-2024 by David M. Johnson*
 
 ### TABLE OF CONTENTS
+
 * 1.0 INTRODUCTION
-* 2.0 RELAY-JFC FEATURES
-* 3.0 RELAY-JFC REQUIREMENTS
-* 4.0 INSTALLING & RUNNING RELAY-JFC
-* 5.0 BUILDING RELAY-JFC
+* 2.0 RELAY-IRC FEATURES
+* 3.0 RELAY-IRC REQUIREMENTS
+* 4.0 INSTALLING & RUNNING RELAY-IRC
+* 5.0 BUILDING RELAY-IRC
 
 ## 1.0 INTRODUCTION
-Relay-JFC is an Open Source IRC chat program with an easy-to-use graphical user
-interface. 
-Relay-JFC is written in Java, so it will run on just about any 
-computer.
 
-Relay-JFC is currently available under the terms of the Mozilla public license (see the file 
-LICENSE or the Mozilla web site for more on this license).
+Relay-IRC is an Open Source IRC chat program with an easy-to-use graphical user interface. 
+Written in Java and Swing (aka JFC), it should run on just about any computer.
 
+Relay-IRC is currently available under the terms of the Mozilla public license (see the file LICENSE or the Mozilla web site for more on this license).
+
+Relay-IRC was once known as Relay-JFC. 
 There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855)
 
-Here's Relay-JFC in action:
+Here's the old Relay-JFC in action:
 
 ![screenshot if Relay-JFC](docs/screenshot1.jpg "Relay-JFC running on Windows NT")
 
 # 2.0 RELAY-JFC FEATURES
+
 The significant features of Relay-JFC are:
    * GUI with multiple window interface
    * Support for most IRC commands and replies
@@ -43,44 +43,14 @@ There are also some significant limitations:
    * Does not support DCC file transfer
 
 # 3.0 RELAY-JFC REQUIREMENTS
-Before you install and run Relay-JFC you need to install a Java. 
-At this time, Relay-JFC should run on versions of Java as old as 1.2 and as new as 19.
+
+Relay-JFC requires a Java Development Kit (JDK) and is known to run on Java 21.
 
 # 4.0 INSTALLING & RUNNING RELAY-JFC 
 
-There are two types of Relay-JFC downloads: releases and snapshots. A release 
-is intended for normal users and a snapshot is intended for developers. 
-
-   ***
-   HOW TO DOWNLOAD, INSTALL AND RUN A RELAY-JFC RELEASE
-   ***
-
-TBD: released are not yet available here on Github.
+Currently, there are no releases of Relay-JFC. So, the only way to run it is to clone this Github repo, build and run the code as follows:
    
-## 5.0 BUILDING RELAY-JFC
-   
-If you downloaded the source code to Relay-JFC, then you can build Relay-JFC 
-yourself. 
-All you need is a Java Development Kit, JDK 1.2 or later (the Ant jar is included with the source).
-
-   Building Relay-JFC:
-
-      Windows: run the relay.bat batch file
-
-         Open a Command Prompt window, cd to the Relay directory and then 
-         type 'build' to build Relay-JFC. 
-          
-      UNIX: run the relay.sh shell script
-
-         Open an X Windows shell window, cd to the Relay directory and then 
-         type 'build.sh' build Relay-JFC.
-
-   Build targets: 
-
-      The build scripts support the following targets:
-
-      build          - Builds a runnable Relay-JFC in the dist directory
-      build release  - Builds a full set of Relay-JFC release zip and tar files
-      build javadocs - Builds javadocs in dist/javadocs
-      build clean    - Removes all build and dist directories 
-
+    git clone https://github.com/snoopdave/relay-irc.git
+    cd relay-irc
+    mvn install
+    mvn exec:java

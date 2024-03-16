@@ -1,6 +1,16 @@
 
-Relay-JFC CHANGES.txt
+Relay-IRC CHANGES.txt
 =====================
+
+--------------------------------------------------------------------------
+Relay-IRC 1.0.0-SNAPSHOT
+--------------------------------------------------------------------------
+
+* Project imported to Github
+* Ant build script replaced with Maven build script
+* Jar files removed from repository
+* Old installer and build scripts moved to historical directory
+* May not work with Java versions earlier than 21
 
 --------------------------------------------------------------------------
 Relay Snapshot20010408 April 8, 2001 - Changes since Snapshot20010331
@@ -34,7 +44,6 @@ Relay Snapshot20010408 April 8, 2001 - Changes since Snapshot20010331
      Bug #210560 ENH: Please add ChannelListener.onDeop()
      Bug #203541 ENH: Add support for ISON
      Bug #210559 ENH: Add support for NOTICE
-
 
 --------------------------------------------------------------------------
 Relay Snapshot20010331 March 31, 2001 - Changes since Snapshot000601 
