@@ -65,7 +65,7 @@ public class ChannelFrame extends JInternalFrame implements MDIClientFrame {
                //int ret = JOptionPane.showConfirmDialog(ChatApp.getChatApp(),
                //   "Are you sure you wish to part ["+_channel.getName()+"]");
                //if (ret!=JOptionPane.YES_OPTION) {
-                  ((ChannelPanel)getChannelPanel()).part();
+                  getChannelPanel().part();
                //}
                }
             });

@@ -34,7 +34,7 @@ public class ChannelEvent extends EventObject {
    private String _originAddress = null;
    private String _subjectNick = null;
    private String _subjectAddress = null;
-   private String _newNick = null;
+   private final String _newNick = null;
    private Object _value = null;
 
    //------------------------------------------------------------------

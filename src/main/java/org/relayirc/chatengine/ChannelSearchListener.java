@@ -26,11 +26,11 @@ package org.relayirc.chatengine;
 public interface ChannelSearchListener {
 
    /** Called when channel is found that meets search criteria. */
-	public void searchFound(Channel chan);
+   void searchFound(Channel chan);
 
    /** Called when seach begins. */
-   public void searchStarted(int channels);
+   void searchStarted(int channels);
 
    /** Called when seach ends. */
-   public void searchEnded();
+   void searchEnded();
 }

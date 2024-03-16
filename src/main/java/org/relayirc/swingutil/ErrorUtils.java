@@ -51,7 +51,7 @@ public class ErrorUtils {
          new ErrorDlg( frame, title, shortDesc, stringWriter.toString());
       else { 
          Debug.println("EXCEPTION: "+shortDesc);
-         Debug.println("EXCEPTION: "+stringWriter.toString());
+         Debug.println("EXCEPTION: "+ stringWriter);
       }
    }
 
@@ -86,7 +86,7 @@ public class ErrorUtils {
 ////////////////////////////////////////////////////////////////////////////
 
 class ErrorDlg extends JDialog {
-   private JButton     _okBtn = new JButton("OK");
+   private final JButton     _okBtn = new JButton("OK");
    private String      _shortDesc = null;
    private String      _longDesc = null;
 

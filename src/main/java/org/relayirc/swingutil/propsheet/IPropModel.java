@@ -35,15 +35,15 @@ import java.util.Enumeration;
  */
 public interface IPropModel {
 
-   public int getPropertyCount();
-   public Enumeration propertyNames();
+   int getPropertyCount();
+   Enumeration propertyNames();
 
-   public String getPropertyDisplayName(String key);
+   String getPropertyDisplayName(String key);
 
-   public Object getProperty(String key);
-   public Object setProperty(String key, Object value);
+   Object getProperty(String key);
+   Object setProperty(String key, Object value);
 
-   public void setEditor(String propName, PropertyEditor editor);
-   public PropertyEditor getEditor(String propName);
+   void setEditor(String propName, PropertyEditor editor);
+   PropertyEditor getEditor(String propName);
 }
 

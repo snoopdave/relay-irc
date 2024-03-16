@@ -39,11 +39,11 @@ import javax.swing.event.*;
 public class ChannelSearchPanel extends JPanel
    implements MDIClientPanel, ChannelSearchListener {
 
-   private ChannelSearch _search;
+   private final ChannelSearch _search;
    private String        _dockState = MDIPanel.DOCK_NONE;
-   private ChannelTable  _table;
-   private JLabel        _status;
-   private JProgressBar  _progress;
+   private final ChannelTable  _table;
+   private final JLabel        _status;
+   private final JProgressBar  _progress;
    private int           _progressValue = 0;
 
    /** Construct a search panel for a specified channel search object. */
@@ -125,10 +125,10 @@ public class ChannelSearchPanel extends JPanel
  * @see ChannelSearchPanel
  */
 class QueryPanel extends JPanel {
-   private JTextField _nameField = new JTextField(10);
-   private JTextField _minField = new JTextField(3);
-   private JTextField _maxField = new JTextField(3);
-   private ChannelSearchPanel _searchPanel;
+   private final JTextField _nameField = new JTextField(10);
+   private final JTextField _minField = new JTextField(3);
+   private final JTextField _maxField = new JTextField(3);
+   private final ChannelSearchPanel _searchPanel;
 
    public QueryPanel(ChannelSearchPanel searchPanel) {
       _searchPanel = searchPanel;
@@ -230,8 +230,8 @@ class QueryPanel extends JPanel {
  * @see ChannelTableModel
  */
 class ChannelTable extends JTable {
-   private ChannelSearch _search;
-   private TableSorter _sortedTableModel;
+   private final ChannelSearch _search;
+   private final TableSorter _sortedTableModel;
 
    /**
     * Construct channel table by adding custom cell renderers 
@@ -251,14 +251,14 @@ class ChannelTable extends JTable {
       setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
       getColumn(
-         new String("Name")).setHeaderRenderer(new SortedHeaderRenderer());
+              "Name").setHeaderRenderer(new SortedHeaderRenderer());
       getColumn(
-         new String("Name")).setCellRenderer(new GuiTableCellRenderer());
+              "Name").setCellRenderer(new GuiTableCellRenderer());
 
       getColumn(
-         new String("Users")).setHeaderRenderer(new SortedHeaderRenderer());
+              "Users").setHeaderRenderer(new SortedHeaderRenderer());
       getColumn(
-         new String("Users")).setCellRenderer(new TableCellRenderer() {
+              "Users").setCellRenderer(new TableCellRenderer() {
 
          public Component getTableCellRendererComponent(
             JTable table, Object value,
@@ -278,7 +278,7 @@ class ChannelTable extends JTable {
       });
 
       getColumn(
-         new String("Topic")).setHeaderRenderer(new SortedHeaderRenderer());
+              "Topic").setHeaderRenderer(new SortedHeaderRenderer());
 
       // Listen for double-clicks and right-clicks
       addMouseListener(new MouseAdapter() {
@@ -362,7 +362,7 @@ class ChannelTable extends JTable {
 class ChannelTableModel extends DefaultTableModel 
    implements ChannelSearchListener {
 
-   private ChannelSearch _search;
+   private final ChannelSearch _search;
 
    //----------------------------------------------------------------------
    public ChannelTableModel(ChannelSearch search) {
@@ -410,13 +410,13 @@ class ChannelTableModel extends DefaultTableModel
    public String getColumnName(int column) {
       switch (column) {
          case 0:
-            return new String("Name");
+            return "Name";
          case 1:
-            return new String("Users");
+            return "Users";
          case 2:
-            return new String("Topic");
+            return "Topic";
          default:
-            return new String("");
+            return "";
       }
    }
 
@@ -429,11 +429,11 @@ class ChannelTableModel extends DefaultTableModel
                   _search.getChannelAt(row).getName(),_search.getChannelAt(row),
                   IconManager.getIcon("users"));
             case 1:
-               return new Integer(_search.getChannelAt(row).getUserCount());
+               return Integer.valueOf(_search.getChannelAt(row).getUserCount());
             case 2:
                return _search.getChannelAt(row).getTopic();
             default:
-               return new String("");
+               return "";
          }
       }
       else return null;

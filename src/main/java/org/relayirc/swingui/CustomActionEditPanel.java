@@ -40,25 +40,25 @@ public class CustomActionEditPanel extends JPanel implements IPanel {
 
    private CustomActionsPanel.ActionHolder _actionHolder = null;
 
-   private JPanel        _actionPanel = new JPanel();
-   private JLabel        _titleLabel = new JLabel();
-   private JTextField    _titleField = new JTextField();
-   private JLabel        _actionLabel = new JLabel();
-   private JTextField    _actionField = new JTextField();
-   private ButtonGroup   _radioGroup = new ButtonGroup();
-   private JRadioButton  _pythonRadio = new JRadioButton();
-   private JRadioButton  _javaRadio = new JRadioButton();
-   private JRadioButton  _commandRadio = new JRadioButton();
-   private JButton       _browseButton = new JButton();
+   private final JPanel        _actionPanel = new JPanel();
+   private final JLabel        _titleLabel = new JLabel();
+   private final JTextField    _titleField = new JTextField();
+   private final JLabel        _actionLabel = new JLabel();
+   private final JTextField    _actionField = new JTextField();
+   private final ButtonGroup   _radioGroup = new ButtonGroup();
+   private final JRadioButton  _pythonRadio = new JRadioButton();
+   private final JRadioButton  _javaRadio = new JRadioButton();
+   private final JRadioButton  _commandRadio = new JRadioButton();
+   private final JButton       _browseButton = new JButton();
 
-   private JPanel        _buttonPanel = new JPanel();
-   private JButton       _okButton = new JButton();
-   private JButton       _cancelButton = new JButton();
+   private final JPanel        _buttonPanel = new JPanel();
+   private final JButton       _okButton = new JButton();
+   private final JButton       _cancelButton = new JButton();
 
-   private GridBagLayout gridBagLayout1 = new GridBagLayout();
+   private final GridBagLayout gridBagLayout1 = new GridBagLayout();
    private TitledBorder  titledBorder1;
    private Border        border1;
-   private BorderLayout  borderLayout1 = new BorderLayout();
+   private final BorderLayout  borderLayout1 = new BorderLayout();
 
 
    //-------------------------------------------------------------------------
@@ -101,9 +101,9 @@ public class CustomActionEditPanel extends JPanel implements IPanel {
          }
          default: {
          }
-      };
+      }
 
-      // Update GUI to reflect type of action
+       // Update GUI to reflect type of action
       if (_pythonRadio.isSelected()) {
          _type = CustomAction.JPYTHON_SCRIPT;
          _actionField.setText(_jpythonString);
@@ -167,7 +167,7 @@ public class CustomActionEditPanel extends JPanel implements IPanel {
             break;
          }
          default: { break; }
-      };
+      }
    }
    //-------------------------------------------------------------------------
    /** Saves values from this tab's GUI. */

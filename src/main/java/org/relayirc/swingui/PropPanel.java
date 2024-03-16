@@ -43,13 +43,13 @@ public class PropPanel extends JPanel {
 
    // JBuilder mess
 
-   private PropSheet    _sheet = new PropSheet();
-   private JTextArea    _commentField = new JTextArea();
-   private JPanel       _topPanel = new JPanel();
-   private JPanel       _bottomPanel = new JPanel();
-   private JScrollPane  _scrollPane = new JScrollPane();
-   private BorderLayout borderLayout1 = new BorderLayout();
-   private BorderLayout borderLayout3 = new BorderLayout();
+   private final PropSheet    _sheet = new PropSheet();
+   private final JTextArea    _commentField = new JTextArea();
+   private final JPanel       _topPanel = new JPanel();
+   private final JPanel       _bottomPanel = new JPanel();
+   private final JScrollPane  _scrollPane = new JScrollPane();
+   private final BorderLayout borderLayout1 = new BorderLayout();
+   private final BorderLayout borderLayout3 = new BorderLayout();
    private Border       border1;
    private Border       border2;
    private Border       border3;

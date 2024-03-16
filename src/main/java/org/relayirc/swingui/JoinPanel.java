@@ -101,14 +101,8 @@ public class JoinPanel extends JPanel {
    }
    //----------------------------------------------------------------------
    public boolean checkValues() {
-      if (    _channelField.getText().trim().length() > 0
-           && _channelField.getText().trim().startsWith("#")) {
-
-         return true;
-      }
-      else {
-         return false;
-      }
+       return _channelField.getText().trim().length() > 0
+               && _channelField.getText().trim().startsWith("#");
    }
    //----------------------------------------------------------------------
    private void onTextFieldChanged() {

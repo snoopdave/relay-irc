@@ -32,7 +32,7 @@ import java.awt.event.*;
  * All Rights Reserved.
  */
  public class UserPanel extends JPanel implements ITab {
-    private User _user = null;
+    private final User _user = null;
 
     GridBagLayout _gridBagLayout = new GridBagLayout();
     JTextField _userField = new JTextField();
@@ -67,12 +67,7 @@ import java.awt.event.*;
       else if (_nameLabel.getText().trim().length() < 1) {
          return false;
       }
-      else if (_altField.getText().trim().length() < 1) {
-         return false;
-      }
-      else {
-         return true;
-      }
+      else return _altField.getText().trim().length() >= 1;
    }
    //--------------------------------------------------------------------------
    public void saveValues() {

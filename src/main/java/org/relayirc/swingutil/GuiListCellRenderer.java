@@ -32,7 +32,7 @@ import javax.swing.tree.*;
  * @see org.relayirc.swingutil.GuiObject
  */ 
 public class GuiListCellRenderer extends JLabel implements ListCellRenderer {
-   private JComponent _component;
+   private final JComponent _component;
 
    public GuiListCellRenderer(JComponent component) {
       _component = component;
@@ -42,10 +42,7 @@ public class GuiListCellRenderer extends JLabel implements ListCellRenderer {
    public Component getListCellRendererComponent(
        JList listbox, Object value, int index, boolean isSelected, boolean cellHasFocus) {
       if(UIManager.getLookAndFeel().getName().equals("CDE/Motif")) {
-         if(index == -1 )
-            setOpaque(false);
-         else
-            setOpaque(true);
+          setOpaque(index != -1);
       } 
       else {
          setOpaque(true);            

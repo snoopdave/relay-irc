@@ -27,14 +27,14 @@ import javax.swing.*;
 public interface IChatAction {
 
    /** Set enabled or disabled, depending on chat app state. */
-   public void update();
+   void update();
 
    /** Get the actual action object. */
-   public AbstractAction getActionObject();
+   AbstractAction getActionObject();
 
    /** Set context for action. */
-   public void setContext(Object context);
+   void setContext(Object context);
 
    /** Get context for action. */
-   public Object getContext();
+   Object getContext();
 }

@@ -67,7 +67,7 @@ public class PasswordEditor extends PropSheetEditor {
    //===========================================================================
    private class _PasswordEditor extends JComponent {
 
-      private JPasswordField _field;
+      private final JPasswordField _field;
       public JPasswordField getTextField() {return _field;}
 
       public void setToolTipText( String text) {

@@ -115,12 +115,7 @@ public class ServerPanel extends JPanel implements ITab {
    //-------------------------------------------------------------------------
    /** Check validity of tab's values, part of ITab interface. */
    public boolean checkValues() {
-      if (_serverCombo.getSelectedItem() != null) {
-         return true;
-      }
-      else {
-         return false;
-      }
+       return _serverCombo.getSelectedItem() != null;
    }
    //-------------------------------------------------------------------------
    /** Enable or disable Add and Delete buttons, depending on combo state. */
@@ -207,10 +202,9 @@ public class ServerPanel extends JPanel implements ITab {
 
          // Load the server combo with server objects from server holder
          // collection. Leave out the ones that are marked as DELETED.
-         if (_networkCombo.getSelectedItem() instanceof String) {
+         if (_networkCombo.getSelectedItem() instanceof String net) {
 
-            String net = (String)_networkCombo.getSelectedItem();
-            for (int i=0; i<_serverHolders.size(); i++) {
+             for (int i=0; i<_serverHolders.size(); i++) {
 
                ServerHolder holder = (ServerHolder)_serverHolders.elementAt(i);
                int state = holder.getState();
@@ -421,7 +415,7 @@ public class ServerPanel extends JPanel implements ITab {
       private String _name = null;
       private String _title = null;
       private String _network = null;
-      private int    _ports[] = null;
+      private int[] _ports = null;
       private Server _server = null;
       private boolean _isFavorite = false;
 
@@ -466,7 +460,7 @@ public class ServerPanel extends JPanel implements ITab {
    }
    ///////////////////////////////////////////////////////////////////////////
    /** For testing only. */
-   public static void main(String args[]) {
+   public static void main(String[] args) {
 
       try {
          Debug.setDebug(true);

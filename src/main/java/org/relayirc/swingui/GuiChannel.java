@@ -32,7 +32,7 @@ public class GuiChannel extends GuiObject {
 
    private Channel _channel = null;
    private Hashtable _actions = null;
-   private Object[][] _actionArray = {
+   private final Object[][] _actionArray = {
      //
      // Action Class                 Icon Name   Command Name
      // ------------                 ---------   ------------
@@ -139,12 +139,7 @@ public class GuiChannel extends GuiObject {
          ChatApp.getChatApp().getServer().sendJoin(_channel.getName());
       }
       public void update() {
-         if (_channel.isConnected()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(_channel.isConnected());
       }
    }
    ////////////////////////////////////////////////////////////////////////
@@ -156,12 +151,7 @@ public class GuiChannel extends GuiObject {
          _channel.disconnect();
       }
       public void update() {
-         if (_channel.isConnected()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(_channel.isConnected());
       }
    }
    ////////////////////////////////////////////////////////////////////////

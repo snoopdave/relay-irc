@@ -32,8 +32,8 @@ import javax.swing.border.*;
  */
 public class TabbedDialog extends StandardDlg {
 
-   private JTabbedPane _tabbedPane = new JTabbedPane();
-   private EmptyBorder _emptyBorder = new EmptyBorder(10,10,10,10);
+   private final JTabbedPane _tabbedPane = new JTabbedPane();
+   private final EmptyBorder _emptyBorder = new EmptyBorder(10,10,10,10);
 
    //---------------------------------------------------------------
    public TabbedDialog() {
@@ -51,9 +51,8 @@ public class TabbedDialog extends StandardDlg {
    }
    //---------------------------------------------------------------
    public void addTab(JComponent tab, ImageIcon icon) {
-      if (tab instanceof ITab) {
-         ITab itab = (ITab)tab;
-         _tabbedPane.addTab(itab.getName(),icon,tab);
+      if (tab instanceof ITab itab) {
+          _tabbedPane.addTab(itab.getName(),icon,tab);
          itab.loadValues();
       }
    }

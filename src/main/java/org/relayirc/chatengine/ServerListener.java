@@ -33,55 +33,55 @@ public interface ServerListener {
     * Engine has connected to IRC server. 
     * event.getServer() will be valid.
     */
-   abstract public void onConnect(ServerEvent event);
+   void onConnect(ServerEvent event);
 
    /** 
     * Engine has disconnected from IRC server. 
     * event.getServer() will be valid.
     */
-   abstract public void onDisconnect(ServerEvent event);
+   void onDisconnect(ServerEvent event);
 
    /** 
     * Channel object has been added to list of those managed by Server object.
     * May be followed by an onChannelJoin event. 
     * event.getChannel() will be valid.
 	 */
-   abstract public void onChannelAdd(ServerEvent event);
+   void onChannelAdd(ServerEvent event);
 
    /** 
     * User has joined a channel.
     * Will always follow an onChannelAdd event. 
     * event.getUser() and event.getChannel() will be valid.
 	 */
-   abstract public void onChannelJoin(ServerEvent event);
+   void onChannelJoin(ServerEvent event);
 
    /** 
     * Query results for an ISON query. 
     * Use event.getUsers() to get an array of users that are online.
     */
-   abstract public void onIsOn(ServerEvent event);
+   void onIsOn(ServerEvent event);
 
    /** 
     * User has invited us to join a channel. 
     * event.getUser() and event.getChannel() will be valid.
     */
-   abstract public void onInvite(ServerEvent event);
+   void onInvite(ServerEvent event);
 
    /** 
     * User has parted from a channel. 
     * event.getUser() and event.getChannel() will be valid.
     */
-   abstract public void onChannelPart(ServerEvent event);
+   void onChannelPart(ServerEvent event);
 
    /** 
     * Status message from engine. 
     * event.getMessage() will be valid.
     */
-   abstract public void onStatus(ServerEvent event);
+   void onStatus(ServerEvent event);
 
    /** 
     * Query result from an WHOIS query.
     * event.getUser() will be valid and full of requested data. 
     */
-   abstract public void onWhoIs(ServerEvent event);
+   void onWhoIs(ServerEvent event);
 }

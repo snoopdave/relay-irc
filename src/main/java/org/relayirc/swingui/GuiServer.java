@@ -32,7 +32,7 @@ public class GuiServer extends GuiObject {
 
    private Server _server = null;
    private Hashtable _actions = null;
-   private Object[][] _actionArray = {
+   private final Object[][] _actionArray = {
      //
      // Action Class                Icon Name      Command Name
      // ------------                ---------      ------------
@@ -130,12 +130,7 @@ public class GuiServer extends GuiObject {
          ChatApp.getChatApp().connect(_server);
       }
       public void update() {
-         if (ChatApp.getChatApp().isConnected()) {
-            setEnabled(false);
-         }
-         else {
-            setEnabled(true);
-         }
+          setEnabled(!ChatApp.getChatApp().isConnected());
       }
    }
    ////////////////////////////////////////////////////////////////////////
@@ -153,12 +148,7 @@ public class GuiServer extends GuiObject {
         }
       }
       public void update() {
-         if (ChatApp.getChatApp().isConnected()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(ChatApp.getChatApp().isConnected());
       }
    }
    ////////////////////////////////////////////////////////////////////////

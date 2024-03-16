@@ -30,7 +30,7 @@ import javax.swing.*;
  * @see org.relayirc.swingutil.MDIPanel
  */
 public interface MDIClientFrame {
-   public MDIClientPanel getClientPanel();
-   public JInternalFrame getFrame();
+   MDIClientPanel getClientPanel();
+   JInternalFrame getFrame();
 }
 

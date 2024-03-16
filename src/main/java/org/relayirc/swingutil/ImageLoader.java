@@ -29,12 +29,12 @@ public class ImageLoader {
       try {
          int CHUNK = 10240;
          int i, count, max = 10 * CHUNK;
-         byte tmp[] = new byte [CHUNK], bytesArray[] = new byte [max];
+         byte[] tmp = new byte [CHUNK], bytesArray = new byte [max];
 
          // Read it all into a byte array
          for (i=0,count=0; (count = input.read(tmp)) != -1; i+=count) {
             if (i+count > max) {
-               byte ba[] = new byte [ i + count + CHUNK ];
+               byte[] ba = new byte [ i + count + CHUNK ];
                System.arraycopy( bytesArray, 0, ba, 0, i );
                max = i + count + CHUNK;
                bytesArray = ba;

@@ -28,7 +28,7 @@ import javax.swing.*;
 public class RadarSpinner extends Spinner {
 
    private double  _angle = 0.0;
-   private double  _inc = (2.0*Math.PI)/30.0;
+   private final double  _inc = (2.0*Math.PI)/30.0;
 
    //--------------------------------------------------------------------------
    public RadarSpinner(int delay) {
@@ -73,7 +73,7 @@ public class RadarSpinner extends Spinner {
       _angle = (_angle > 2.0*Math.PI) ? 0.0 : _angle + _inc;
    }
    //--------------------------------------------------------------------------
-   public static void main(String args[]) {
+   public static void main(String[] args) {
 
       System.out.println("ProgressMeter test program");
 

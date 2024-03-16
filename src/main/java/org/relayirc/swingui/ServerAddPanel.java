@@ -35,7 +35,7 @@ import java.awt.event.*;
  */
 public class ServerAddPanel extends JPanel implements ITab {
 
-   private Server _server = null;
+   private final Server _server = null;
    private ServerPanel.ServerHolder _serverHolder = null;
    private Vector _serverHolders = null;
 
@@ -85,9 +85,8 @@ public class ServerAddPanel extends JPanel implements ITab {
 
       FocusListener fl = new FocusListener() {
          public void focusGained(FocusEvent e) {
-            if (e.getSource() instanceof JTextField) {
-               JTextField field = (JTextField)e.getSource();
-               field.selectAll();
+            if (e.getSource() instanceof JTextField field) {
+                field.selectAll();
             }
          }
          public void focusLost(FocusEvent e) {
@@ -109,7 +108,7 @@ public class ServerAddPanel extends JPanel implements ITab {
       }
       else {
          try {
-            int intArray[] = null;
+            int[] intArray = null;
             intArray = org.relayirc.util.Utilities.stringToIntArray(_portsField.getText(),",");
          }
          catch (Exception e) {

@@ -25,7 +25,7 @@ public class QuickSort {
 		v.setElementAt(tmp,j);
 	}
 	//------------------------------------------------------------------
-	private static void swap(Object arr[], int i, int j) {
+	private static void swap(Object[] arr, int i, int j) {
 		Object tmp = arr[i];
 		arr[i] = arr[j];
 		arr[j] = tmp;
@@ -71,7 +71,7 @@ public class QuickSort {
 	* @param right - the last index.
 	*/
 	private static void quicksort(
-	   IComparable arr[], int left, int right, boolean ascending) {
+            IComparable[] arr, int left, int right, boolean ascending) {
 
 		int i, last;
 
@@ -116,7 +116,7 @@ public class QuickSort {
 	/*
 	* Preform a sort using the specified comparitor object.
 	*/       
-	public static void quicksort(IComparable arr[], boolean ascending) {
+	public static void quicksort(IComparable[] arr, boolean ascending) {
 		quicksort(arr, 0, arr.length-1,ascending);
 	}
 	//------------------------------------------------------------------

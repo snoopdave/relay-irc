@@ -34,24 +34,24 @@ import javax.swing.border.*;
  */
 public class ColorPanel extends JPanel implements ITab {
 
-   private ColorCombo _messages = new ColorCombo();
-   private ColorCombo _actions  = new ColorCombo();
-   private ColorCombo _joins    = new ColorCombo();
-   private ColorCombo _parts    = new ColorCombo();
-   private ColorCombo _ops      = new ColorCombo();
-   private ColorCombo _kicks    = new ColorCombo();
-   private ColorCombo _bans     = new ColorCombo();
-   private ColorCombo _nicks    = new ColorCombo();
-   private ChatOptions _options;
+   private final ColorCombo _messages = new ColorCombo();
+   private final ColorCombo _actions  = new ColorCombo();
+   private final ColorCombo _joins    = new ColorCombo();
+   private final ColorCombo _parts    = new ColorCombo();
+   private final ColorCombo _ops      = new ColorCombo();
+   private final ColorCombo _kicks    = new ColorCombo();
+   private final ColorCombo _bans     = new ColorCombo();
+   private final ColorCombo _nicks    = new ColorCombo();
+   private final ChatOptions _options;
 
-   private JLabel _nicksLabel = new JLabel("Nicks");
-   private JLabel _bansLabel = new JLabel("Bans");
-   private JLabel _kicksLabel = new JLabel("Kicks");
-   private JLabel _opsLabel = new JLabel("Ops");
-   private JLabel _partsLabel = new JLabel("Parts");
-   private JLabel _joinsLabel = new JLabel("Joins");
-   private JLabel _messagesLabel = new JLabel("Messages");
-   private JLabel _actionsLabel = new JLabel("Actions");
+   private final JLabel _nicksLabel = new JLabel("Nicks");
+   private final JLabel _bansLabel = new JLabel("Bans");
+   private final JLabel _kicksLabel = new JLabel("Kicks");
+   private final JLabel _opsLabel = new JLabel("Ops");
+   private final JLabel _partsLabel = new JLabel("Parts");
+   private final JLabel _joinsLabel = new JLabel("Joins");
+   private final JLabel _messagesLabel = new JLabel("Messages");
+   private final JLabel _actionsLabel = new JLabel("Actions");
 
 
    //---------------------------------------------------------------

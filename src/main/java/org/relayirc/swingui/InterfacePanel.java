@@ -40,10 +40,10 @@ public class InterfacePanel extends JPanel implements ITab {
    public static final String SKIN_PLAF_CLASS =
       "com.l2fprod.gui.plaf.skin.SkinLookAndFeel";
 
-   private EmptyBorder _emptyBorder = new EmptyBorder(20,50,20,50); // tlbr
-   private JCheckBox _barCheck = new JCheckBox("Show Status Bar");
-   private JComboBox _lafCombo = new JComboBox();
-   private JLabel lafLabel = new JLabel("Look and Feel");
+   private final EmptyBorder _emptyBorder = new EmptyBorder(20,50,20,50); // tlbr
+   private final JCheckBox _barCheck = new JCheckBox("Show Status Bar");
+   private final JComboBox _lafCombo = new JComboBox();
+   private final JLabel lafLabel = new JLabel("Look and Feel");
    GridBagLayout gridBagLayout1 = new GridBagLayout();
    JLabel _skinLabel = new JLabel();
    JTextField _skinField = new JTextField();
@@ -128,8 +128,8 @@ public class InterfacePanel extends JPanel implements ITab {
    public void saveValues() {
       ChatOptions opts = ChatApp.getChatApp().getOptions();
 
-      String flag = _barCheck.isSelected() ? "true" : "false";;
-      opts.setProperty("gui.statusBar.enabled",flag);
+      String flag = _barCheck.isSelected() ? "true" : "false";
+       opts.setProperty("gui.statusBar.enabled",flag);
       opts.setProperty("gui.lookAndFeel.skinFile",_skinField.getText());
       opts.setProperty("gui.lookAndFeel",(String)_lafCombo.getSelectedItem());
 

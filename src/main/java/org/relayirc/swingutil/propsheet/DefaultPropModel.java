@@ -32,8 +32,8 @@ import java.util.Enumeration;
  * All Rights Reserved.
  */
 public class DefaultPropModel implements IPropModel {
-   private Hashtable _values = new Hashtable();
-   private Hashtable _editors = new Hashtable();
+   private final Hashtable _values = new Hashtable();
+   private final Hashtable _editors = new Hashtable();
 
    //---------------------------------------------------------------------------
    public DefaultPropModel() {

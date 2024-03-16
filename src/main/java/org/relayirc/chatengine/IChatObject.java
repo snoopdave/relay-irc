@@ -26,9 +26,9 @@ package org.relayirc.chatengine;
  */
 public interface IChatObject {
 
-   /** Get object's description. */  
-   abstract public String getDescription();
+   /** Get object's description. */
+   String getDescription();
 
-   /** Set object's description. */  
-   abstract public void setDescription(String desc);
+   /** Set object's description. */
+   void setDescription(String desc);
 }

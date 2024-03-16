@@ -25,7 +25,7 @@ public class Utilities {
          StringTokenizer toker = new StringTokenizer(instr,delim);
          Vector v = new Vector();
          while (toker.hasMoreTokens()) {
-            String s = (String)toker.nextToken();
+            String s = toker.nextToken();
             v.addElement( s );
          }
    
@@ -46,15 +46,15 @@ public class Utilities {
    public static int[] stringToIntArray(String instr, String delim)
       throws NoSuchElementException, NumberFormatException {
 
-      int intArray[] = null;
+      int[] intArray = null;
 
       // Tokenize string, build vector of tokens
       StringTokenizer toker = new StringTokenizer(instr,delim);
       Vector ints = new Vector();
       while (toker.hasMoreTokens()) {
-         String sInt = (String)toker.nextToken();
+         String sInt = toker.nextToken();
          int nInt = Integer.parseInt(sInt);
-         ints.addElement(new Integer(nInt));
+         ints.addElement(Integer.valueOf(nInt));
       }
 
       // Allocate and fill array of ints
@@ -67,10 +67,10 @@ public class Utilities {
    //-------------------------------------------------------------------
    /** Convert integer array to a string. */
    public static String intArrayToString(int[] intArray) {
-      String ret = new String();
+      String ret = "";
       for (int i=0; i<intArray.length; i++) {
          if (ret.length()>0)
-            ret = ret+","+Integer.toString(intArray[i]);
+            ret = ret+","+ intArray[i];
          else
             ret = Integer.toString(intArray[i]);
       }

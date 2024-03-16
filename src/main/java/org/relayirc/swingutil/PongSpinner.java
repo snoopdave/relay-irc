@@ -31,7 +31,7 @@ import javax.swing.border.*;
  * All Rights Reserved.
  */
 public class PongSpinner extends JPanel {
-   private _PongSpinner _spinner;
+   private final _PongSpinner _spinner;
 
    //--------------------------------------------------------------------------
    public PongSpinner(int delay, int numBoxes) {
@@ -66,7 +66,7 @@ public class PongSpinner extends JPanel {
 
       private int     _numBoxes = 12;
       private double  _counter = 0.0;
-      private double  _inc = _numBoxes / 50.0; 
+      private final double  _inc = _numBoxes / 50.0;
       private double  _boost = 4.0 * _inc;
       private boolean _goingUp = true;
       private double  _w;
@@ -74,10 +74,10 @@ public class PongSpinner extends JPanel {
       private double  _boxW;
       private double  _innerBoxW;
       private double  _innerBoxH;
-      private Color   _green3 = new Color(0,50,0);
-      private Color   _green2 = new Color(0,100,0);
-      private Color   _green1 = new Color(0,150,0);
-      private Color   _green0 = new Color(50,255,50);
+      private final Color   _green3 = new Color(0,50,0);
+      private final Color   _green2 = new Color(0,100,0);
+      private final Color   _green1 = new Color(0,150,0);
+      private final Color   _green0 = new Color(50,255,50);
 
       //----------------------------------------------------------------------
       public _PongSpinner(int delay, int numBoxes) {
@@ -163,7 +163,7 @@ public class PongSpinner extends JPanel {
       }
    } 
    //--------------------------------------------------------------------------
-   public static void main(String args[]) {
+   public static void main(String[] args) {
 
       Debug.println("ProgressMeter test program");
 

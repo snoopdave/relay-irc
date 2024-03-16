@@ -40,7 +40,7 @@ import javax.swing.event.*;
 public class ChannelPanel extends ChatPanel 
    implements ChannelListener, MDIClientPanel {
 
-   private UserList _userList;
+   private final UserList _userList;
    private int      _initialized=3; // kludge to force a resize
    private String   _dockState = MDIPanel.DOCK_NONE;
 
@@ -108,7 +108,7 @@ public class ChannelPanel extends ChatPanel
    //------------------------------------------------------------------
    public void onJoins(ChannelEvent event) {
       Debug.println(
-         "ChatChannelView: users joined - "+(String)event.getValue()+"\n");
+         "ChatChannelView: users joined - "+ event.getValue() +"\n");
       forceLayout();
       StringTokenizer toker = new StringTokenizer((String)event.getValue());
       try {
@@ -143,7 +143,7 @@ public class ChannelPanel extends ChatPanel
    public void onNick(ChannelEvent event) {
       if (_userList.contains(event.getOriginNick())) {
          println(event.getOriginNick()
-            +" is now known as "+(String)event.getValue(),
+            +" is now known as "+ event.getValue(),
             _options.getProperty("gui.channel.color.nicks"));
          _userList.remove(event.getOriginNick());
          _userList.addItem((String)event.getValue());
@@ -199,7 +199,7 @@ public class ChannelPanel extends ChatPanel
    public void onQuit(ChannelEvent event) {
 
       println(event.getOriginNick()+" has quit IRC ("
-         +(String)event.getValue()+")",
+         + event.getValue() +")",
          _options.getProperty("gui.channel.color.parts"));
 
       _userList.remove(event.getOriginNick());
@@ -208,7 +208,7 @@ public class ChannelPanel extends ChatPanel
    //------------------------------------------------------------------
    public void onTopicChange(ChannelEvent event) {
       Debug.println("Need to set title to "
-         +_channel+" - "+(String)event.getValue());
+         +_channel+" - "+ event.getValue());
       //setTitle(_channel+" - "+topic);
    }
 

@@ -59,7 +59,7 @@ public class ChatApp extends JFrame implements ServerListener {
 
    private _MenuBar       _menuBar;
    private _ToolBar       _toolBar;
-   private StatusBar      _statusBar = new StatusBar();
+   private final StatusBar      _statusBar = new StatusBar();
    private boolean        _statusBarEnabled = true;
    private MDIPanel       _mdiPanel;
    private JSplitPane     _vertSplitter;
@@ -67,7 +67,7 @@ public class ChatApp extends JFrame implements ServerListener {
    private static _StyleContext _styles;
 
    /** MDIFrames keyed by MDIPanels. */
-   private Hashtable _framesByPanel = new Hashtable();
+   private final Hashtable _framesByPanel = new Hashtable();
 
    /**
     * User queue. Collection of user objects each waiting to be
@@ -76,7 +76,7 @@ public class ChatApp extends JFrame implements ServerListener {
     * If a user's boolean is true, then ChatApp will popup a dialog to
     * show the WHOIS information for the user as soon as the reply comes
     * in. Otherwise, no dialog will be shown. */
-   private Hashtable _userQueueHash = new Hashtable();
+   private final Hashtable _userQueueHash = new Hashtable();
 
    /** Action collection. Hashtable of IChatAction values keyed by
     * action name. */
@@ -93,7 +93,7 @@ public class ChatApp extends JFrame implements ServerListener {
    * <li>Add action class, icon name and command name to this array
    * <li>Now your action is available via the getAction method</ul>
    */
-   private Object[][] _actionArray = {
+   private final Object[][] _actionArray = {
       //
       // Action Class            Icon Name         Command Name
       // ------------            ---------         ------------
@@ -172,7 +172,7 @@ public class ChatApp extends JFrame implements ServerListener {
    /** Main method for the Relay-JFC chat application. */
 
    public static void main( String[] args ) {
-      if (args.length>0 && args[0].toString().equals("-d")) {
+      if (args.length>0 && args[0].equals("-d")) {
          Debug.setDebug(true);
       }
       _chatApp = new ChatApp();
@@ -200,8 +200,8 @@ public class ChatApp extends JFrame implements ServerListener {
    // Class constructor
    static {
       // Set up beans environment: add Relay-JFC BeanInfo package to path
-      String path[] = Introspector.getBeanInfoSearchPath();
-      String newPath[] = new String[path.length+1];
+      String[] path = Introspector.getBeanInfoSearchPath();
+      String[] newPath = new String[path.length+1];
       System.arraycopy(path,0,newPath,0,path.length);
       newPath[newPath.length-1] = "org.relayirc.swingui.beans";
       Introspector.setBeanInfoSearchPath(newPath);
@@ -396,7 +396,7 @@ public class ChatApp extends JFrame implements ServerListener {
    //------------------------------------------------------------------
    public void setShowConsole(boolean show) {
       _menuBar.getConsoleMenuItem().setState(show);
-      if (show == false) {
+      if (!show) {
          _mdiPanel.removeClientFrame(_console);
       }
       else {
@@ -406,7 +406,7 @@ public class ChatApp extends JFrame implements ServerListener {
    //------------------------------------------------------------------
    public void setShowFavorites(boolean show) {
       _menuBar.getFavoritesMenuItem().setState(show);
-      if (show == false) {
+      if (!show) {
          _mdiPanel.removeClientFrame(_favorites);
       }
       else {
@@ -419,7 +419,7 @@ public class ChatApp extends JFrame implements ServerListener {
 	  if (_pythonFrame == null) {
 		  _pythonFrame = new PythonFrame( getPythonInterpreter() );
 	  }
-      if (show == false) {
+      if (!show) {
          _pythonFrame.setVisible(false);
          _mdiPanel.removeClientFrame(_pythonFrame);
       }
@@ -466,7 +466,7 @@ public class ChatApp extends JFrame implements ServerListener {
       else if (_options.isFresh()) {
          _options.setCurrentServer(server);
          ConnectDlg dlg = new ConnectDlg(this);
-         if (dlg.isOk() != true) return;
+         if (!dlg.isOk()) return;
       }
 
       _options.setCurrentServer(server);
@@ -661,7 +661,7 @@ public class ChatApp extends JFrame implements ServerListener {
      if (getServer() == null) return;
 
       // Add user request to waiting list
-      _userQueueHash.put(user,new Boolean(popup));
+      _userQueueHash.put(user, Boolean.valueOf(popup));
 
       // Send WHOIS command to chat server
       getServer().sendWhoIs(user);
@@ -856,11 +856,11 @@ public class ChatApp extends JFrame implements ServerListener {
 
    private class _MenuBar extends JMenuBar {
 
-      private JMenu _commandsMenu = new JMenu("Commands",false);
+      private final JMenu _commandsMenu = new JMenu("Commands",false);
 
-      private JCheckBoxMenuItem _consoleItem;
-      private JCheckBoxMenuItem _favoritesItem;
-      private JCheckBoxMenuItem _pythonItem;
+      private final JCheckBoxMenuItem _consoleItem;
+      private final JCheckBoxMenuItem _favoritesItem;
+      private final JCheckBoxMenuItem _pythonItem;
 
       public _MenuBar() {
 
@@ -1067,12 +1067,7 @@ public class ChatApp extends JFrame implements ServerListener {
          connect();
       }
       public void update() {
-         if (isConnected() || isConnecting()) {
-            setEnabled(false);
-         }
-         else {
-            setEnabled(true);
-         }
+          setEnabled(!isConnected() && !isConnecting());
       }
    }
    ////////////////////////////////////////////////////////////////////////
@@ -1116,12 +1111,7 @@ public class ChatApp extends JFrame implements ServerListener {
         }
       }
       public void update() {
-         if (isConnected() || isConnecting()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(isConnected() || isConnecting());
       }
    }
    ////////////////////////////////////////////////////////////////////////
@@ -1142,12 +1132,7 @@ public class ChatApp extends JFrame implements ServerListener {
          showJoinChannelDlg();
       }
       public void update() {
-         if (isConnected()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(isConnected());
       }
    }
    ////////////////////////////////////////////////////////////////////////
@@ -1159,12 +1144,7 @@ public class ChatApp extends JFrame implements ServerListener {
          listChannels();
       }
       public void update() {
-         if (isConnected()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(isConnected());
       }
    }
    ////////////////////////////////////////////////////////////////////////
@@ -1229,17 +1209,12 @@ public class ChatApp extends JFrame implements ServerListener {
          }
       }
       public void update() {
-         if (isConnected()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(isConnected());
       }
    }
    ////////////////////////////////////////////////////////////////////////
    private class _StyleContext extends StyleContext {
-      private Hashtable _colors = new Hashtable();
+      private final Hashtable _colors = new Hashtable();
 
       public _StyleContext(Font font) {
          super();

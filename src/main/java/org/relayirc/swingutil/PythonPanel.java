@@ -35,7 +35,7 @@ import java.awt.event.*;
 public class PythonPanel extends JPanel {
 
    private PythonInterpreter _python = null;
-   private JTextArea         _textArea = new JTextArea();
+   private final JTextArea         _textArea = new JTextArea();
 
    public static int INDENT = 3;
    public static int PROMPT_LENGTH = 3;
@@ -342,7 +342,7 @@ public class PythonPanel extends JPanel {
    private void indentLine(int pos, int indentLevel) {
       Document doc = _textArea.getDocument();
 
-      char indentChars[] = new char[indentLevel];
+      char[] indentChars = new char[indentLevel];
       for (int i=0; i<indentLevel; i++) indentChars[i] = ' ';
       String prefix = CONTINUE_PROMPT+" "+new String(indentChars);
 
@@ -417,7 +417,7 @@ public class PythonPanel extends JPanel {
    //----------------------------------------------------------------------
    /** For testing: turn on debugging and show a JFrame with PythonPanel. */
 
-   public static void main(String args[]) {
+   public static void main(String[] args) {
        debug.setDebug(true);
        JFrame frame = new JFrame("PythonPanel Test Frame");
        frame.addWindowListener(new WindowAdapter() {

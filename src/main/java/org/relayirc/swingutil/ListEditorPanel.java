@@ -43,37 +43,37 @@ public class ListEditorPanel extends JPanel {
 
    /** Model provides access to object list and object instantiation */
    public interface IModel {
-      public Vector getObjects(); // of Objects
-      public IHolder createNewObjectHolder(Object obj);
-      public IHolder createNewObjectHolder();
+      Vector getObjects(); // of Objects
+      IHolder createNewObjectHolder(Object obj);
+      IHolder createNewObjectHolder();
    }
 
    /** Holder holds list object */
    public interface IHolder {
-      public String getName();
-      public Object getObject();
-      public void saveValues();
-      public void setState(int s);
-      public boolean showDialog(Component parent);
+      String getName();
+      Object getObject();
+      void saveValues();
+      void setState(int s);
+      boolean showDialog(Component parent);
    }
 
    /** <i>The</i> ListEditorPanel model. */
    private IModel _model = null;
 
    /** List model for JList. */
-   private _ListModel _listModel = new _ListModel();
+   private final _ListModel _listModel = new _ListModel();
 
-   private Vector _holders = new Vector(); // of IHolders
+   private final Vector _holders = new Vector(); // of IHolders
 
-   private JLabel      _itemLabel = new JLabel();
-   private JList       _itemList = new JList();
-   private JButton     _addButton = new JButton();
-   private JButton     _upButton = new JButton();
-   private JButton     _removeButton = new JButton();
-   private JButton     _editButton = new JButton();
-   private JButton     _downButton = new JButton();
-   private GridBagLayout gridBagLayout1 = new GridBagLayout();
-   private JScrollPane   _scrollPane = new JScrollPane();
+   private final JLabel      _itemLabel = new JLabel();
+   private final JList       _itemList = new JList();
+   private final JButton     _addButton = new JButton();
+   private final JButton     _upButton = new JButton();
+   private final JButton     _removeButton = new JButton();
+   private final JButton     _editButton = new JButton();
+   private final JButton     _downButton = new JButton();
+   private final GridBagLayout gridBagLayout1 = new GridBagLayout();
+   private final JScrollPane   _scrollPane = new JScrollPane();
 
    //-----------------------------------------------------------------------
    /** Contruct UI for editing a collection of objects.
@@ -321,6 +321,6 @@ public class ListEditorPanel extends JPanel {
       public void onListChanged() {
          fireContentsChanged(this,0,_holders.size());
       }
-   };
+   }
 }
 

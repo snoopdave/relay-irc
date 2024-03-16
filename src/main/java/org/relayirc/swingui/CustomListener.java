@@ -34,7 +34,7 @@ public class CustomListener implements Serializable {
    private int    _type;        // See types above
    private String _title;       // Name to be displayed in menu, lists, etc.
    private String _subject;     // Name of listener subject
-   private String _listenerString; // File name or full class name of listener
+   private final String _listenerString; // File name or full class name of listener
    private String _implements;  // Interface implemented by _listener
    private Object _listener;    // Actual listener object
 

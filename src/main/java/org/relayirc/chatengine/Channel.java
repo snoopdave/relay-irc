@@ -36,11 +36,11 @@ public class Channel implements IChatObject, Serializable {
 
 	private String                _name = "";
    private String                _desc = "";
-	private String                _topic = new String();
+	private String                _topic = "";
 	private int                   _userCount = 0;
 	private int                   _maxNumBufferedUnsentMessages = 0; // 0 = don't buffer, -1 = buffer all
 
-	private transient StringBuffer _messageLineBuffer = new StringBuffer(500);
+	private final transient StringBuffer _messageLineBuffer = new StringBuffer(500);
 	private transient Vector _unsentMessagesBuffer = null;
 	private transient int _numDroppedMessages = 0;
 
@@ -73,7 +73,7 @@ public class Channel implements IChatObject, Serializable {
    //------------------------------------------------------------------
    public boolean equals(Object object) {
       if (object != null && object instanceof Channel) {
-         if ( ((Channel)object).getName().equals(getName()) ) return true;
+          return ((Channel) object).getName().equals(getName());
       }
       return false;
    }
@@ -82,7 +82,7 @@ public class Channel implements IChatObject, Serializable {
    // Thread safe notification architecture
    //
    interface _ChannelEventNotifier {
-      public void notify(ChannelListener listener);
+      void notify(ChannelListener listener);
    }
    private synchronized void notifyListeners(_ChannelEventNotifier notifier) {
       for (int i=0; i<_listeners.size(); i++) {
@@ -219,7 +219,7 @@ public class Channel implements IChatObject, Serializable {
       int old = _userCount;
       _userCount = count;
       _propChangeSupport.firePropertyChange("UserCount",
-		   new Integer(old),new Integer(_userCount));
+              Integer.valueOf(old), Integer.valueOf(_userCount));
    }
    //------------------------------------------------------------------
 	/** String representation is channel name. */

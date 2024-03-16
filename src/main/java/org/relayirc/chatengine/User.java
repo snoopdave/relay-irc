@@ -77,9 +77,7 @@ public class User implements IChatObject, Serializable {
    /** User objects are equal if they have the same nick name. */
    public boolean equals(Object obj) {
       if (obj instanceof User) {
-         if ( ((User)obj).getNick().equals(getNick()) ) {
-            return true;
-         }
+          return ((User) obj).getNick().equals(getNick());
       }
       return false;
    }
@@ -194,7 +192,7 @@ public class User implements IChatObject, Serializable {
       StringBuffer sb = new StringBuffer(500); 
       sb.append("WHOIS Information for ").append(getNick()).append('\n'); 
       sb.append("As of ").append(getUpdateTime()).append('\n'); 
-      sb.append("").append('\n'); 
+      sb.append('\n');
       sb.append("Nick: ").append(getNick()).append('\n'); 
       sb.append("Address: ").append(getUserName()).append('@').append(getHostName()).append('\n'); 
       sb.append("Server: ").append(getServerName()).append(" (").append(getServerDesc()).append(')').append('\n'); 

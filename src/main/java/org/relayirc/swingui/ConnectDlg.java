@@ -37,8 +37,8 @@ import javax.swing.border.*;
  */
 public class ConnectDlg extends JDialog {
 
-   private ServerPanel  _serverPanel = new ServerPanel();
-   private UserPanel    _userPanel = new UserPanel();
+   private final ServerPanel  _serverPanel = new ServerPanel();
+   private final UserPanel    _userPanel = new UserPanel();
 
    private ChatOptions            _chatOptions;
    private ChatOptions.ServerList _serverList;
@@ -46,12 +46,12 @@ public class ConnectDlg extends JDialog {
    private boolean      _isOk = true;
    private TitledBorder _userBorder;
    private TitledBorder _serverBorder;
-   private JPanel       _panel = new JPanel();
-   private JButton      _connectButton = new JButton();
-   private JButton      _cancelButton = new JButton();
-   private BorderLayout borderLayout1 = new BorderLayout();
-   private GridLayout   gridLayout1 = new GridLayout();
-   private JPanel       jPanel2 = new JPanel();
+   private final JPanel       _panel = new JPanel();
+   private final JButton      _connectButton = new JButton();
+   private final JButton      _cancelButton = new JButton();
+   private final BorderLayout borderLayout1 = new BorderLayout();
+   private final GridLayout   gridLayout1 = new GridLayout();
+   private final JPanel       jPanel2 = new JPanel();
    JButton _applyButton = new JButton();
 
    //--------------------------------------------------------------------------
@@ -96,10 +96,10 @@ public class ConnectDlg extends JDialog {
     */
    public void connectButtonPressed(ActionEvent ae) {
       // If values don't check out, then do nothing
-      if (_userPanel.checkValues() != true) {
+      if (!_userPanel.checkValues()) {
          return;
       }
-      if (_serverPanel.checkValues() != true) {
+      if (!_serverPanel.checkValues()) {
          return;
       }
 
@@ -120,10 +120,10 @@ public class ConnectDlg extends JDialog {
     */
    void onApplyButtonPressed(ActionEvent e) {
       // If values don't check out, then do nothing
-      if (_userPanel.checkValues() != true) {
+      if (!_userPanel.checkValues()) {
          return;
       }
-      if (_serverPanel.checkValues() != true) {
+      if (!_serverPanel.checkValues()) {
          return;
       }
 

@@ -68,19 +68,19 @@ public class ChatOptions implements Serializable {
 
    private User        _currentUser = null;
    private Server      _currentServer = null;
-   private Properties  _properties = new Properties();
+   private final Properties  _properties = new Properties();
 
-   private ChannelList _favoriteChannels = new ChannelList();
-   private UserList    _favoriteUsers = new UserList();
-   private ServerList  _allServers = new ServerList();
+   private final ChannelList _favoriteChannels = new ChannelList();
+   private final UserList    _favoriteUsers = new UserList();
+   private final ServerList  _allServers = new ServerList();
 
-   private ActionList  _userActions = new ActionList();
-   private ActionList  _channelActions = new ActionList();
-   private ActionList  _serverActions = new ActionList();
-   private ActionList  _menuActions = new ActionList();
+   private final ActionList  _userActions = new ActionList();
+   private final ActionList  _channelActions = new ActionList();
+   private final ActionList  _serverActions = new ActionList();
+   private final ActionList  _menuActions = new ActionList();
 
-   private ListenerList _serverListeners = new ListenerList();
-   private ListenerList _channelListeners = new ListenerList();
+   private final ListenerList _serverListeners = new ListenerList();
+   private final ListenerList _channelListeners = new ListenerList();
 
    private boolean     _isFresh = false;
 
@@ -506,7 +506,7 @@ public class ChatOptions implements Serializable {
 
                   // Parse port numbers
                   String portStr = address.substring(addressColon+1);
-                  int portsArray[] = Utilities.stringToIntArray(portStr,",");
+                  int[] portsArray = Utilities.stringToIntArray(portStr,",");
 
                   Server svr = new Server(server,0,network,desc);
                   svr.setPorts(portsArray);

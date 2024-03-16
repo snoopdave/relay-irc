@@ -55,7 +55,7 @@ public class FontChooser extends JPanel {
    public void setSelectedFont( Font font ) {
       Debug.println("FontChooser.setSelectedFont "+font);
       _fontname.setSelectedItem(font.getName());
-      _fontsize.setSelectedItem(new Integer(font.getSize()));
+      _fontsize.setSelectedItem(Integer.valueOf(font.getSize()));
       _boldtog.setSelected(font.isBold());
       _italictog.setSelected(font.isItalic());
       //_fontstyle.setStyle(font.getStyle());
@@ -151,11 +151,11 @@ public class FontChooser extends JPanel {
 		   _fontname.addItem(fonts[i]);
 		}
 		// Add font sizes to font size combo
-		_fontsize.addItem(new Integer(8));
-		_fontsize.addItem(new Integer(10));
-		_fontsize.addItem(new Integer(12));
-		_fontsize.addItem(new Integer(14));
-		_fontsize.addItem(new Integer(16));
+		_fontsize.addItem(Integer.valueOf(8));
+		_fontsize.addItem(Integer.valueOf(10));
+		_fontsize.addItem(Integer.valueOf(12));
+		_fontsize.addItem(Integer.valueOf(14));
+		_fontsize.addItem(Integer.valueOf(16));
 
       //JPanel cpanel = new JPanel();
       //cpanel.setLayout(new GridLayout(1,3));
@@ -184,8 +184,8 @@ public class FontChooser extends JPanel {
          FontMetrics fm = Toolkit.getDefaultToolkit().getFontMetrics(font);
          int w = fm.stringWidth(str);
          int h = fm.getHeight();
-         int x = (int)(this.getSize().width/2 - w/2);
-         int y = (int)(this.getSize().height/2 - h/2);
+         int x = this.getSize().width/2 - w/2;
+         int y = this.getSize().height/2 - h/2;
 
 			g.setColor(Color.white);
          g.fillRect(2,2,this.getSize().width-2,this.getSize().height-2);

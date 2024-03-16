@@ -20,9 +20,8 @@ public class ComparableString implements IComparable {
 		_str = str;
 	}
 	public int compareTo(IComparable other) {
-		if (other instanceof ComparableString) {
-			ComparableString compString = (ComparableString)other;
-			String otherString = (String)compString.getString();
+		if (other instanceof ComparableString compString) {
+            String otherString = compString.getString();
 			return _str.compareTo(otherString);
 		}
 		else return -1;

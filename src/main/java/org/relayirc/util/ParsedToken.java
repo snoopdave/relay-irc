@@ -22,7 +22,7 @@ public class ParsedToken {
 
    /** Parse string into array of ParsedTokens */
    public static ParsedToken[] stringToParsedTokens(String s, String delim) {
-      ParsedToken tokens[] = null;
+      ParsedToken[] tokens = null;
       try {
          // Tokenize string, build vector of tokens
 		 int pos=0;
@@ -30,7 +30,7 @@ public class ParsedToken {
          Vector v = new Vector();
          while (toker.hasMoreTokens()) {
             ParsedToken tok = new ParsedToken();
-			tok.token = (String)toker.nextToken();
+			tok.token = toker.nextToken();
 			tok.index = pos;
 			pos += tok.token.length()+1;
             v.addElement( tok );

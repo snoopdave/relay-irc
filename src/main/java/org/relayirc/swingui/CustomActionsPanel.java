@@ -37,11 +37,11 @@ public class CustomActionsPanel extends JPanel implements ITab {
 
    private String          _name = "CustomActionsPanel";
    private Vector          _actions = new Vector();
-   private Vector          _holders = null;
-   private BorderLayout    _borderLayout = new BorderLayout();
+   private final Vector          _holders = null;
+   private final BorderLayout    _borderLayout = new BorderLayout();
 
    private ListEditorPanel _editorPanel = new ListEditorPanel();
-   private _ActionListEditorModel _model = new _ActionListEditorModel();
+   private final _ActionListEditorModel _model = new _ActionListEditorModel();
 
    //-----------------------------------------------------------------------
    /** Contruct UI for editing a collection of CustomActions.

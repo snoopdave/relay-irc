@@ -30,10 +30,10 @@ import javax.swing.*;
 public class StandardDlg extends JDialog {
    private boolean      _isOk = false;
    private boolean      _showCancelButton = true;
-   private JPanel       _buttonPanel = new JPanel();
-   private JButton      _cancelButton = new JButton();
-   private BorderLayout _borderLayout1 = new BorderLayout();
-   private FlowLayout   _flowLayout1 = new FlowLayout();
+   private final JPanel       _buttonPanel = new JPanel();
+   private final JButton      _cancelButton = new JButton();
+   private final BorderLayout _borderLayout1 = new BorderLayout();
+   private final FlowLayout   _flowLayout1 = new FlowLayout();
    JButton _okButton = new JButton();
 
    //----------------------------------------------------------------

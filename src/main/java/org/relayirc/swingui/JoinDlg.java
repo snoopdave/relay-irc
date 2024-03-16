@@ -98,7 +98,7 @@ public class JoinDlg extends JDialog {
    }
    //-------------------------------------------------------------------------
    /** For testing only. */
-   public static void main(String args[]) {
+   public static void main(String[] args) {
 
       /*try {
          Debug.setDebug(true);

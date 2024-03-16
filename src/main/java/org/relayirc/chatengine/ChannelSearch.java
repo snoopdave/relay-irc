@@ -35,7 +35,7 @@ public class ChannelSearch {
    private int          _maxUsers = Integer.MAX_VALUE;
    private Vector       _results = new Vector();
    private boolean      _complete = false;
-   private Vector       _listeners = new Vector();
+   private final Vector       _listeners = new Vector();
 
    /** Channel search needs a server. */
    public ChannelSearch(Server server) {

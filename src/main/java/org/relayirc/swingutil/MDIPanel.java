@@ -52,11 +52,11 @@ public class MDIPanel extends JPanel {
    public static final String DOCK_LEFT   = "DOCK_LEFT";
    public static final String DOCK_RIGHT  = "DOCK_RIGHT";
 
-   private JDesktopPane _desktop = new JDesktopPane();
-	private Vector       _clientFrames = new Vector();
-	private Vector       _clientPanels = new Vector();
-   private Hashtable    _dockedFrames = new Hashtable();
-   private Hashtable    _framesByPanel = new Hashtable();
+   private final JDesktopPane _desktop = new JDesktopPane();
+	private final Vector       _clientFrames = new Vector();
+	private final Vector       _clientPanels = new Vector();
+   private final Hashtable    _dockedFrames = new Hashtable();
+   private final Hashtable    _framesByPanel = new Hashtable();
    private int          _lastX = 0;
    private int          _lastY = 0;
 
@@ -327,7 +327,7 @@ public class MDIPanel extends JPanel {
    }
    //-----------------------------------------------------------------
    /** For testing/debugging. */
-   public static void main(String args[]) {
+   public static void main(String[] args) {
 
       MDIPanel mdi;
 
@@ -541,9 +541,8 @@ class MDIDesktopManager extends DefaultDesktopManager {
    /** Don't allow internal frames to be dragged over bounds */
    public void dragFrame(JComponent f, int newX, int newY) {
 
-      if (f instanceof JInternalFrame) {
-         JInternalFrame frame = (JInternalFrame)f;
-         JDesktopPane desktop = frame.getDesktopPane();
+      if (f instanceof JInternalFrame frame) {
+          JDesktopPane desktop = frame.getDesktopPane();
 
          if (newX + frame.getSize().width > desktop.getSize().width) {
             newX = desktop.getSize().width - frame.getSize().width;
@@ -564,9 +563,8 @@ class MDIDesktopManager extends DefaultDesktopManager {
    /** Don't allow internal frames to be resized over bounds */
    public void resizeFrame(JComponent f, int newX, int newY, int newWidth, int newHeight) {
 
-      if (f instanceof JInternalFrame) {
-         JInternalFrame frame = (JInternalFrame)f;
-         JDesktopPane desktop = frame.getDesktopPane();
+      if (f instanceof JInternalFrame frame) {
+          JDesktopPane desktop = frame.getDesktopPane();
 
          if (newX < 0) {
             newX = 0;

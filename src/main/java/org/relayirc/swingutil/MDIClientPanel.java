@@ -30,8 +30,8 @@ import javax.swing.*;
  * @see org.relayirc.swingutil.MDIPanel
  */
 public interface MDIClientPanel {
-   public String getDockState(); 
-   public void   setDockState(String dockState); 
-   public JPanel getPanel();
+   String getDockState();
+   void   setDockState(String dockState);
+   JPanel getPanel();
 }
 

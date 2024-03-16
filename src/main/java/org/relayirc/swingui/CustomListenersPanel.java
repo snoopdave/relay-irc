@@ -37,10 +37,10 @@ public class CustomListenersPanel extends JPanel implements ITab {
 
    private String          _name = "CustomListenersPanel";
    private Vector          _listeners = new Vector();
-   private BorderLayout    _borderLayout = new BorderLayout();
+   private final BorderLayout    _borderLayout = new BorderLayout();
 
    private ListEditorPanel _editorPanel = new ListEditorPanel();
-   private _ListenerListEditorModel _model = new _ListenerListEditorModel();
+   private final _ListenerListEditorModel _model = new _ListenerListEditorModel();
 
    //-----------------------------------------------------------------------
    /** Contruct UI for editing a collection of CustomListeners.

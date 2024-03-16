@@ -25,7 +25,7 @@ import javax.swing.*;
  * All Rights Reserved.
  */
 public interface IRelayRunnable  {
-   public void run( Object context );
+   void run(Object context);
 }
 
 

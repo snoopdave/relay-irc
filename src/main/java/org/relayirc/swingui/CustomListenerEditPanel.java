@@ -35,19 +35,19 @@ public class CustomListenerEditPanel extends JPanel implements IPanel {
 
    private CustomListenersPanel.ListenerHolder _listenerHolder;
 
-   private JPanel       _listenerPanel = new JPanel();
-   private JLabel       _promptLabel = new JLabel();
-   private JRadioButton _pythonRadio = new JRadioButton();
-   private JRadioButton _javaRadio = new JRadioButton();
-   private JTextField   _listenerField = new JTextField();
-   private JButton      _browseButton = new JButton();
+   private final JPanel       _listenerPanel = new JPanel();
+   private final JLabel       _promptLabel = new JLabel();
+   private final JRadioButton _pythonRadio = new JRadioButton();
+   private final JRadioButton _javaRadio = new JRadioButton();
+   private final JTextField   _listenerField = new JTextField();
+   private final JButton      _browseButton = new JButton();
 
-   private JPanel       _buttonPanel = new JPanel();
-   private JButton      _okButton = new JButton();
-   private JButton      _cancelButton = new JButton();
+   private final JPanel       _buttonPanel = new JPanel();
+   private final JButton      _okButton = new JButton();
+   private final JButton      _cancelButton = new JButton();
 
-   private BorderLayout   borderLayout1 = new BorderLayout();
-   private GridBagLayout  gridBagLayout1 = new GridBagLayout();
+   private final BorderLayout   borderLayout1 = new BorderLayout();
+   private final GridBagLayout  gridBagLayout1 = new GridBagLayout();
    private TitledBorder   titledBorder1;
    private Border         border1;
    JTextField _titleField = new JTextField();
@@ -90,9 +90,9 @@ public class CustomListenerEditPanel extends JPanel implements IPanel {
             break;
          }
          default: { break; }
-      };
+      }
 
-      _listenerField.setText(_listenerHolder.getListenerString());
+       _listenerField.setText(_listenerHolder.getListenerString());
       _titleField.setText(_listenerHolder.getTitle());
    }
    //-------------------------------------------------------------------------

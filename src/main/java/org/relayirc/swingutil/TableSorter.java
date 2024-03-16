@@ -56,7 +56,7 @@ import javax.swing.table.TableCellRenderer;
 
 public class TableSorter extends TableMap
 {
-    int             indexes[];
+    int[] indexes;
     Vector          sortingColumns = new Vector();
     boolean         ascending = true;
     int compares;
@@ -219,7 +219,7 @@ space and avoid unnecessary heap allocation.
         compares = 0;
         // n2sort();
         // qsort(0, indexes.length-1);
-        shuttlesort((int[])indexes.clone(), indexes, 0, indexes.length);
+        shuttlesort(indexes.clone(), indexes, 0, indexes.length);
     }
 
     public void n2sort() {
@@ -239,7 +239,7 @@ space and avoid unnecessary heap allocation.
     // arrays. The number of compares appears to vary between N-1 and
     // NlogN depending on the initial order but the main reason for
     // using it here is that, unlike qsort, it is stable.
-    public void shuttlesort(int from[], int to[], int low, int high) {
+    public void shuttlesort(int[] from, int[] to, int low, int high) {
         if (high - low < 2) {
             return;
         }
@@ -266,9 +266,7 @@ space and avoid unnecessary heap allocation.
         order diminishes - it may drop very quickly.  */
 
         if (high - low >= 4 && compare(from[middle-1], from[middle]) <= 0) {
-            for (int i = low; i < high; i++) {
-                to[i] = from[i];
-            }
+            if (high - low >= 0) System.arraycopy(from, low, to, low, high - low);
             return;
         }
 
@@ -324,7 +322,7 @@ space and avoid unnecessary heap allocation.
     public void sortByColumn(int column, boolean ascending) {
         this.ascending = ascending;
         sortingColumns.removeAllElements();
-        sortingColumns.addElement(new Integer(column));
+        sortingColumns.addElement(Integer.valueOf(column));
         sort(this);
         super.tableChanged(new TableModelEvent(this));
     }

@@ -38,7 +38,7 @@ import java.util.*;
 public class PropSheet extends JComponent {
 
    private JTable        _jtable = null;
-   private JScrollPane   _spane = null;
+   private final JScrollPane   _spane = null;
    private _CellEditor   _editor = null;
    private _CellRenderer _renderer = null;
 
@@ -159,7 +159,7 @@ class _TableModel extends AbstractTableModel {
    private int         _rows, _cols;
    private IPropModel _holder;
    private boolean     _readOnly = false;
-   private boolean     _defaultEditing = true;
+   private final boolean     _defaultEditing = true;
    private Vector      _propertyNames = new Vector();
 
    //--------------------------------------------------------------------
@@ -198,11 +198,11 @@ class _TableModel extends AbstractTableModel {
    //--------------------------------------------------------------------
    public String getColumnName(int i) {
 	  if (i==0)
-		 return new String(" ");
+		 return " ";
 	  else if (i==1)
-		 return new String(" ");
+		 return " ";
 	  else {
-		 return (String)null;
+		 return null;
 	  }
    }
    //--------------------------------------------------------------------
@@ -253,10 +253,7 @@ class _TableModel extends AbstractTableModel {
    public boolean isCellEditable( int row, int col ) {
 	  if (col == 0)
 		 return false;
-	  if (col == 1)
-		 return true;
-	  else
-		 return false;
+       return col == 1;
    }
    //--------------------------------------------------------------------
    public void update() {
@@ -268,7 +265,7 @@ class _TableModel extends AbstractTableModel {
 
 class _CellRenderer implements TableCellRenderer {
    private PropertyEditor _currentEditor = null;
-   private _RendererComponent _renderer = new _RendererComponent();
+   private final _RendererComponent _renderer = new _RendererComponent();
 
    //--------------------------------------------------------------------
    public _CellRenderer() {

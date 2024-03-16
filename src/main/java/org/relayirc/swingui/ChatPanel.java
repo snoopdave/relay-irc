@@ -41,11 +41,11 @@ public class ChatPanel extends JPanel implements MDIClientPanel {
    protected Container   _container = null;
    private JScrollPane   _scrollpane = null;
    private JTextPane     _display = null;
-   private StyleContext  _styles = new StyleContext();
+   private final StyleContext  _styles = new StyleContext();
    private JTextField    _input = null;
    private int           _adjustsb=0;
    private String        _dockState = MDIPanel.DOCK_NONE;
-   private boolean       _isConsole = false;
+   private final boolean       _isConsole = false;
 
    //------------------------------------------------------------------
    /** For chat console */

@@ -16,5 +16,5 @@ public interface IComparable {
 	/**
 	 *	Compare to other object. Works like String.compareTo()
 	 */
-	public int compareTo(IComparable c);
+    int compareTo(IComparable c);
 }

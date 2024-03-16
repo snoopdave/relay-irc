@@ -38,8 +38,8 @@ import javax.swing.event.*;
  */
 public class ServerListPanel extends JPanel  {
 
-   private ServerButtonPanel  _buttonPanel;
-   private ServerTable        _table;
+   private final ServerButtonPanel  _buttonPanel;
+   private final ServerTable        _table;
 
    public ServerButtonPanel getServerButtonPanel() {return _buttonPanel;}
    public ServerTable       getServerTable() {return _table;}
@@ -64,11 +64,11 @@ public class ServerListPanel extends JPanel  {
       doLayout();
    }
    //-----------------------------------------------------------------
-   public static void main(String args[]) {
+   public static void main(String[] args) {
 
       Debug.setDebug(true);
 
-      JFrame frame = (JFrame)new JFrame();
+      JFrame frame = new JFrame();
 
       frame.getContentPane().setLayout(new BorderLayout());
       frame.getContentPane().add(new ServerListPanel(),BorderLayout.CENTER);
@@ -107,10 +107,10 @@ class ServerButtonPanel extends JPanel {
    private JButton _impButton;
    private JButton _expButton;
 
-   private ServerListPanel _serverListPanel;
+   private final ServerListPanel _serverListPanel;
    private Server _selectedServer = null;    // Currently selected server
 
-   private ChatOptions.ServerList _list;
+   private final ChatOptions.ServerList _list;
 
    //-----------------------------------------------------------------------------
    public ServerButtonPanel(ServerListPanel serverListPanel, ChatOptions.ServerList list) {
@@ -249,9 +249,9 @@ class ServerButtonPanel extends JPanel {
  */
 class ServerTable extends JTable {
 
-   private ServerListPanel  _serverListPanel;
-   private ServerTableModel _serverModel;
-   private TableSorter      _sortModel;
+   private final ServerListPanel  _serverListPanel;
+   private final ServerTableModel _serverModel;
+   private final TableSorter      _sortModel;
 
    public static final int NAME_COLUMN = 0;
    public static final int DESC_COLUMN = 1;
@@ -334,7 +334,7 @@ class ServerTable extends JTable {
          }
       }
 
-      ((DefaultListSelectionModel)getSelectionModel()).clearSelection();
+      getSelectionModel().clearSelection();
       _serverModel.fireTableDataChanged();
    }
 }
@@ -377,7 +377,7 @@ class ServerTableModel extends DefaultTableModel {
       if (getValueAt(0, c)!=null)
          return getValueAt(0, c).getClass();
       else
-         return new String().getClass();
+         return "".getClass();
    }
 
    //----------------------------------------------------------------------
@@ -390,22 +390,22 @@ class ServerTableModel extends DefaultTableModel {
       switch (column) {
 
          case ServerTable.NAME_COLUMN:
-            return new String("Name");
+            return "Name";
 
          case ServerTable.DESC_COLUMN:
-            return new String("Description");
+            return "Description";
 
          case ServerTable.NETWORK_COLUMN:
-            return new String("Network");
+            return "Network";
 
          case ServerTable.PORTS_COLUMN:
-            return new String("Port");
+            return "Port";
 
          case ServerTable.FAVE_COLUMN:
-            return new String("Favorite");
+            return "Favorite";
 
          default:
-            return new String("");
+            return "";
       }
    }
 
@@ -440,12 +440,12 @@ class ServerTableModel extends DefaultTableModel {
             while (toker.hasMoreTokens()) {
                try {
                   String portStr = toker.nextToken();
-                  ports.addElement(new Integer(Integer.parseInt(portStr)));
+                  ports.addElement(Integer.valueOf(Integer.parseInt(portStr)));
                }
                catch (Exception e) {
                }
             }
-            int portArray[] = new int[ports.size()];
+            int[] portArray = new int[ports.size()];
             for (int i=0; i<portArray.length; i++) {
                portArray[i] = ((Integer)ports.elementAt(i)).intValue();
             }
@@ -480,10 +480,10 @@ class ServerTableModel extends DefaultTableModel {
             return Utilities.intArrayToString(_list.getServer(row).getPorts());
 
          case ServerTable.FAVE_COLUMN:
-            return new Boolean(_list.getServer(row).isFavorite());
+            return Boolean.valueOf(_list.getServer(row).isFavorite());
 
          default:
-            return new String("");
+            return "";
       }
    }
    //----------------------------------------------------------------------

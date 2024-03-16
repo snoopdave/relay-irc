@@ -97,7 +97,7 @@ public class ComboEditor extends PropSheetEditor {
    }
    //===========================================================================
    private class _ComboEditor extends JComponent {
-      private JComboBox _combo;
+      private final JComboBox _combo;
 
       public JComboBox getComboBox() {return _combo;}
 
@@ -116,9 +116,8 @@ public class ComboEditor extends PropSheetEditor {
          _combo.addItemListener(new ItemListener() {
             public void itemStateChanged( ItemEvent event ) {
                Object item = _combo.getSelectedItem();
-			   if (item != null && item instanceof GuiObject) {
-                  GuiObject go = (GuiObject)item;
-                  ComboEditor.this.setAsText( go.getObject().toString() );
+			   if (item != null && item instanceof GuiObject go) {
+                   ComboEditor.this.setAsText( go.getObject().toString() );
                }
                else {
                   Debug.println("JComboBox listener: selected item is null");

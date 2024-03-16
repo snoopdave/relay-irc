@@ -55,7 +55,7 @@ import javax.swing.tree.*;
  */
 public class FavoritesPanel extends JPanel implements MDIClientPanel {
    private String  _dockState = MDIPanel.DOCK_LEFT;
-   private JTree   _tree;
+   private final JTree   _tree;
 
    /** Row height of items in favorites tree. */
    public static final int ROW_HEIGHT = 20;
@@ -78,9 +78,9 @@ public class FavoritesPanel extends JPanel implements MDIClientPanel {
 ///////////////////////////////////////////////////////////////////////
 
 interface FavoritesTreeNode {
-   public JPopupMenu createPopupMenu();
-   public void handleDoubleClick();
-   public void update();
+   JPopupMenu createPopupMenu();
+   void handleDoubleClick();
+   void update();
 }
 
 ///////////////////////////////////////////////////////////////////////
@@ -88,8 +88,8 @@ interface FavoritesTreeNode {
 /** Tree with root that is a FavoritesNode. */
 class FavoritesTree extends JTree {
 
-   private FavoritesNode _favoritesNode;
-   private FavoritesPanel _favoritesPanel;
+   private final FavoritesNode _favoritesNode;
+   private final FavoritesPanel _favoritesPanel;
 
    public static final String SERVERS_FOLDER  = "Servers";
    public static final String CHANNELS_FOLDER = "Channels";
@@ -128,11 +128,9 @@ class FavoritesTree extends JTree {
                       (DefaultMutableTreeNode)treePath.getPath()[pathLength-1];
                   setSelectionPath(treePath);
 
-                  if (treeNode instanceof FavoritesTreeNode) {
-                     FavoritesTreeNode faveTreeNode =
-                        (FavoritesTreeNode)treeNode;
+                  if (treeNode instanceof FavoritesTreeNode faveTreeNode) {
 
-                     // ...ask tree node to handle it.
+                      // ...ask tree node to handle it.
                      faveTreeNode.handleDoubleClick();
                   }
                }
@@ -168,12 +166,9 @@ class FavoritesTree extends JTree {
                treePath.getPath()[pathLength-1];
             setSelectionPath(treePath);
 
-            if (treeNode instanceof FavoritesTreeNode) {
+            if (treeNode instanceof FavoritesTreeNode faveTreeNode) {
 
-               FavoritesTreeNode faveTreeNode =
-                  (FavoritesTreeNode)treeNode;
-
-               // ...then present tree node's popup menu
+                // ...then present tree node's popup menu
                JPopupMenu popup = faveTreeNode.createPopupMenu();
                if (popup != null) {
                   add(popup);
@@ -237,9 +232,9 @@ class FavoritesTree extends JTree {
  */
 class FavoritesNode extends DefaultMutableTreeNode {
 
-   private ServersFolderNode  _favServers;
-   private ChannelsFolderNode _favChannels;
-   private UsersFolderNode    _favUsers;
+   private final ServersFolderNode  _favServers;
+   private final ChannelsFolderNode _favChannels;
+   private final UsersFolderNode    _favUsers;
 
    public ServersFolderNode  getServersNode()  {return _favServers;}
    public ChannelsFolderNode getChannelsNode() {return _favChannels;}
@@ -509,7 +504,7 @@ class FavoritesTreeCellRenderer extends DefaultTreeCellRenderer {
          Font newFont = null;
          Font oldFont = label.getFont();
          Server selServer = ChatApp.getChatApp().getOptions().getCurrentServer();
-         if ( ((Server)node.getUserObject()) == selServer)
+         if ( node.getUserObject() == selServer)
             newFont = new Font(oldFont.getName(),Font.BOLD,oldFont.getSize());
          else
             newFont = new Font(oldFont.getName(),Font.PLAIN,oldFont.getSize());

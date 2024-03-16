@@ -34,10 +34,10 @@ import javax.swing.border.*;
 public class ColorCombo extends JComboBox implements Serializable {
 
    // This seems stupid
-   private Hashtable _colorsByName = new Hashtable();
-   private Hashtable _namesByColor = new Hashtable();
+   private final Hashtable _colorsByName = new Hashtable();
+   private final Hashtable _namesByColor = new Hashtable();
 
-   private Color[] _colors = { 
+   private final Color[] _colors = {
       Color.black, 
       Color.darkGray, 
       Color.gray, 

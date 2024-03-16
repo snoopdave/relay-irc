@@ -29,9 +29,9 @@ import javax.swing.border.*;
  */
 public class StatusBar extends JPanel {
 
-   private TimerLabel _timer = new TimerLabel(); 
-   private ClockLabel _clock = new ClockLabel();
-   private PongSpinner _spinner = new PongSpinner(30,12);
+   private final TimerLabel _timer = new TimerLabel();
+   private final ClockLabel _clock = new ClockLabel();
+   private final PongSpinner _spinner = new PongSpinner(30,12);
 
    //-------------------------------------------------------------------
    public StatusBar() {

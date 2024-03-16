@@ -122,8 +122,7 @@ public class IdentServer implements Runnable {
       }
       catch (Exception e) {
          // Something bad but non-fatal happened, complain and continue
-			e.printStackTrace();	
-         return;
+			e.printStackTrace();
       }
    }    
    //-------------------------------------------------------------------------

@@ -108,7 +108,7 @@ public class DefaultListEditorDlg extends StandardDlg {
 			_editedValue = _value;
 		}
 		public ListObjectHolder() {
-			_value = new String(""); 
+			_value = "";
 			_editedValue = _value;
 		}
 		public String getName() {

@@ -65,7 +65,7 @@ public class TextEditor extends PropSheetEditor {
    //===========================================================================
    private class _TextEditor extends JComponent {
 
-      private JTextField _field;
+      private final JTextField _field;
       public JTextField getTextField() {return _field;}
 
       public void setEnabled(boolean flag) {

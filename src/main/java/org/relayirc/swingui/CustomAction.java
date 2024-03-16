@@ -96,12 +96,7 @@ public class CustomAction implements IChatAction, Serializable {
      * action, otherwise enable it.
      */
    public void update() {
-      if (!ChatApp.getChatApp().isConnected() && _type == IRC_COMMAND) {
-         _enabled = false;
-      }
-      else {
-         _enabled = true;
-      }
+       _enabled = ChatApp.getChatApp().isConnected() || _type != IRC_COMMAND;
    }
    //--------------------------------------------------------------------------
    /** Get the actual action object. */
@@ -240,7 +235,7 @@ public class CustomAction implements IChatAction, Serializable {
             default: {
                break;
             }
-         };
+         }
       }
    }
 

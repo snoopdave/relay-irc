@@ -32,10 +32,10 @@ import java.lang.reflect.*;
  * All Rights Reserved.
  */
  public class BeanModel implements IPropModel {
-   private Object _bean;
-   private Hashtable _propDescs = new Hashtable();
-   private Hashtable _editors = new Hashtable();
-   private boolean _isReadOnly = true;
+   private final Object _bean;
+   private final Hashtable _propDescs = new Hashtable();
+   private final Hashtable _editors = new Hashtable();
+   private final boolean _isReadOnly = true;
 
    //-----------------------------------------------------------------
    public BeanModel(Object bean) {
@@ -46,14 +46,13 @@ import java.lang.reflect.*;
       try {
          info = Introspector.getBeanInfo(bean.getClass());
          Debug.println(info.getClass().toString());
-         PropertyDescriptor descs[] = info.getPropertyDescriptors();
+         PropertyDescriptor[] descs = info.getPropertyDescriptors();
 
          for (int i=0; i<descs.length; i++) {
             _propDescs.put(descs[i].getName(),descs[i]);
          }
       }
       catch (IntrospectionException e) {
-         return;
       }
    }
    //-----------------------------------------------------------------
@@ -152,7 +151,7 @@ import java.lang.reflect.*;
       return ret;
    }
    //-----------------------------------------------------------------
-   public static void main(String args[]) {
+   public static void main(String[] args) {
       Debug.setDebug(true);
       Debug.println("BeanModel test method");
    }

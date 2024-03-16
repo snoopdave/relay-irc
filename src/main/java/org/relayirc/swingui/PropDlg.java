@@ -34,12 +34,12 @@ import javax.swing.JDialog;
  */
 public class PropDlg extends StandardDlg {
    private IChatObject _chatObject = null;
-   private PropPanel _panel = new PropPanel();
+   private final PropPanel _panel = new PropPanel();
 
    //--------------------------------------------------------
    public PropDlg(Frame frame, String title, IChatObject chatObject) {
       super(frame,title,true);
-      _chatObject = (IChatObject)chatObject;
+      _chatObject = chatObject;
       _panel.setObject(_chatObject);
       _panel.setDescription(_chatObject.getDescription());
       initGUI();

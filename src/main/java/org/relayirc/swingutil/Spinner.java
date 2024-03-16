@@ -28,9 +28,9 @@ import javax.swing.*;
  */
 public class Spinner extends JPanel {
    private Timer _timer = null;
-   private int _delay;
+   private final int _delay;
 
-   private ActionListener _timerListener = new ActionListener() {
+   private final ActionListener _timerListener = new ActionListener() {
       public void  actionPerformed(ActionEvent event) {
          repaint(5);
       }

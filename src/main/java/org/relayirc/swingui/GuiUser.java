@@ -34,7 +34,7 @@ public class GuiUser extends GuiObject {
    private User _user = null;
    private Channel _channel = null;
    private Hashtable _actions = null;
-   private Object[][] _actionArray = {
+   private final Object[][] _actionArray = {
       //
       // Action Class                Icon Name    Command Name
       // ------------                ---------    ------------
@@ -151,12 +151,7 @@ public class GuiUser extends GuiObject {
          ChatApp.getChatApp().sendWhoIs(_user,true);
       }
       public void update() {
-         if (ChatApp.getChatApp().isConnected()) {
-            setEnabled(true);
-         }
-         else {
-            setEnabled(false);
-         }
+          setEnabled(ChatApp.getChatApp().isConnected());
       }
    }
    ///////////////////////////////////////////////////////////////////

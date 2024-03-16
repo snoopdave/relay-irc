@@ -37,9 +37,9 @@ import javax.swing.*;
  */
 public class UserList extends JList {
 
-   private Server      _server;
-   private Channel     _channel;
-   private Hashtable   _wrappersByName = new Hashtable();
+   private final Server      _server;
+   private final Channel     _channel;
+   private final Hashtable   _wrappersByName = new Hashtable();
 
    /** Construct a user list for a specified channel. */
    public UserList(Channel chan ) {
@@ -82,7 +82,7 @@ public class UserList extends JList {
     */
    public void addItem(String nick) {
 
-      if (nick.substring(0,1).equals("@")) {
+      if (nick.charAt(0) == '@') {
 
          GuiUser go = (GuiUser)_wrappersByName.get(nick);
          if (go!=null) {

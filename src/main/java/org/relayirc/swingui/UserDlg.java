@@ -40,7 +40,7 @@ public class UserDlg extends StandardDlg {
       setVisible(true);
    }
    /** For testing only. */
-   public static void main(String args[]) {
+   public static void main(String[] args) {
       UserDlg dlg = new UserDlg(null,new User("fred"));
    }
 }

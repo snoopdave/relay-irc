@@ -24,5 +24,5 @@ package org.relayirc.chatengine;
  * All Rights Reserved.
  */
 public interface ChatOptionListener {
-	public void stateChanged();
+	void stateChanged();
 }

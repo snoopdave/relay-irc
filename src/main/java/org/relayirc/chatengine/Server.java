@@ -53,7 +53,7 @@ public class Server implements IChatObject, Serializable {
    private String        _name =  "";       // Server host name
    private String        _title =  "";      // Display name of server
    private String        _desc =  "";       // Arbitrary description of server
-   private int           _ports[] = null;   // Currently, only 1st is used
+   private int[] _ports = null;   // Currently, only 1st is used
    private String        _network = "";     // Network name (e.g. EFNet)
    private boolean       _favorite = false; // Is in favorites list?
    private int           _channelCount = 0; // Num. channels on server
@@ -170,7 +170,7 @@ public class Server implements IChatObject, Serializable {
       boolean old = _favorite;
       _favorite=fave;
       getPropChangeSupport().firePropertyChange(
-         "Favorite",new Boolean(old),new Boolean(_favorite));
+         "Favorite", Boolean.valueOf(old), Boolean.valueOf(_favorite));
    }
    //---------------------------------------------------------------
    // Property: Title
@@ -231,14 +231,14 @@ public class Server implements IChatObject, Serializable {
       }
       _ports[0] = port;
       getPropChangeSupport().firePropertyChange(
-         "Port",new Integer(old),new Integer(_ports[0]));
+         "Port", Integer.valueOf(old), Integer.valueOf(_ports[0]));
    }
    /** Get port array. */
    public int[] getPorts() {
       return _ports;
    }
    /** Set port array. */
-   public void setPorts(int ports[]) {
+   public void setPorts(int[] ports) {
       _ports = ports;
    }
 
@@ -406,7 +406,6 @@ public class Server implements IChatObject, Serializable {
       }
       else {
          fireStatusEvent("Ignoring JOIN command, already in channel.");
-         return;
       }
    }
    //------------------------------------------------------------------
@@ -492,10 +491,7 @@ public class Server implements IChatObject, Serializable {
    /** Determine if channel view is active. */
    private boolean isChannelActive( String channel ) {
       Channel chan = (Channel)getChannels().get(channel);
-      if (chan!=null)
-         return true;
-      else
-         return false;
+       return chan != null;
    }
    //------------------------------------------------------------------
    /** Returns view for specified channel, or null if there is none. */
@@ -653,7 +649,7 @@ public class Server implements IChatObject, Serializable {
    //================================================================
 
    interface _ServerEventNotifier {
-      public void notify(ServerListener listener);
+      void notify(ServerListener listener);
    }
    //------------------------------------------------------------------
    private synchronized void notifyListeners(

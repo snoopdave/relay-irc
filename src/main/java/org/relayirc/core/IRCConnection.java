@@ -43,12 +43,12 @@ public class IRCConnection implements Runnable, IRCConstants {
    public static final int DISCONNECTING =  3;
 
    private int       _state = DISCONNECTED;
-   private String    _server;
-   private int       _port;
+   private final String    _server;
+   private final int       _port;
    private String    _nick;
-   private String    _altNick;
-   private String    _userName;
-   private String    _fullName;
+   private final String    _altNick;
+   private final String    _userName;
+   private final String    _fullName;
    private Socket    _socket;
    private String    _localHost;
    private Thread    _messageLoopThread;
@@ -64,7 +64,7 @@ public class IRCConnection implements Runnable, IRCConstants {
 
    // Don't expose an IRCConnectionListener interface,
    // but do use one internally.
-   private _IRCConnectionMux  _mux = new _IRCConnectionMux();
+   private final _IRCConnectionMux  _mux = new _IRCConnectionMux();
 
    //------------------------------------------------------------------
    /**
@@ -178,7 +178,7 @@ public class IRCConnection implements Runnable, IRCConstants {
     * the nick name currently in use.
     */
    public void sendNick(String nick) {
-      _nick = nick;
+      this._nick = nick;
       writeln("NICK "+_nick+"\r\n");
    }
    //------------------------------------------------------------------
@@ -346,8 +346,8 @@ public class IRCConnection implements Runnable, IRCConstants {
             Debug.println("message="+message);
 
             int pos=0;
-            origin = new String("");
-            command = new String("");
+            origin = "";
+            command = "";
 
             // Parse message into a vector of strings
 			ParsedToken[] tokens = 
@@ -356,7 +356,7 @@ public class IRCConnection implements Runnable, IRCConstants {
             // Get origin, if there is one, and the command
             if (tokens.length > 0) {
                ParsedToken tok = tokens[0];
-               if (tok.token.substring(0,1).equals(":")) {
+               if (tok.token.charAt(0) == ':') {
 
                   // token 0 begins with ":" so assume it's the origin
                   origin = tokens[0].token.substring(1);
@@ -411,154 +411,141 @@ public class IRCConnection implements Runnable, IRCConstants {
 
       boolean handled = false;
 
-      if (command.equals("PING")) {
-         String params = message.substring( message.indexOf("PING")+4 );
-         _mux.onPing(params);
-         handled = true;
-      }
-
-      else if (command.equals("PRIVMSG")) {
-         String channel = tokens[2].token;
-         String text = message.substring(tokens[3].index ).trim();
-         String orgnick = parseOrgnick(origin);
-         if ( orgnick != null) {
-            handled = true;
-            if (text.indexOf("\001VERSION") != -1) {
-               _mux.onClientVersion(orgnick);
-            }
-            else if (text.indexOf("\001SOURCE") != -1) {
-               _mux.onClientSource(orgnick);
-            }
-            else if (text.indexOf("\001CLIENTINFO") != -1) {
-               _mux.onClientInfo(orgnick);
-            }
-            else if (text.indexOf("ACTION") != -1) {
-               _mux.onAction(orgnick,channel,text.substring(9));
-            }
-            else {
-               // Somebody has messaged us, use their name as the channel name
-               _mux.onPrivateMessage(orgnick,channel,text.substring(1));
-            }
-         }
-      }
-
-      else if (command.equals("NOTICE")) {
-
-          String orgnick = parseOrgnick(origin);
-          String text = message.substring( tokens[4].index ).trim();
-
-          try {
-             handled = true;
-             if (text.substring(0,9).equals(":\001VERSION")) {
-                _mux.onVersionNotice(orgnick,origin,text.substring(9));
-             }
-            else {
-               _mux.onNotice(text);
-            }
-         }
-         catch (StringIndexOutOfBoundsException e) {
-            // ignore
-         }
-      }
-
-      else if (command.equals("MODE")) {
-         _mux.onStatus("MODE: "+message);
-         String orgnick = parseOrgnick(origin);
-         if ( orgnick != null) {
-            String chan = tokens[2].token;
-            String mode = tokens[3].token;
-            if (mode.equals("+o")) {
-               String oped = tokens[4].token;
-               _mux.onOp(orgnick,chan,oped);
+       switch (command) {
+           case "PING" -> {
+               String params = message.substring(message.indexOf("PING") + 4);
+               _mux.onPing(params);
                handled = true;
-            }
-            else if (mode.equals("+b")) {
-               String banned = tokens[4].token;
-               _mux.onBan(banned,chan,orgnick);
+           }
+           case "PRIVMSG" -> {
+               String channel = tokens[2].token;
+               String text = message.substring(tokens[3].index).trim();
+               String orgnick = parseOrgnick(origin);
+               if (orgnick != null) {
+                   handled = true;
+                   if (text.contains("\001VERSION")) {
+                       _mux.onClientVersion(orgnick);
+                   } else if (text.contains("\001SOURCE")) {
+                       _mux.onClientSource(orgnick);
+                   } else if (text.contains("\001CLIENTINFO")) {
+                       _mux.onClientInfo(orgnick);
+                   } else if (text.contains("ACTION")) {
+                       _mux.onAction(orgnick, channel, text.substring(9));
+                   } else {
+                       // Somebody has messaged us, use their name as the channel name
+                       _mux.onPrivateMessage(orgnick, channel, text.substring(1));
+                   }
+               }
+           }
+           case "NOTICE" -> {
+
+               String orgnick = parseOrgnick(origin);
+               String text = message.substring(tokens[4].index).trim();
+
+               try {
+                   handled = true;
+                   if (text.startsWith(":\001VERSION")) {
+                       _mux.onVersionNotice(orgnick, origin, text.substring(9));
+                   } else {
+                       _mux.onNotice(text);
+                   }
+               } catch (StringIndexOutOfBoundsException e) {
+                   // ignore
+               }
+           }
+           case "MODE" -> {
+               _mux.onStatus("MODE: " + message);
+               String orgnick = parseOrgnick(origin);
+               if (orgnick != null) {
+                   String chan = tokens[2].token;
+                   String mode = tokens[3].token;
+                   if (mode.equals("+o")) {
+                       String oped = tokens[4].token;
+                       _mux.onOp(orgnick, chan, oped);
+                       handled = true;
+                   } else if (mode.equals("+b")) {
+                       String banned = tokens[4].token;
+                       _mux.onBan(banned, chan, orgnick);
+                       handled = true;
+                   }
+               }
+           }
+           case "INVITE" -> {
+               String target = tokens[2].token;
+               String channel = tokens[3].token;
+               String orgnick = parseOrgnick(origin);
+               if (orgnick != null) {
+                   _mux.onInvite(origin, orgnick, target, channel.substring(1));
+                   handled = true;
+               }
+           }
+           case "JOIN" -> {
+               String channel = tokens[2].token;
+               String orgnick = parseOrgnick(origin);
+               if (orgnick != null) {
+                   _mux.onJoin(origin, orgnick, channel.substring(1), false);
+                   handled = true;
+               }
+           }
+           case "PART" -> {
+               Debug.println("PART: " + message);
+               String channel = tokens[2].token;
+               String orgnick = parseOrgnick(origin);
+               if (orgnick != null) {
+                   _mux.onPart(origin, orgnick, channel);
+                   handled = true;
+               }
+           }
+           case "KICK" -> {
+               Debug.println("KICK: " + message);
+               try {
+                   String orgnick = parseOrgnick(origin);
+                   String channel = tokens[2].token;
+                   String kicked = tokens[3].token;
+                   String reason = tokens[4].token;
+                   if (orgnick != null) {
+                       _mux.onKick(kicked, channel, orgnick, reason);
+                       handled = true;
+                   }
+               } catch (NoSuchElementException e) {
+               } // is ok
+               catch (Exception e) {
+                   e.printStackTrace();
+               } // is not ok
+           }
+           case "QUIT" -> {
+               String channel = tokens[2].token;
+               String text = message.substring(tokens[2].index + 1);
+               String orgnick = parseOrgnick(origin);
+               if (orgnick != null) {
+                   _mux.onQuit(origin, orgnick, text);
+                   //Debug.println("--- QUIT --- "+origin+"|"+orgnick+"|"+text);
+                   handled = true;
+               }
+           }
+           case "NICK" -> {
+               String channel = tokens[2].token;
+               String orgnick = parseOrgnick(origin);
+               if (orgnick != null) {
+                   _mux.onNick(origin, orgnick, channel.substring(1));
+                   handled = true;
+               }
+           }
+           case "TOPIC" -> {
+               String channel = tokens[2].token;
+               String topic = tokens[3].token.substring(1);
+               _mux.onTopic(channel, topic);
                handled = true;
-            }
-         }
-      }
-
-      else if (command.equals("INVITE")) {
-         String target = tokens[2].token;
-         String channel = tokens[3].token;
-         String orgnick = parseOrgnick(origin);
-         if ( orgnick != null) {
-            _mux.onInvite(origin,orgnick,target,channel.substring(1));
-            handled = true;
-         }
-      }
-
-      else if (command.equals("JOIN")) {
-         String channel = tokens[2].token;
-         String orgnick = parseOrgnick(origin);
-         if ( orgnick != null) {
-            _mux.onJoin(origin,orgnick,channel.substring(1),false);
-            handled = true;
-         }
-      }
-
-      else if (command.equals("PART")) {
-         Debug.println("PART: "+message);
-         String channel = tokens[2].token;
-         String orgnick = parseOrgnick(origin);
-         if ( orgnick != null ) {
-            _mux.onPart(origin,orgnick,channel);
-            handled = true;
-         }
-      }
-
-      else if (command.equals("KICK")) {
-         Debug.println("KICK: "+message);
-         try {
-            String orgnick = parseOrgnick(origin);
-            String channel = tokens[2].token;
-            String kicked = tokens[3].token;
-            String reason = tokens[4].token;
-            if ( orgnick != null) {
-               _mux.onKick(kicked,channel,orgnick,reason);
+           }
+           case "MSG" -> {
+               _mux.onMessage(message);
                handled = true;
-            }
-         }
-         catch ( NoSuchElementException e ) {} // is ok
-         catch ( Exception e ) {e.printStackTrace(); } // is not ok
-      }
-
-      else if (command.equals("QUIT")) {
-         String channel = tokens[2].token;
-         String text = message.substring( tokens[2].index+1 );
-         String orgnick = parseOrgnick(origin);
-         if ( orgnick != null) {
-            _mux.onQuit(origin,orgnick,text);
-			//Debug.println("--- QUIT --- "+origin+"|"+orgnick+"|"+text);
-            handled = true;
-         }
-      }
-
-      else if (command.equals("NICK")) {
-         String channel = tokens[2].token;
-         String orgnick = parseOrgnick(origin);
-         if ( orgnick != null) {
-            _mux.onNick(origin,orgnick,channel.substring(1));
-            handled = true;
-         }
-      }
-
-      else if (command.equals("TOPIC")) {
-         String channel = tokens[2].token;
-         String topic = tokens[3].token.substring(1);
-         _mux.onTopic(channel,topic);
-         handled = true;
-      }
-
-      else if (command.equals("MSG")) {
-         _mux.onMessage(message);
-         handled = true;
-      }
+           }
+       }
 
       return handled;
    }
+
    //------------------------------------------------------------------
    /**
     * Handle replies and errors. Parse the reply arguments and pass
@@ -571,8 +558,7 @@ public class IRCConnection implements Runnable, IRCConstants {
       int cmdid = -1;
       try {cmdid = Integer.parseInt(command);}
       catch (Exception e) {
-         cmdid = -1;
-         _mux.onParsingError(message);
+          _mux.onParsingError(message);
          return true;
       }
 
@@ -776,10 +762,10 @@ public class IRCConnection implements Runnable, IRCConstants {
             throw new IRCException("ERR_YOURBANNEDCREEP: "+message);
 
          // Some IRC servers use 001 - 004 for welcome message
-         case 001:
-         case 002:
-         case 003:
-         case 004:
+         case 1:
+         case 2:
+         case 3:
+         case 4:
             // Welcome message indicates that we are connected.
             _mux.onConnect();
             if (tokens.length > 3) {

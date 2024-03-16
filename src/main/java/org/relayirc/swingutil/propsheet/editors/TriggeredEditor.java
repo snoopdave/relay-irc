@@ -71,10 +71,10 @@ public abstract class TriggeredEditor extends PropSheetEditor {
    private class _TriggeredEditor extends JComponent {
 
       public JButton getButton() {return _button;}
-      private JButton _button;
+      private final JButton _button;
 
       public JLabel getLabel() {return _label;}
-      private JLabel _label;
+      private final JLabel _label;
 
       public void setEnabled(boolean flag) {
 		  getButton().setEnabled(flag);

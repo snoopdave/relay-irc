@@ -26,15 +26,15 @@ package org.relayirc.swingutil;
 public interface ITab {
 
    /** Returns name that should appear on tab. */
-   public String getName();
+   String getName();
 
    /** Loads values into this tab's GUI. */
-   public void loadValues();
+   void loadValues();
 
    /** Saves values from this tab's GUI. */
-   public void saveValues();
+   void saveValues();
 
    /** Check values from this tab's GUI. */
-   public boolean checkValues();
+   boolean checkValues();
 }
 

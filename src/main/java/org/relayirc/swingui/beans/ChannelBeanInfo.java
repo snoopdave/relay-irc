@@ -33,10 +33,10 @@ import org.relayirc.swingutil.propsheet.*;
  */
 public class ChannelBeanInfo extends SimpleBeanInfo {
 
-   private PropertyDescriptor _descriptors[]; 
+   private final PropertyDescriptor[] _descriptors;
 
    /** Collection of property names and display names. */
-   private static String _propNames[][] = {
+   private static final String[][] _propNames = {
       {"name","Name"},
       {"topic","Topic"},
       {"userCount","User Count"},

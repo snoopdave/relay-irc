@@ -28,7 +28,7 @@ import javax.swing.border.*;
  * All Rights Reserved.
  */
 public class PanelDlg extends JDialog {
-   private IPanel _panel;
+   private final IPanel _panel;
 
    public PanelDlg(Component parent, IPanel panel, String title) {
 

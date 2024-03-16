@@ -34,7 +34,7 @@ import javax.swing.border.*;
  */
 public class CustomActionsDlg extends JDialog {
 
-   private ITab _tabs[] = new ITab[4];
+   private final ITab[] _tabs = new ITab[4];
    private boolean _isOk = false;
 
    private CustomActionsPanel _menuActionsPanel = null;
@@ -42,11 +42,11 @@ public class CustomActionsDlg extends JDialog {
    private CustomActionsPanel _channelActionsPanel = null;
    private CustomActionsPanel _serverActionsPanel = null;
 
-   private JPanel         _contentPane = new JPanel();
-   private BorderLayout   _borderLayout = new BorderLayout();
-   private JTabbedPane    _tabbedPane = new JTabbedPane();
-   private JButton        _okButton = new JButton();
-   private JButton        _cancelButton = new JButton();
+   private final JPanel         _contentPane = new JPanel();
+   private final BorderLayout   _borderLayout = new BorderLayout();
+   private final JTabbedPane    _tabbedPane = new JTabbedPane();
+   private final JButton        _okButton = new JButton();
+   private final JButton        _cancelButton = new JButton();
    private Border         _border;
 
    //--------------------------------------------------------------------------
@@ -92,7 +92,7 @@ public class CustomActionsDlg extends JDialog {
       pack();
       // Make it 10% larger than tightly packed
       setSize( (int)(getSize().getWidth()*1.1),
-               (int)(getSize().getHeight()*1.0));
+               (int)(getSize().getHeight()));
 
       StandardDlg.centerOnScreen(this);
       setVisible(true);
@@ -129,7 +129,7 @@ public class CustomActionsDlg extends JDialog {
       // If tabs all contains good values
       boolean allOk = true;
       for (int i=0; i<_tabs.length; i++) {
-         if (_tabs[i].checkValues() == false) {
+         if (!_tabs[i].checkValues()) {
             allOk = false;
             break;
          }
@@ -195,7 +195,7 @@ public class CustomActionsDlg extends JDialog {
       });
    }
    //--------------------------------------------------------------------------
-   public static void main(String args[]) {
+   public static void main(String[] args) {
 
       ChatApp app = new ChatApp();
       ChatApp.setChatApp(app);

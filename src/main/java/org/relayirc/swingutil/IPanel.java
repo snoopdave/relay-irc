@@ -29,15 +29,15 @@ import javax.swing.*;
 public interface IPanel extends ITab {
    
    /** Get panel's Ok button. */
-   public JButton getOkButton();
+   JButton getOkButton();
    
    /** Get panel's Cancel button. */
-   public JButton getCancelButton();
+   JButton getCancelButton();
 
    /** Get panel itself. */
-   public JPanel getPanel();
+   JPanel getPanel();
 
    /** Inform panel of cancellation. */
-   public void onCancel();
+   void onCancel();
 }
 
