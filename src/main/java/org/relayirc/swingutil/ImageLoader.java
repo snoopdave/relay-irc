@@ -1,10 +1,10 @@
 
-package org.relayirc.swingutil;  
+package org.relayirc.swingutil;
 
-import java.io.*;
-import java.net.*;
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
+import java.io.InputStream;
+import java.net.URL;
 
 public class ImageLoader {
 

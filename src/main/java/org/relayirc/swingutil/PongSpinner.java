@@ -6,13 +6,14 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.swingutil;
+
 import org.relayirc.util.Debug;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-
-import javax.swing.border.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /** 
  * Pong-style progress indicator with little box that bounces from left

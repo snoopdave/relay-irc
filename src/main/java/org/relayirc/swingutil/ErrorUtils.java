@@ -3,17 +3,15 @@ package org.relayirc.swingutil;
 
 import org.relayirc.util.Debug;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.io.*; 
-import java.net.*; 
-import java.util.*;                    
-import java.applet.*;
-                    
 import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.text.*;
-import javax.swing.text.html.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 ////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////

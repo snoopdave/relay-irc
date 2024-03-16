@@ -7,15 +7,20 @@
 
 package org.relayirc.swingui;
 
-import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
-import java.io.*;
+import org.relayirc.chatengine.Server;
+import org.relayirc.swingutil.ITab;
+import org.relayirc.swingutil.IconManager;
+import org.relayirc.util.ComparableString;
+import org.relayirc.util.Debug;
+import org.relayirc.util.QuickSort;
 
-import org.relayirc.util.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.chatengine.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

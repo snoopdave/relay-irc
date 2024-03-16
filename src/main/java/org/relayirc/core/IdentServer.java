@@ -6,10 +6,14 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.core;
-import org.relayirc.util.*;
 
-import java.net.*;
+import org.relayirc.util.Debug;
+
 import java.io.*;
+import java.net.BindException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketException;
 
 /** 
  * Implements a "one-shot" ident authentication server.

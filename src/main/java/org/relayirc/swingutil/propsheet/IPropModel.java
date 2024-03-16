@@ -6,10 +6,9 @@
 //-----------------------------------------------------------------------------
 
 
-package org.relayirc.swingutil.propsheet; 
+package org.relayirc.swingutil.propsheet;
 
-import java.beans.*;
-import java.awt.Component;
+import java.beans.PropertyEditor;
 import java.util.Enumeration;
 
 //////////////////////////////////////////////////////////////////////////

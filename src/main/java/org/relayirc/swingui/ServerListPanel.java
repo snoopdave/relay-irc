@@ -6,19 +6,27 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
-import java.io.File;
-import java.net.URL;
-import java.util.*;
+import org.relayirc.chatengine.Server;
+import org.relayirc.swingutil.GuiObject;
+import org.relayirc.swingutil.IconManager;
+import org.relayirc.swingutil.SortedHeaderRenderer;
+import org.relayirc.swingutil.TableSorter;
+import org.relayirc.util.Debug;
+import org.relayirc.util.Utilities;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
+import java.io.File;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 ///////////////////////////////////////////////////////////////////////
 /**

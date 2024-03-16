@@ -6,9 +6,11 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.swingutil;
-import java.awt.*;
-import java.awt.event.*;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * Radar-style progress indicator with rotating chord inside circle. 

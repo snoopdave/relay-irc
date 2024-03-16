@@ -21,12 +21,14 @@
  * Contributor(s): No contributors to this file.''
  */
 package org.relayirc.swingutil;
-import org.relayirc.util.*;
 
-import java.awt.*;
-import java.awt.event.*;
+import org.relayirc.util.Debug;
+
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

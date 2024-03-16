@@ -7,23 +7,28 @@
 
 package org.relayirc.swingui;
 
+import org.python.util.PythonInterpreter;
 import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
+import org.relayirc.swingutil.IconManager;
+import org.relayirc.swingutil.MDIClientPanel;
+import org.relayirc.swingutil.MDIPanel;
+import org.relayirc.swingutil.StatusBar;
 import org.relayirc.util.Debug;
 
-import org.python.util.PythonInterpreter;
-
-//import com.l2fprod.gui.plaf.skin.*;
-
 import javax.swing.*;
-import javax.swing.text.*;
-
-import java.lang.reflect.*;
-import java.io.*;
-import java.util.*;
-import java.beans.*;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.Introspector;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.lang.reflect.Constructor;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

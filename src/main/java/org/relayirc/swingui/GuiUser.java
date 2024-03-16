@@ -6,12 +6,15 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
+
+import org.relayirc.chatengine.Channel;
+import org.relayirc.chatengine.User;
+import org.relayirc.swingutil.GuiObject;
+import org.relayirc.swingutil.IconManager;
+
 import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.event.*;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
+import java.awt.event.ActionEvent;
+import java.util.Hashtable;
 
 ////////////////////////////////////////////////////////////////////////////
 /**

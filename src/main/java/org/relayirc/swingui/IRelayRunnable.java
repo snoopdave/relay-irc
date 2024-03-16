@@ -6,8 +6,6 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import javax.swing.*;
-
 ///////////////////////////////////////////////////////////////////////////////
 /** 
  * The interface that Relay-JFC plugins are expected to support. 

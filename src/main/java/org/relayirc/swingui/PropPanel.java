@@ -7,12 +7,14 @@
 
 package org.relayirc.swingui;
 
-import org.relayirc.swingutil.propsheet.*;
+import org.relayirc.swingutil.propsheet.BeanModel;
+import org.relayirc.swingutil.propsheet.PropSheet;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.*;
-import java.awt.event.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.FocusEvent;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

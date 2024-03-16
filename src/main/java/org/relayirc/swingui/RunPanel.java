@@ -9,10 +9,10 @@
  */
 package org.relayirc.swingui;
 
-import org.relayirc.swingutil.*;
+import org.relayirc.swingutil.IconManager;
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
 public class RunPanel extends JPanel {
    BorderLayout borderLayout1 = new BorderLayout();

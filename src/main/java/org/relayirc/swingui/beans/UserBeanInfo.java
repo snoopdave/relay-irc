@@ -8,10 +8,11 @@
 
 package org.relayirc.swingui.beans;
 
-import java.beans.*;
-import org.relayirc.util.*;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.propsheet.*;
+import org.relayirc.chatengine.User;
+import org.relayirc.util.Debug;
+
+import java.beans.PropertyDescriptor;
+import java.beans.SimpleBeanInfo;
 
 //////////////////////////////////////////////////////////////////////////
 

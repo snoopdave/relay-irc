@@ -6,11 +6,13 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.swingutil;
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
+
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 /** 
  * Simple status bar with a progress spinner, a timer and a clock display. 

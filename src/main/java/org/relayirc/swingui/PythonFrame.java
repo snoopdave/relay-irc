@@ -6,19 +6,14 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
 import org.python.util.PythonInterpreter;
-import org.python.core.*;
+import org.relayirc.swingutil.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.util.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////////
 /**

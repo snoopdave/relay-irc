@@ -6,16 +6,19 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
+import org.relayirc.chatengine.Channel;
+import org.relayirc.chatengine.ChannelSearch;
+import org.relayirc.chatengine.ChannelSearchListener;
+import org.relayirc.swingutil.*;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
-import javax.swing.event.*;
 
 ///////////////////////////////////////////////////////////////////////
 

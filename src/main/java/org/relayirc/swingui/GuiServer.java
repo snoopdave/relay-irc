@@ -6,12 +6,13 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
+
+import org.relayirc.chatengine.Server;
+import org.relayirc.swingutil.GuiObject;
+
 import javax.swing.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.event.*;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
+import java.awt.event.ActionEvent;
+import java.util.Hashtable;
 
 /**
  * A GuiObject that represents a server.

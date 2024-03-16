@@ -7,17 +7,14 @@
 
 package org.relayirc.swingui;
 
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.swingutil.propsheet.*;
+import org.relayirc.chatengine.IChatObject;
+import org.relayirc.swingutil.StandardDlg;
 
 import java.awt.*;
-import javax.swing.JDialog;
 
 ////////////////////////////////////////////////////////////////////
 /**
  * Property dialog for IChatObjects. Uses PropPanel.
- * @see PropPanel.
  * @see org.relayirc.chatengine.IChatObject
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $

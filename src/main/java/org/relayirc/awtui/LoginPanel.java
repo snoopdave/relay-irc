@@ -2,7 +2,7 @@
 package org.relayirc.awtui;
 
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
 
 //////////////////////////////////////////////////////////////////////////////
 

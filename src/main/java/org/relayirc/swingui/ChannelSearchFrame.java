@@ -6,13 +6,13 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
-import java.awt.*;
-import java.awt.event.*;
+import org.relayirc.chatengine.ChannelSearch;
+import org.relayirc.swingutil.MDIClientFrame;
+import org.relayirc.swingutil.MDIClientPanel;
+
 import javax.swing.*;
+import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////////
 

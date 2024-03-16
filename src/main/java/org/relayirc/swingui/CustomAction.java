@@ -7,16 +7,15 @@
 
 package org.relayirc.swingui;
 
-import org.relayirc.chatengine.*;
+import org.python.util.PythonInterpreter;
+import org.relayirc.chatengine.Channel;
+import org.relayirc.chatengine.Server;
+import org.relayirc.chatengine.User;
 import org.relayirc.util.Debug;
 
-import org.python.util.PythonInterpreter;
-import org.python.core.*;
-
 import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.event.*;
-import java.io.*;
+import java.awt.event.ActionEvent;
+import java.io.Serializable;
 
 ///////////////////////////////////////////////////////////////////////////////
 /**

@@ -7,13 +7,12 @@
 
 package org.relayirc.swingui;
 
-import org.relayirc.swingutil.*;
+import org.relayirc.swingutil.ITab;
+import org.relayirc.swingutil.ListEditorPanel;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.*;
+import java.util.Vector;
 
 /////////////////////////////////////////////////////////////////////////////
 /**

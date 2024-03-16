@@ -22,9 +22,9 @@
  */
 package org.relayirc.swingutil;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 /**
  * Tabbed dialog that manages tabs that implement the ITab interface.

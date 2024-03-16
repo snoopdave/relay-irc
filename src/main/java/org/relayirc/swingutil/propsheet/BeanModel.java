@@ -7,12 +7,12 @@
 
 package org.relayirc.swingutil.propsheet;
 
-import org.relayirc.swingutil.propsheet.editors.*;
+import org.relayirc.swingutil.propsheet.editors.LabelEditor;
 import org.relayirc.util.Debug;
 
 import java.beans.*;
-import java.util.*;
-import java.lang.reflect.*;
+import java.util.Enumeration;
+import java.util.Hashtable;
 
 
 /**

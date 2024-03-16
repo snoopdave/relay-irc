@@ -6,9 +6,10 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.swingutil;
-import java.awt.*;
-import java.awt.event.*;
+
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /** 
  * Pong-style progress indicator with little box that bounces from left

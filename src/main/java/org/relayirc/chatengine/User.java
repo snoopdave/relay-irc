@@ -6,9 +6,12 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.chatengine;
-import org.relayirc.util.*;
-import java.io.*;
-import java.beans.*;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.io.NotActiveException;
+import java.io.Serializable;
 import java.util.Date;
 
 /**

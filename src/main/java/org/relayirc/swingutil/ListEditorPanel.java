@@ -7,11 +7,12 @@
 
 package org.relayirc.swingutil;
 
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.util.Vector;
 
 /////////////////////////////////////////////////////////////////////////////
 /**

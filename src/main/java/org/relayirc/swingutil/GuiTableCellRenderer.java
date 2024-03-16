@@ -24,13 +24,10 @@
 package org.relayirc.swingutil;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.TableCellRenderer;
-import javax.swing.border.*;
-
-import java.awt.Component;
-import java.awt.Color;
-import java.util.*;
-
+import java.awt.*;
 import java.io.Serializable;
 
 /**

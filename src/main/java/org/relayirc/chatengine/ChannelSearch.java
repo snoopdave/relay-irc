@@ -6,7 +6,6 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.chatengine;
-import org.relayirc.util.*;
 
 import java.util.Vector;
 

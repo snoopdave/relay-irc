@@ -21,18 +21,19 @@
  */
 
 package org.relayirc.swingutil;
-import org.relayirc.util.*;
 
-import java.beans.PropertyVetoException;
+import org.relayirc.util.Debug;
 
-import java.util.Vector;
-import java.util.Hashtable;
-import java.util.Enumeration;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.border.*;
+import javax.swing.border.BevelBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
+import java.beans.PropertyVetoException;
+import java.util.Hashtable;
+import java.util.Vector;
 
 ///////////////////////////////////////////////////////////////////////
 

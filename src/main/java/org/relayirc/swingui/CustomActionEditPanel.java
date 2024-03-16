@@ -7,13 +7,17 @@
 
 package org.relayirc.swingui;
 
-import org.relayirc.swingutil.*;
+import org.relayirc.swingutil.IPanel;
+import org.relayirc.swingutil.PanelDlg;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.io.*;
-import javax.swing.border.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
 
 /////////////////////////////////////////////////////////////////////////////
 /**

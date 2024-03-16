@@ -6,17 +6,17 @@
 //-----------------------------------------------------------------------------
 
 
-package org.relayirc.swingutil.propsheet.editors; 
+package org.relayirc.swingutil.propsheet.editors;
 
 import org.relayirc.swingutil.GuiObject;
-import org.relayirc.swingutil.propsheet.*;
+import org.relayirc.swingutil.propsheet.PropSheetEditor;
 import org.relayirc.util.Debug;
 
-import java.util.*;
-import java.beans.*;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.Hashtable;
 
 ////////////////////////////////////////////////////////////////////////////////
 /**

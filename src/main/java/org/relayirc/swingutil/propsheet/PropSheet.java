@@ -6,16 +6,16 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingutil.propsheet;
-import org.relayirc.util.Debug;
-import org.relayirc.swingutil.GuiObject;
 
-import java.awt.*;
-import java.beans.*;
-import java.awt.event.*;
+import org.relayirc.util.Debug;
+
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.*;
-import java.util.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.beans.PropertyEditor;
+import java.util.Enumeration;
+import java.util.Vector;
 
 //////////////////////////////////////////////////////////////////////////
 /**

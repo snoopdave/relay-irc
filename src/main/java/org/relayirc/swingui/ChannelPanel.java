@@ -6,15 +6,18 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import org.relayirc.chatengine.Channel;
+import org.relayirc.chatengine.ChannelEvent;
+import org.relayirc.chatengine.ChannelListener;
+import org.relayirc.swingutil.MDIClientPanel;
+import org.relayirc.swingutil.MDIPanel;
+import org.relayirc.util.Debug;
+
 import javax.swing.*;
-import javax.swing.event.*;
+import java.awt.*;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 
 ///////////////////////////////////////////////////////////////////////
 

@@ -7,15 +7,20 @@
 
 package org.relayirc.swingui;
 
-import org.relayirc.chatengine.*;
-import org.relayirc.util.*;
-import java.io.*;
-import java.util.*;
-import java.beans.*;
-
-import java.awt.Font;
+import org.relayirc.chatengine.Channel;
+import org.relayirc.chatengine.Server;
+import org.relayirc.chatengine.User;
+import org.relayirc.util.Debug;
+import org.relayirc.util.Utilities;
 
 import javax.swing.*;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.*;
+import java.util.Properties;
+import java.util.Vector;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

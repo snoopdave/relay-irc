@@ -7,15 +7,19 @@
 
 package org.relayirc.swingui;
 
-import  org.relayirc.util.*;
-import  org.relayirc.swingutil.*;
-import  org.relayirc.chatengine.*;
+import org.relayirc.chatengine.Channel;
+import org.relayirc.chatengine.Server;
+import org.relayirc.swingutil.IconManager;
 
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
-import java.util.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Vector;
 
 ///////////////////////////////////////////////////////////////////////
 /**

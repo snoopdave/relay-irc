@@ -1,11 +1,8 @@
 package org.relayirc.swingutil;
 
-import org.relayirc.util.Debug;
-
-import java.util.Vector;
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.border.*;
+import java.util.Vector;
 
 public class ListSelectionEditorDlg extends StandardDlg {
 

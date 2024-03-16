@@ -1,9 +1,9 @@
 package org.relayirc.swingutil;
+
 import org.relayirc.util.Debug;
 
-import java.awt.*;
 import javax.swing.*;
-
+import java.awt.*;
 import java.util.Vector;
 
 /** 

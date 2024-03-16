@@ -7,7 +7,9 @@
 
 
 package org.relayirc.util;
-import java.util.*;
+
+import java.util.Enumeration;
+import java.util.Vector;
 
 ///////////////////////////////////////////////////////////////////////////
 

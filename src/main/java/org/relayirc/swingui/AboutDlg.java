@@ -6,13 +6,13 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
 
-import java.awt.*;
-import java.awt.event.*;
+import org.relayirc.swingutil.StandardDlg;
+
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 ///////////////////////////////////////////////////////////////////////
 /**

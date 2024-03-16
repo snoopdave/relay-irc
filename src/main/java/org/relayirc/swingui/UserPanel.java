@@ -7,12 +7,12 @@
 
 package org.relayirc.swingui;
 
-import java.awt.*;
+import org.relayirc.chatengine.User;
+import org.relayirc.swingutil.ITab;
+
 import javax.swing.*;
-import org.relayirc.chatengine.*;
-import org.relayirc.util.*;
-import org.relayirc.swingutil.*;
-import java.awt.event.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

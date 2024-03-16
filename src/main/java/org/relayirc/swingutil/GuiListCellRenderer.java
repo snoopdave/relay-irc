@@ -23,9 +23,8 @@
 
 package org.relayirc.swingutil;
 
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.tree.*;
+import java.awt.*;
 
 /** 
  * GuiObject-aware implementation ListCellRenderer.

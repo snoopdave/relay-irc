@@ -6,7 +6,9 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.util;
-import java.util.*;
+
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 /**
  * Super-simple string parser. 

@@ -6,13 +6,20 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.chatengine;
-import org.relayirc.core.*;
+
+import org.relayirc.core.IRCConnection;
+import org.relayirc.core.IRCConnectionListener;
 import org.relayirc.util.Debug;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
-import java.beans.*;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.io.NotActiveException;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

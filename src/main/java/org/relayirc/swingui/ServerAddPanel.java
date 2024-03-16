@@ -8,13 +8,18 @@
 package org.relayirc.swingui;
 
 import org.relayirc.chatengine.Server;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
+import org.relayirc.swingutil.ITab;
+import org.relayirc.util.ComparableString;
+import org.relayirc.util.QuickSort;
+import org.relayirc.util.Utilities;
 
-import java.util.*;
-import java.awt.*;
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Vector;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

@@ -6,7 +6,8 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.chatengine;
-import org.relayirc.util.*;
+
+import org.relayirc.util.Debug;
 
 import java.util.EventObject;
 

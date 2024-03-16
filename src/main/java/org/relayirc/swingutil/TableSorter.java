@@ -36,23 +36,17 @@
  * @author Philip Milne
  */
 package org.relayirc.swingutil;
-import org.relayirc.util.*;
 
-import java.util.*;
+import org.relayirc.util.Debug;
 
-import javax.swing.table.TableModel;
+import javax.swing.*;
 import javax.swing.event.TableModelEvent;
-
-// Imports for picking up mouse events from the JTable.
-
+import javax.swing.table.*;
+import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.InputEvent;
-import javax.swing.JTable;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableCellRenderer;
+import java.util.Date;
+import java.util.Vector;
 
 public class TableSorter extends TableMap
 {

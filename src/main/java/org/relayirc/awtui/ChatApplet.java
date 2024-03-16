@@ -1,11 +1,9 @@
 
 package org.relayirc.awtui;
 
+import java.applet.Applet;
 import java.awt.*;
-import java.awt.event.*;
-import java.applet.*;
-
-import org.relayirc.chatengine.*;
+import java.awt.event.WindowEvent;
 
 //////////////////////////////////////////////////////////////////////////////
 

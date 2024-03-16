@@ -7,11 +7,17 @@
 
 package org.relayirc.chatengine;
 
-import org.relayirc.util.*;
-import org.relayirc.core.*;
-import java.io.*;
-import java.util.*;
-import java.beans.*;
+import org.relayirc.core.IRCConnectionAdapter;
+import org.relayirc.core.IRCConnectionListener;
+import org.relayirc.util.Debug;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.io.IOException;
+import java.io.NotActiveException;
+import java.io.Serializable;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 /**
  * An IRC channel class that includes methods for joining, parting,

@@ -5,14 +5,14 @@
 // $Date: 2001/04/01 05:53:57 $
 //-----------------------------------------------------------------------------
 
-package org.relayirc.swingutil.propsheet; 
+package org.relayirc.swingutil.propsheet;
 
 import org.relayirc.util.Debug;
 
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorManager;
-import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
 ////////////////////////////////////////////////////////////////////////////////
 /**

@@ -6,15 +6,14 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import org.relayirc.swingutil.ColorCombo;
+import org.relayirc.swingutil.GridBagConstraints2;
+import org.relayirc.swingutil.ITab;
+
 import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////////
 

@@ -8,14 +8,14 @@
 
 package org.relayirc.swingutil.propsheet.editors;
 
-import org.relayirc.swingutil.propsheet.*;
-import org.relayirc.util.Debug;
+import org.relayirc.swingutil.propsheet.PropSheetEditor;
 
-import java.beans.*;
-import java.awt.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
+import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 ////////////////////////////////////////////////////////////////////////////////
 /**

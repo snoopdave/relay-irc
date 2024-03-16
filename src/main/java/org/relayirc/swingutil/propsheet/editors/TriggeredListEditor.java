@@ -7,16 +7,11 @@
 
 package org.relayirc.swingutil.propsheet.editors;
 
-import org.relayirc.swingutil.propsheet.*;
 import org.relayirc.swingutil.DefaultListEditorDlg;
 import org.relayirc.util.Debug;
 
-import java.util.Vector;
-import java.beans.*;
 import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-import javax.swing.event.*;
+import java.util.Vector;
 
 ////////////////////////////////////////////////////////////////////////////////
 /**

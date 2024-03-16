@@ -22,11 +22,13 @@
  */
 package org.relayirc.swingutil;
 
-import java.io.*;
-import java.util.*;
-import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.*;
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Hashtable;
 
 /**
  * Color combobox for choosing one of the 13 named colors in AWT.

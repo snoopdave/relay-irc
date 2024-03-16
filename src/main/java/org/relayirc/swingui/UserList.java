@@ -6,14 +6,18 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
-import java.awt.*;
-import java.util.Hashtable;
-import java.awt.event.*;
+import org.relayirc.chatengine.Channel;
+import org.relayirc.chatengine.Server;
+import org.relayirc.chatengine.User;
+import org.relayirc.swingutil.GuiListCellRenderer;
+import org.relayirc.util.Debug;
+
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Hashtable;
 
 /**
  * <p>List component which displays the users currently present in a

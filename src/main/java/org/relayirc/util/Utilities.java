@@ -7,7 +7,10 @@
 
 
 package org.relayirc.util;
-import java.util.*;
+
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 /**
  * Utility functions.

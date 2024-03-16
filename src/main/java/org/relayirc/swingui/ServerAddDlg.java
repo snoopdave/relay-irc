@@ -7,11 +7,10 @@
 
 package org.relayirc.swingui;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.*;
+import org.relayirc.swingutil.StandardDlg;
 
-import org.relayirc.swingutil.*;
+import java.awt.*;
+import java.util.Vector;
 
 //////////////////////////////////////////////////////////////////////////////
 /**

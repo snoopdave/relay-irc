@@ -8,12 +8,19 @@
 package org.relayirc.core;
 
 // Only dependency on other Relay package
+
 import org.relayirc.util.Debug;
 import org.relayirc.util.ParsedToken;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.net.SocketException;
+import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.StringTokenizer;
 /**
  * <p>A socket connection to a RFC-1459 compatible IRC server.
  * Parses incoming IRC messages, replies, commands and errors

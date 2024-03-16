@@ -6,16 +6,18 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
-import org.relayirc.util.*;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.beans.*;
-import java.util.*;
+import org.relayirc.chatengine.Channel;
+import org.relayirc.swingutil.IconManager;
+import org.relayirc.swingutil.MDIClientFrame;
+import org.relayirc.swingutil.MDIClientPanel;
+
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.InternalFrameAdapter;
+import javax.swing.event.InternalFrameEvent;
+import java.awt.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 ///////////////////////////////////////////////////////////////////////
 

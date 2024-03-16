@@ -6,9 +6,8 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
-import javax.swing.*; 
-import org.relayirc.chatengine.*;
-import org.relayirc.swingutil.*;
+
+import javax.swing.*;
 
 /** 
  * Makes it easier to implement actions. 

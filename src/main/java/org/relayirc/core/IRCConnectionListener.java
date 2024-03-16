@@ -6,7 +6,7 @@
 //----------------------------------------------------------------------------
 
 package org.relayirc.core;
-import org.relayirc.util.*;
+
 import java.util.Date;
 
 /** 
