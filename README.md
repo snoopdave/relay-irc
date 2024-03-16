@@ -1,7 +1,7 @@
 
 # Relay-IRC
 
-*Copyright 1999-2024 by David M. Johnson*
+*Copyright 1997 - 2024 by David M. Johnson*
 
 ### TABLE OF CONTENTS
 
@@ -15,8 +15,7 @@
 
 Relay-IRC is an Open Source IRC chat program with an easy-to-use graphical user interface. 
 Written in Java and Swing (aka JFC), it should run on just about any computer.
-
-Relay-IRC is currently available under the terms of the Mozilla public license (see the file LICENSE or the Mozilla web site for more on this license).
+The software is available under the terms of the Mozilla public license (see the file LICENSE or the Mozilla web site for more on this license).
 
 Relay-IRC was once known as Relay-JFC. 
 There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855)
