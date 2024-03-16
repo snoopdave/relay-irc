@@ -1,7 +1,7 @@
 
 # Relay-IRC
 
-*Copyright 1999-2024 by David M. Johnson*
+*Copyright 1997 - 2024 by David M. Johnson*
 
 ### TABLE OF CONTENTS
 
