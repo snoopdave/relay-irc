@@ -40,7 +40,7 @@ import java.util.StringTokenizer;
  * Original Code:     Relay IRC Chat Server<br>
  * Initial Developer: David M. Johnson <br>
  * Contributor(s):    No contributors to this file <br>
- * Copyright (C) 1997-2000 by David M. Johnson <br>
+ * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("DE_MIGHT_IGNORE")

@@ -36,7 +36,7 @@ import java.util.Vector;
  * Original Code: Relay IRC Chat Engine<br>
  * Initial Developer: David M. Johnson <br>
  * Contributor(s): No contributors to this file <br>
- * Copyright (C) 1997-2000 by David M. Johnson <br>
+ * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
 public class ServerPanel extends JPanel implements ITab {

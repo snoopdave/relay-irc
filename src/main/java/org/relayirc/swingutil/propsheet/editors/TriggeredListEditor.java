@@ -27,7 +27,7 @@ import java.util.Vector;
  * <strong>Initial Developer:</strong> David M. Johnson <br>
  * <strong>Contributor(s):</strong>HAHT Commerce, Inc.
  * <br>
- * Copyright (C) 1997-2000 by David M. Johnson <br>
+ * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
 public class TriggeredListEditor extends TriggeredEditor {

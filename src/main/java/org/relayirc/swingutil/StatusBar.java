@@ -26,7 +26,7 @@ import java.util.Calendar;
  * <strong>Original Code:</strong>Relay-JFC Chat Client<br>
  * <strong>Initial Developer:</strong> David M. Johnson <br>
  * <strong>Contributor(s):</strong> No contributors to this file <br>
- * Copyright (C) 1997-2000 by David M. Johnson <br>
+ * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
 public class StatusBar extends JPanel {

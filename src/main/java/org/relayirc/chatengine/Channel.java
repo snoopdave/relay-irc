@@ -15,6 +15,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.IOException;
 import java.io.NotActiveException;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -33,12 +34,13 @@ import java.util.Vector;
  * Original Code:     Relay IRC Chat Engine<br>
  * Initial Developer: David M. Johnson <br>
  * Contributor(s):    No contributors to this file <br>
- * Copyright (C) 1997-2000 by David M. Johnson <br>
+ * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
 public class Channel implements IChatObject, Serializable {
 
-   static final long serialVersionUID = -7306475367688154363L;
+   @Serial
+   private static final long serialVersionUID = -7306475367688154363L;
 
 	private String                _name = "";
    private String                _desc = "";

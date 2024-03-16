@@ -24,7 +24,7 @@ import java.beans.PropertyEditorSupport;
  * <strong>Initial Developer:</strong> David M. Johnson <br>
  * <strong>Contributor(s):</strong> No contributors to this file
  * <br>
- * Copyright (C) 1997-2000 by David M. Johnson <br>
+ * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
 public class PropSheetEditor extends PropertyEditorSupport {

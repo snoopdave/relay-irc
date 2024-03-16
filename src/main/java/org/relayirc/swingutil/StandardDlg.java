@@ -28,7 +28,7 @@ import java.awt.event.WindowEvent;
  * <strong>Original Code:</strong>Relay IRC Chat Engine<br>
  * <strong>Initial Developer:</strong> David M. Johnson <br>
  * <strong>Contributor(s):</strong> No contributors to this file <br>
- * Copyright (C) 1997-2000 by David M. Johnson <br>
+ * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
 
