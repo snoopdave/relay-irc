@@ -95,7 +95,7 @@ public class Server implements IChatObject, Serializable {
 	  * @param name    IRC chat server hostname (e.g. irc.mindspring.com).
 	  * @param port    Default IRC server port (e.g. 6667).
 	  * @param network Name of server's network (e.g. EFNet)
-	  * @param desc    Title or display name of server.
+	  * @param title   Title or display name of server.
      */
    public Server(String name, int port, String network, String title) {
 
@@ -696,7 +696,7 @@ public class Server implements IChatObject, Serializable {
       //------------------------------------------------------------------
       public void onClientSource(String orgnick) {
          String response = "NOTICE "+orgnick+
-            " :\001SOURCE :http://relayirc.netpedia.net\001";
+            " :\001SOURCE :https://github.com/snoopdave/relay-irc\001";
          _connection.writeln(response);
       }
       //------------------------------------------------------------------

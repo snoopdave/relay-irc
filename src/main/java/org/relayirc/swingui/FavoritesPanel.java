@@ -228,7 +228,10 @@ class FavoritesTree extends JTree {
    //-----------------------------------------------------------------
    public void update() {
       _favoritesNode.update();
-      try {((DefaultTreeModel)getModel()).reload();} catch (Exception e) {}
+      try {((DefaultTreeModel)getModel()).reload();} catch (Exception e) {
+         Debug.println("Internal Swing error");
+         Debug.printStackTrace(e);
+      }
       expandPath(new TreePath(_favoritesNode.getServersNode().getPath()));
       expandPath(new TreePath(_favoritesNode.getChannelsNode().getPath()));
       expandPath(new TreePath(_favoritesNode.getUsersNode().getPath()));

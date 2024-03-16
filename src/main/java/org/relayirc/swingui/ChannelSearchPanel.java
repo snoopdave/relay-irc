@@ -201,7 +201,7 @@ class QueryPanel extends JPanel {
                "Some servers do not support channel searches and may \n"
                +"disconnect. Are you sure you want to run this search?");
 
-            if (ret==JOptionPane.YES_OPTION || ret==JOptionPane.OK_OPTION) {
+            if (ret == JOptionPane.YES_OPTION) { // or JOptionPane.OK_OPTION
                int min = Integer.MIN_VALUE;
                int max = Integer.MAX_VALUE;
 

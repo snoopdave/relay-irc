@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
+import java.nio.file.FileSystems;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
@@ -220,7 +221,7 @@ public class ChatApp extends JFrame implements ServerListener {
       String fileName = "";
       try {
          String home = System.getProperty("user.home");
-         String sep = System.getProperty("file.separator");
+         String sep = FileSystems.getDefault().getSeparator();
          fileName = home+sep+"relay.dat";
          FileInputStream fis = new FileInputStream(fileName);
          ObjectInputStream ois = new ObjectInputStream(fis);
@@ -540,7 +541,7 @@ public class ChatApp extends JFrame implements ServerListener {
       String fileName = "";
       try {
          String home = System.getProperty("user.home");
-         String sep = System.getProperty("file.separator");
+         String sep = FileSystems.getDefault().getSeparator();
          fileName = home+sep+"relay.dat";
          FileOutputStream fos = new FileOutputStream(fileName);
          ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -1005,28 +1006,20 @@ public class ChatApp extends JFrame implements ServerListener {
          setFloatable(false);
          this.setMargin(new Insets(0,0,0,0));
 
-         createButton(getAction( SETUP).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
+         createButton(getAction( SETUP).getActionObject()).setMargin(new Insets(3,3,3,3));
 
          addSeparator();
-         createButton(getAction( CONNECT).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
-         createButton(getAction( DISCONNECT).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
+         createButton(getAction( CONNECT).getActionObject()).setMargin(new Insets(3,3,3,3));
+         createButton(getAction( DISCONNECT).getActionObject()).setMargin( new Insets(3,3,3,3));
 
          addSeparator();
-         createButton(getAction( LIST_CHANNELS).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
-         createButton(getAction( JOIN_CHANNEL ).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
+         createButton(getAction( LIST_CHANNELS).getActionObject()).setMargin(new Insets(3,3,3,3));
+         createButton(getAction( JOIN_CHANNEL ).getActionObject()).setMargin(new Insets(3,3,3,3));
 
          addSeparator();
-         createButton(getAction( CASCADE).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
-         createButton(getAction( TILE_HORZ).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
-         createButton(getAction( TILE_VERT).getActionObject()).setMargin(
-            new Insets(3,3,3,3));
+         createButton(getAction( CASCADE).getActionObject()).setMargin(new Insets(3,3,3,3));
+         createButton(getAction( TILE_HORZ).getActionObject()).setMargin(new Insets(3,3,3,3));
+         createButton(getAction( TILE_VERT).getActionObject()).setMargin(new Insets(3,3,3,3));
       }
       //- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       private JButton createButton( Action action ) {
@@ -1111,7 +1104,7 @@ public class ChatApp extends JFrame implements ServerListener {
         int ret = JOptionPane.showConfirmDialog(ChatApp.getChatApp(),
            "Are you sure you want to disconnect?");
 
-        if (ret==JOptionPane.YES_OPTION || ret==JOptionPane.OK_OPTION) {
+        if (ret == JOptionPane.YES_OPTION) { // or JOptionPane.OK_OPTION
            getServer().disconnect();
         }
       }

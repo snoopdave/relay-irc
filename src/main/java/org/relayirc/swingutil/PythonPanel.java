@@ -40,10 +40,10 @@ public class PythonPanel extends JPanel {
    private PythonInterpreter _python = null;
    private final JTextArea         _textArea = new JTextArea();
 
-   public static int INDENT = 3;
-   public static int PROMPT_LENGTH = 3;
-   public static String START_PROMPT = ">>>";
-   public static String CONTINUE_PROMPT = "...";
+   public final static int INDENT = 3;
+   public final static int PROMPT_LENGTH = 3;
+   public final static String START_PROMPT = ">>>";
+   public final static String CONTINUE_PROMPT = "...";
 
    //----------------------------------------------------------------------
    /** Construct PythonPanel and its embedded Jython interpreter. */
@@ -297,7 +297,7 @@ public class PythonPanel extends JPanel {
       int pos = doc.getLength() > 0 ? doc.getLength() - 1 : 0;
       try {
          String banner = "Jython is Copyright (c) 1997-2001 CNRI\n";
-         banner += "http://www.jython.org\n";
+         banner += "https://www.jython.org\n";
          doc.insertString(pos,banner,null);
          doc.insertString(doc.getLength()-1,"\n",null);
          _textArea.setCaretPosition(doc.getLength()-1);

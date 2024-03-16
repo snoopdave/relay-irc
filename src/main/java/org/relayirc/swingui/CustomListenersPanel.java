@@ -52,7 +52,7 @@ public class CustomListenersPanel extends JPanel implements ITab {
       JDialog parent,String name, String prompt, Vector listeners) {
 
       _name = name;
-      _listeners = _listeners;
+      _listeners = listeners;
       _editorPanel = new ListEditorPanel(parent,prompt,_model);
 
       try {

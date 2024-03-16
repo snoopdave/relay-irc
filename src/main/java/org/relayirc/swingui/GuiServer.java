@@ -144,7 +144,7 @@ public class GuiServer extends GuiObject {
         int ret = JOptionPane.showConfirmDialog(ChatApp.getChatApp(),
            "Are you sure you want to disconnect?");
 
-        if (ret==JOptionPane.YES_OPTION || ret==JOptionPane.OK_OPTION) {
+        if (ret == JOptionPane.YES_OPTION) { // or JOptionPane.OK_OPTION
            ChatApp.getChatApp().getServer().disconnect();
         }
       }
@@ -183,7 +183,7 @@ public class GuiServer extends GuiObject {
          int ret = JOptionPane.showConfirmDialog(ChatApp.getChatApp(),
             "Are you sure you want to remove server "+_server.getName());
 
-         if (ret==JOptionPane.YES_OPTION || ret==JOptionPane.OK_OPTION) {
+         if (ret == JOptionPane.YES_OPTION) { // or JOptionPane.OK_OPTION
             _server.setFavorite(false);
          }
       }

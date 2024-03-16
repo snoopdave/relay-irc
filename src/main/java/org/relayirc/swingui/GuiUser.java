@@ -188,7 +188,7 @@ public class GuiUser extends GuiObject {
          int ret = JOptionPane.showConfirmDialog(ChatApp.getChatApp(),
             "Are you sure you want to remove user "+_user.getName());
 
-         if (ret==JOptionPane.YES_OPTION || ret==JOptionPane.OK_OPTION) {
+         if (ret == JOptionPane.YES_OPTION) { // or JOptionPane.OK_OPTION
             ChatApp.getChatApp().getOptions().getFavoriteUsers().removeUser(_user);
          }
       }

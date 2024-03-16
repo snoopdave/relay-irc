@@ -597,5 +597,15 @@ public class Channel implements IChatObject, Serializable {
          });
       }
    }
+   //------------------------------------------------------------------
+   @Override
+   public int hashCode() {
+       int hash = 7;
+       hash = 31 * hash + (_name == null ? 0 : _name.hashCode());
+       hash = 31 * hash + (_topic == null ? 0 : _topic.hashCode());
+       hash = 31 * hash + (_server == null ? 0 : _server.hashCode());
+       return hash;
+   }
+
 }
 

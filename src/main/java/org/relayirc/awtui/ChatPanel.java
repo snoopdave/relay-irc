@@ -17,9 +17,6 @@ import java.util.Date;
  *
  * @author David M. Johnson
  * @verion $Revision: 1.1.2.2 $
- *
- * @see org.relayirc.chatengine.IRCConnection
- * @see org.relayirc.chatengine.IRCConnectionAdapter
  */
 public class ChatPanel extends Panel {
 
@@ -42,12 +39,14 @@ public class ChatPanel extends Panel {
    public ChatPanel(ChatApplet applet) {
       this();
       print(
-          "Relay-AWT Chat 0.1\n"
-         +"Mozilla Public License (MPL) applies\n"
-         +"http://relayirc.sourceforge.net\n"
-         +"\n"
-         +"READY\n"
-         +"\n");
+              """
+                      Relay-AWT Chat 0.1
+                      Mozilla Public License (MPL) applies
+                      https://relayirc.sourceforge.net
+
+                      READY
+
+                      """);
    }
    //------------------------------------------------------------------------
    /** 

@@ -211,7 +211,7 @@ public class User implements IChatObject, Serializable {
          sb.append("User is currently OFFLINE").append('\n'); 
       } 
       return sb.toString(); 
-   } 
+   }
    //-------------------------------------------------------------------
    private void readObject(java.io.ObjectInputStream in)
       throws IOException, ClassNotFoundException {
@@ -220,6 +220,15 @@ public class User implements IChatObject, Serializable {
       catch (NotActiveException e) {e.printStackTrace();}
 
       _propChangeSupport = new PropertyChangeSupport(this);
+   }
+   //-------------------------------------------------------------------
+   @Override
+   public int hashCode() {
+      int hash = 7;
+      hash = 31 * hash + getNick().hashCode();
+      hash = 31 * hash + getServerName().hashCode();
+      hash = 31 * hash + getHostName().hashCode();
+      return hash;
    }
 }
 

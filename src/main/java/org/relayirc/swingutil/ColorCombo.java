@@ -113,14 +113,6 @@ public class ColorCombo extends JComboBox implements Serializable {
       return (String)_namesByColor.get(getSelectedColor());
    }
    //---------------------------------------------------------------
-   void writeObject(ObjectOutputStream oos) throws IOException {
-      oos.defaultWriteObject();
-   }
-   //---------------------------------------------------------------
-   void readObject(ObjectInputStream ois) throws ClassNotFoundException, IOException {
-      ois.defaultReadObject();
-   }
-   //---------------------------------------------------------------
    class _ColorRenderer extends JPanel implements ListCellRenderer {
       private Color _val = Color.black;
       private boolean _sel = false;

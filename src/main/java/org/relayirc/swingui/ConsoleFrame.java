@@ -11,6 +11,7 @@ import org.relayirc.swingutil.IconManager;
 import org.relayirc.swingutil.MDIClientFrame;
 import org.relayirc.swingutil.MDIClientPanel;
 import org.relayirc.swingutil.MDIPanel;
+import org.relayirc.util.Debug;
 
 import javax.swing.*;
 import javax.swing.event.InternalFrameAdapter;
@@ -104,7 +105,10 @@ public class ConsoleFrame extends JInternalFrame implements MDIClientFrame {
 
          }
       });
-      try {setSelected(true);} catch (Exception e) {}
+      try {setSelected(true);} catch (Exception e) {
+         Debug.println("Internal Swing error");
+         Debug.printStackTrace(e);
+      }
    }
 
    public MDIClientPanel getClientPanel() {

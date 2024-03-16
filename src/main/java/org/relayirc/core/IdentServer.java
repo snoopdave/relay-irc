@@ -14,6 +14,7 @@ import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 
 /** 
  * Implements a "one-shot" ident authentication server.
@@ -81,9 +82,8 @@ public class IdentServer implements Runnable {
 
          // Got connection, now setup IO streams
          Debug.println("IdentServer: got a connection");
-         is = new BufferedReader( 
-                 new InputStreamReader( 
-                    new DataInputStream( _clientSocket.getInputStream() )));
+         is = new BufferedReader(new InputStreamReader(new DataInputStream( _clientSocket.getInputStream()),
+                 StandardCharsets.UTF_8));
          os = new DataOutputStream( _clientSocket.getOutputStream() );
       }
       catch (InterruptedIOException e) {

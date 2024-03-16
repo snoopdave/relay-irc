@@ -18,6 +18,7 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
@@ -42,6 +43,7 @@ import java.util.StringTokenizer;
  * Copyright (C) 1997-2000 by David M. Johnson <br>
  * All Rights Reserved.
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings("DE_MIGHT_IGNORE")
 public class IRCConnection implements Runnable, IRCConstants {
 
    public static final int CONNECTED     =  0;
@@ -53,14 +55,11 @@ public class IRCConnection implements Runnable, IRCConstants {
    private final String    _server;
    private final int       _port;
    private String    _nick;
-   private final String    _altNick;
-   private final String    _userName;
+    private final String    _userName;
    private final String    _fullName;
    private Socket    _socket;
-   private String    _localHost;
-   private Thread    _messageLoopThread;
-   private BufferedReader        _inputStream;  // Input from server socket
-   private DataOutputStream      _outputStream; // Output to server socket
+    private Thread    _messageLoopThread;
+    private DataOutputStream      _outputStream; // Output to server socket
    private IRCConnectionListener _listener;     // FIX: allow more than one!
 
    // MGENT FIX (bug #211402) - previous connection logic:
@@ -90,8 +89,7 @@ public class IRCConnection implements Runnable, IRCConstants {
       _server     = server;
       _port       = port;
       _nick       = nick;
-      _altNick    = altNick;
-      _userName   = userName;
+       _userName   = userName;
       _fullName   = fullName;
 
       // Use do-nothing listener until we get a real one
@@ -297,17 +295,19 @@ public class IRCConnection implements Runnable, IRCConstants {
       }
       _mux.onStatus("Contacted server ["+_server+":"+_port+"]");
 
-      try {
+       // Input from server socket
+       BufferedReader _inputStream;
+       try {
 
          // OPEN IO STREAMS AND LOG IN TO SERVER.
          _mux.onStatus("Opening IO streams to server ["+_server+":"+_port+"]");
-         _inputStream = new BufferedReader(
-            new InputStreamReader(
-               new DataInputStream(_socket.getInputStream())));
+         _inputStream = new BufferedReader(new InputStreamReader(new DataInputStream(_socket.getInputStream()),
+                 StandardCharsets.UTF_8));
          _outputStream = new DataOutputStream(_socket.getOutputStream());
 
          // Register nick
-         try {
+          String _localHost;
+          try {
             // Need local host name to register
             _localHost = _socket.getLocalAddress().getHostName();
          }
@@ -322,7 +322,7 @@ public class IRCConnection implements Runnable, IRCConstants {
          // Register user name
          _mux.onStatus("Registering user name ["+_userName
                       +"] with server ["+_server+":"+_port+"]");
-         writeln("USER "+_userName+" "+_localHost+" "
+         writeln("USER "+_userName+" "+ _localHost +" "
                  +_server+" :"+_fullName+"\r\n");
       }
       catch (Exception e) { // IOException
