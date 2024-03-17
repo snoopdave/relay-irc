@@ -19,9 +19,7 @@ The software is available under the terms of the Mozilla public license (see the
 
 Relay-IRC was once known as Relay-JFC. 
 There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855). 
-You can also find the old website up and running at SourceForge https://relayirc.sourceforge.net with lots of 404 links.
-
-https://snoopdave.github.io/relay-irc
+You can also find the old website up and running at SourceForge https://relayirc.sourceforge.net, but most of the links are 404 now.
 
 Here's the old Relay-JFC in action:
 
