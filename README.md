@@ -43,12 +43,13 @@ The significant features of Relay-JFC are:
    * IRC class library or "Chat Engine" for Java programmers
 
 There are also some significant limitations:
-   * Currently cannot be used as an applet
+   * Currently cannot be used as an applet 🤣
    * Does not support DCC file transfer
 
 ## 3.0 RELAY-IRC Requirements
 
-Relay-JFC requires a Java Development Kit (JDK) and is known to run on Java 21.
+Relay-JFC requires a Java Development Kit (JDK) and some recent refactoprings have been done to the code-base using Java 17 features like enhanced switch statements and text blocks. 
+The latest version of the code-base has only been tested on Java 21.
 
 ## 4.0 Running Relay-IRC
 
