@@ -1,0 +1,314 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<title>Relay IRC Developer</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+<table border="1" cellpadding="0" cellspacing="0" width="97%"
+bordercolor="#000000">
+    <tr>
+        <td align="center" width="100%" bgcolor="#E6B0FF"><h1
+        style="margin-left: 5; margin-right: 5; margin-top: 3; margin-bottom: 3">Relay
+        IRC Developer's Guide</h1>
+        </td>
+    </tr>
+</table>
+
+<p><em>David M. Johnson<br>
+Relay IRC Project</em></p>
+<p><em><font color="#FF0000">Updated for Relay-JFC Snapshot-000601 release</font></em></p>
+
+<p><strong>Contents</strong></p>
+
+<ul>
+    <li><a href="#Introduction">Introduction</a></li>
+    <li><a href="#The IRC Core Package">The IRC Core Package</a></li>
+    <li><a href="#The Chat Engine Package">The Chat Engine
+        Package</a></li>
+    <li><a href="#Chat Engine Programming Example">Chat Engine
+        Programming Example</a></li>
+    <li><a href="#What about the Relay-JFC GUI?">What about the Relay-JFC GUI?</a></li>
+    <li><a href="#What about Relay-JFC scripting?">What about Relay-JFC scripting?</a></li>
+</ul>
+
+<h2><a name="Introduction">Introduction</a></h2>
+
+<p>The architecture of Relay-JFC has changed significantly from
+the architecture that was discussed in the <a
+href="http://www.ddj.com/articles/1999/9902/9902i/9902i.htm">Dr.
+Dobb's Journal article</a>.&nbsp; Relay-JFC is still based on a
+GUI-independent chat engine, but that chat engine has been
+redesigned to use a Java 1.1-style event architecture and Java
+Beans features such as property-change support.&nbsp; This
+redesign makes it easier to use the chat engine in your own
+programs.</p>
+
+<p>This document discusses the two GUI-independent packages that
+make up the Relay IRC chat engine: <a
+href="../javadocs/org/relayirc/chatengine/package-summary.html"><em>org.relayirc.core</em></a><em>
+</em>and<em> </em><a
+href="../javadocs/org/relayirc/chatengine/package-summary.html"><em>org.relayirc.chatengine</em></a><em>.
+</em>These are the packages that you will need to use if you wish
+to write your own IRC chat bot, applet or your own IRC client.</p>
+
+<h2><a name="The IRC Core Package">The IRC Core Package</a></h2>
+
+<p align="left">The <a
+href="../javadocs/org/relayirc/chatengine/package-summary.html"><em>org.relayirc.core</em></a><em>
+</em>package provides low level IRC connection functionality such
+as opening a connection, writing commands to a connection and
+closing a connection. Depends on the <a
+href="../javadocs/org/relayirc/util/package-summary.html"><i>org.relayirc.util</i></a><i>
+</i>package and a Java 1.1 compatible subset of the Java class
+libraries.&nbsp; Why Java 1.1?&nbsp; We want to be able to use
+the Relay IRC core classes to write IRC applets, applets must run
+within web browsers and these days the major web browsers support
+only Java 1.1.</p>
+
+<p align="center"><img src="org-relayirc-core.gif" width="402"
+height="223"></p>
+
+<p align="center"><strong>Figure 1: The org.relayirc.core Package</strong></p>
+
+<p align="left"><a
+href="../javadocs/org/relayirc/chatengine/IRCConnection.html"><b>IRCConnection</b></a>
+- Use an IRCConnection object to establish an IRC connection to
+an IRC server and to send commands and messages to that server.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<p><a
+href="../javadocs/org/relayirc/chatengine/IRCConnectionListener.html"><b>IRCConnectionListener</b></a>
+- Implement this interface to listen to an IRCConnection.&nbsp;
+An IRCConnection object will parse incoming data from the IRC
+server and will notify its listeners of each command that comes
+in.</p>
+
+<h2><a name="The Chat Engine Package">The Chat Engine Package</a></h2>
+
+<p align="left">The <a
+href="../javadocs/org/relayirc/chatengine/package-summary.html"><em>org.relayirc.chatengine</em></a>
+provides higher level IRC classes such as Server, Channel and
+User. Depends on the <a
+href="../javadocs/org/relayirc/chatengine/package-summary.html"><em>org.relayirc.core</em></a>
+and <a href="../javadocs/org/relayirc/util/package-summary.html"><i>org.relayirc.util</i></a>
+packages as well as a Java 1.1 compatible subset of the Java
+class libraries. With this package, you can work at a higher
+level of abstraction. The chat engine package provides classes
+that represent IRC servers, channels and users. You can choose to
+listen to server-level messages or to listen to an individual
+channel.&nbsp; The major players in the chat engine package are
+shown and discussed below.&nbsp;</p>
+
+<p align="center"><img src="org-relayirc-chatengine.gif"
+width="585" height="570"></p>
+
+<p align="center">&nbsp;<strong>Figure 2: The org.relayirc.chatengine
+Package</strong></p>
+
+<p><a href="../javadocs/org/relayirc/chatengine/server.html"><b>Server</b></a>
+- Manages a connection to an IRC server, provides methods for
+sending commands/message to the server, creates Channel objects
+as needed and routes commands/messages to those channel objects.&nbsp;</p>
+
+<p><a
+href="../javadocs/org/relayirc/chatengine/ServerListener.html"><b>ServerListener</b></a>
+- Implement this to listen to a ChatEngine and you will be
+notified when the chat engine connects to the server, disconnects
+from the server, joins a channel, parts a channel and all chat
+engine status messages.</p>
+
+<p><a href="../javadocs/org/relayirc/chatengine/Channel.html"><b>Channel</b></a>
+- Manages connection to an IRC channel.&nbsp; Receives incoming
+channel commands/messages and notifies all listeners.</p>
+
+<p><a
+href="../javadocs/org/relayirc/chatengine/ChannelListener.html"><b>ChannelListener</b></a>
+- Implement this interface to listen to a chat channel and you
+will be notified of all messages/commands, users joining, users
+parting, user actions and other events that occur within the
+channel.</p>
+
+<p><a href="../javadocs/org/relayirc/chatengine/User.html"><b><u>User</u></b></a>
+- Represents an IRC chat user.&nbsp; Used primarily () for
+holding the results of a WHOIS query.&nbsp;&nbsp; </p>
+
+<h2><a name="Chat Engine Programming Example">Chat Engine
+Programming Example</a></h2>
+
+<p>This example shows you how to use the Relay IRC chat engine in
+a simple command line program.&nbsp; The program, named
+ChatLogger, connects to an IRC chat server, joins a chat channel
+and starts printing out the conversation that is going on in that
+channel.&nbsp; After printing out 10 messages, ChatLogger
+disconnects from the IRC server and exits.</p>
+
+<p>Relay IRC programming is asynchronous: you send a request to
+the IRC server via a Server or a Channel object and then you
+listen for a response using either a ServerListner or a
+ChannelListener. This example illustrates the use of Server and
+Channel listeners.</p>
+
+<p>Here is how ChatLogger works.&nbsp; Upon construction,
+ChatLogger creates a Server for connecting to irc.linux.com, adds
+itself as a listener of the Server and asks the server to connect.&nbsp;
+When ChatLogger is notified of a connection, in the onConnect()
+method, ChatLogger then asks the engine to join the #debian&nbsp;
+channel.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
+<p>When ChatLogger is notified that #debian&nbsp; has been joined
+in onChannelJoin(), ChatLogger will create a ChannelLogger and
+add it as a listener of the new #debian&nbsp; Channel object.&nbsp;
+The ChannelLogger listens for messages from the Channel and after
+printing out 10 of them, it will request that ChatLogger
+disconnect.&nbsp; Note that ChannelLogger implements
+ChannelListener because it extends ChannelAdapter.&nbsp; Adapter
+classes make it easier to implement interfaces if you only want
+to implement a couple methods out of that interface.&nbsp;</p>
+
+<pre><font size="4"><b>Listing 1: ChatLogger.java
+</b></font>
+<font color="#0000FF">import</font> org.relayirc.chatengine.*;
+<font color="#0000FF">import</font> org.relayirc.util.Debug;
+
+<font color="#008000">///////////////////////////////////////////////////////////////</font>
+<font color="#008000">/**<b> </b></font>
+<font color="#008000"> *<b> ChatLogger will connect to irc.linux.com, join the #debian channel,</b></font>
+<font color="#008000"> *<b> print out 10 messages and then quit.</b> </font>
+<font color="#008000"> */</font>
+<font color="#FF0000"><b>public</b></font> <font color="#FF0000"><b>class</b></font> ChatLogger <font
+color="#FF0000"><b>extends</b></font> ServerAdapter {
+
+   <font color="#FF0000"><b>private</b></font> Server _server;
+   <font color="#FF0000"><b>public</b></font> <font
+color="#FF0000"><b>static</b></font> ChatLogger chatLogger; <font
+color="#008000">// Exposed for ChannelLogger</font>
+
+   <font color="#008000">/**<b> </b></font>
+<font color="#008000">    *<b> Construct ChatLogger.</b> Creates server, adds self as listener </font>
+<font color="#008000">    * connects to the chat server.</font>
+<font color="#008000">    */</font>
+   <font color="#FF0000"><b>public</b></font> ChatLogger() {
+      System.out.println(<font color="#FF00FF">&quot;ChatLogger - Relay IRC Programming Example&quot;</font>);    
+      _server = <font color="#FF0000"><b>new</b></font> Server(<font
+color="#FF00FF">&quot;irc.linux.com&quot;</font>,<font
+color="#FF00FF">6667</font>,<font color="#FF00FF">&quot;n/a&quot;</font>,<font
+color="#FF00FF">&quot;n/a&quot;</font>);
+      _server.addServerListener(<font color="#FF0000"><b>this</b></font>);
+      _server.connect(<font color="#FF00FF">&quot;logdaddy&quot;</font>,<font
+color="#FF00FF">&quot;logdaddy_&quot;</font>,<font
+color="#FF00FF">&quot;pbunyan&quot;</font>,<font color="#FF00FF">&quot;Paul Bunyan&quot;</font>);
+   }
+   <font color="#008000">/**<b> Once connected, join #chatzone.</b> */</font> 
+   <font color="#FF0000"><b>public</b></font> <font
+color="#FF0000"><b>void</b></font> onConnect(ServerEvent event) {
+      System.out.println(<font color="#FF00FF">&quot;Connected to &quot;</font>+event.getServer());
+      _server.sendJoin(<font color="#FF00FF">&quot;#debian&quot;</font>);
+   }
+   <font color="#008000">/**<b> Once channel is joined, create ChannelLogger to listen to log it.</b> */</font>
+   <font color="#FF0000"><b>public</b></font> <font
+color="#FF0000"><b>void</b></font> onChannelJoin(ServerEvent event) {
+      Channel chan = (Channel)event.getChannel();
+      System.out.println(<font color="#FF00FF">&quot;Joined &quot;</font>+chan);
+      chan.addChannelListener(<font color="#FF0000"><b>new</b></font> ChannelLogger());
+   }
+   <font color="#008000">/**<b> Request disconnection from the chat server.</b> */</font>
+   <font color="#FF0000"><b>public</b></font> <font
+color="#FF0000"><b>void</b></font> stop() {
+      System.out.println(<font color="#FF00FF">&quot;Stopping...&quot;</font>);
+      _server .disconnect();  
+   }
+   <font color="#008000">/**<b> Once disconnected, print farewell message and exit.</b> */</font>
+   <font color="#FF0000"><b>public</b></font> <font
+color="#FF0000"><b>void</b></font> onDisconnect(ServerEvent event) {
+      System.out.println(<font color="#FF00FF">&quot;Disconnected: good-bye!&quot;</font>);
+      System.exit(<font color="#FF00FF">0</font>);
+   }
+   <font color="#008000">/**<b> Main method.</b> */</font>
+   <font color="#FF0000"><b>public</b></font> <font
+color="#FF0000"><b>static</b></font> <font color="#FF0000"><b>void</b></font> main(String args[]) {
+      <font color="#008000">//Debug.setDebug(true);</font>
+      chatLogger = <font color="#FF0000"><b>new</b></font> ChatLogger();
+   }
+}
+
+<font color="#008000">///////////////////////////////////////////////////////////////</font>
+<font color="#008000">/**<b> </b></font>
+<font color="#008000"> *<b> ChannelLogger will print out 10 messages and then ask </b></font>
+<font color="#008000"> *<b> that ChatLogger to disconnect from the chat server.</b></font>
+<font color="#008000"> */</font>
+<font color="#FF0000"><b>class</b></font> ChannelLogger <font
+color="#FF0000"><b>extends</b></font> ChannelAdapter {
+   <font color="#FF0000"><b>private</b></font> <font
+color="#FF0000"><b>int</b></font> _msgCount = <font
+color="#FF00FF">0</font>;
+
+   <font color="#FF0000"><b>public</b></font> <font
+color="#FF0000"><b>void</b></font> onMessage(ChannelEvent event) {
+      System.out.println(
+         event.getOriginNick()+<font color="#FF00FF">&quot; says &quot;</font>+(String)event.getValue());
+
+      <font color="#FF0000"><b>if</b></font> (_msgCount++ &gt; <font
+color="#FF00FF">10</font>) {
+         ChatLogger.chatLogger.stop();
+      }
+   }
+}</pre>
+
+<h2><a name="What about the Relay-JFC GUI?">What about the Relay-JFC GUI?</a></h2>
+
+<p>The Relay-JFC GUI is implemented in the <a
+href="../javadocs/org/relayirc/swingui/package-summary.html"><em>org.relayirc.swingui</em></a><em>
+</em>package, which depends on the <a
+href="../javadocs/org/relayirc/chatengine/package-summary.html"><em>org.relayirc.core</em></a><em>,
+</em><a
+href="../javadocs/org/relayirc/chatengine/package-summary.html"><em>org.relayirc.chatengine</em></a><em>,
+</em><a href="../javadocs/org/relayirc/util/package-summary.html"><em>org.relayirc.util</em></a><em>,
+</em><a
+href="../javadocs/org/relayirc/swingutil/package-summary.html"><em>org.relayirc.swingutil</em></a><em>
+</em>and the Java 2 v1.2 or later class libraries.</p>
+
+<p>Currently, there is no documentation for the Relay-JFC GUI
+beyond that provided in the Javadoc generated API documentation.</p>
+
+<h2><a name="What about Relay-JFC scripting?">What about Relay-JFC scripting?</a></h2>
+
+<p>The Relay-JFC GUI now includes an embeded <a
+href="http://www.jpython.org">JPython</a> interpreter to support
+scripting. </p>
+
+<ul>
+    <li>There is an interactive JPython interpreter console,
+        which you can launch by using the Window-&gt;Show-Python-Console
+        menu option or CTRL-P. You can enter JPython commands or
+        small JPython scripts into this console for immediate
+        execution.</li>
+    <li>Also, there is a Custom Actions dialog, that you can
+        launch using the File-&gt;Custom-Actions menu option or
+        CTRL-A. You can use this dialog to define new actions
+        using JPython, Java or IRC command text and to add these
+        actions to Relay-JFC menu system.</li>
+</ul>
+
+<p>Currently, there is no documentation for the Relay-JFC scripting beyond what
+you see here.&nbsp; Have patience, these things take time...</p>
+
+<hr>
+
+<p align="right"
+style="margin-left: 10; margin-right: 10; margin-top: 5; margin-bottom: 5"><font
+size="1">Copyright (c) 2000 David M. Johnson<br>
+$Revision: 1.6 $</font><br>
+</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</body>
+</html>

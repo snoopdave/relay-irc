@@ -1,0 +1,8 @@
+org.relayirc.chatengine
+org.relayirc.core
+org.relayirc.swingui
+org.relayirc.swingui.beans
+org.relayirc.swingutil
+org.relayirc.swingutil.propsheet
+org.relayirc.swingutil.propsheet.editors
+org.relayirc.util

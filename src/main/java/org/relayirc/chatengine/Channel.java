@@ -24,13 +24,14 @@ import java.util.Vector;
  * An IRC channel class that includes methods for joining, parting,
  * kicking, banning, adding/removing channel listeners and property
  * change support.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.9 $
  *
  * <p>The contents of this file are subject to the Mozilla Public License
  * Version 1.0 (the "License"); you may not use this file except in
  * compliance with the License. You may obtain a copy of the License at
- * http://www.mozilla.org/MPL/</p>
+ * <a href="http://www.mozilla.org/MPL/">...</a></p>
  * Original Code:     Relay IRC Chat Engine<br>
  * Initial Developer: David M. Johnson <br>
  * Contributor(s):    No contributors to this file <br>
@@ -54,7 +55,7 @@ public class Channel implements IChatObject, Serializable {
 
 	private transient PropertyChangeSupport _propChangeSupport = null;
    private transient Server      _server = null;
-   private transient Vector      _listeners = new Vector();
+   private transient Vector<ChannelListener>      _listeners = new Vector<>();
    private transient boolean     _isConnected = false;
    private transient _ChannelMux _mux = new _ChannelMux();
 
@@ -80,7 +81,7 @@ public class Channel implements IChatObject, Serializable {
    }
    //------------------------------------------------------------------
    public boolean equals(Object object) {
-      if (object != null && object instanceof Channel) {
+      if (object instanceof Channel) {
           return ((Channel) object).getName().equals(getName());
       }
       return false;
@@ -94,7 +95,7 @@ public class Channel implements IChatObject, Serializable {
    }
    private synchronized void notifyListeners(_ChannelEventNotifier notifier) {
       for (int i=0; i<_listeners.size(); i++) {
-         ChannelListener listener = (ChannelListener)_listeners.elementAt(i);
+         ChannelListener listener = _listeners.elementAt(i);
          notifier.notify(listener);
       }
    }
@@ -148,14 +149,6 @@ public class Channel implements IChatObject, Serializable {
 		return _mux;
 	}
    //---------------------------------------------------------------
-   /**
-	* @return int
-	*/
-   public int getMaxNumBufferedUnsentMessages()
-   {
-	   return _maxNumBufferedUnsentMessages;
-   }
-  //------------------------------------------------------------------
    /** Connect/join this channel, does nothing if channel has no server. */
    public void connect() {
       if (_server != null) {
@@ -219,18 +212,7 @@ public class Channel implements IChatObject, Serializable {
       return _userCount;
    }
    //------------------------------------------------------------------
-   /**
-    * Set channel user count, with property change support. Property change
-    * event will include new and old values as java.lang.Integer objects.
-    */
-   public void setUserCount(int count) {
-      int old = _userCount;
-      _userCount = count;
-      _propChangeSupport.firePropertyChange("UserCount",
-              Integer.valueOf(old), Integer.valueOf(_userCount));
-   }
-   //------------------------------------------------------------------
-	/** String representation is channel name. */
+   /** String representation is channel name. */
    public String toString() {
       return _name;
    }
@@ -246,13 +228,14 @@ public class Channel implements IChatObject, Serializable {
       });
    }
    //-------------------------------------------------------------------
+   @Serial
    private void readObject(java.io.ObjectInputStream in)
       throws IOException, ClassNotFoundException {
 
       try {in.defaultReadObject();}
 		catch (NotActiveException e) {e.printStackTrace();}
       _propChangeSupport = new PropertyChangeSupport(this);
-      _listeners = new Vector();
+      _listeners = new Vector<>();
    }
    //------------------------------------------------------------------
 	/** Send a NOTICE to this channel. */
@@ -279,13 +262,12 @@ public class Channel implements IChatObject, Serializable {
 	   int len = _unsentMessagesBuffer.size();
 	   if (len > 0)
 	   {
-		   StringBuffer sb = new StringBuffer(100);
+		   StringBuilder sb = new StringBuilder(100);
 		   sb.append("<Connection dropped");
 		   if (isConnected())
 		   {
 			   if (_numDroppedMessages > 0)
-				   sb.append("; number of dropped messages: " + 
-				   			_numDroppedMessages);
+				   sb.append("; number of dropped messages: ").append(_numDroppedMessages);
 
 			   sb.append('>');
 			   sendPrivMsgNoBuffer(sb.toString());
@@ -361,13 +343,7 @@ public class Channel implements IChatObject, Serializable {
 	  } 
    } 
    //------------------------------------------------------------------
-   /** Send private message to server.
-    * @deprecated Use Channel.privMsg() instead.
-   public void sendMessage(String str) {
-      _server.sendMessage(str,_name);
-   }*/
-   //------------------------------------------------------------------
-	/** Give operator rights to a user. */
+   /** Give operator rights to a user. */
    public void sendOp(String nick) {
       _server.sendCommand("MODE "+_name+" +o "+nick);
    }
@@ -452,10 +428,7 @@ public class Channel implements IChatObject, Serializable {
          final ChannelEvent event =
             new ChannelEvent(Channel.this,banner,"",banned,"","");
 
-         notifyListeners(new _ChannelEventNotifier() {
-            public void notify(ChannelListener listener)
-				   {listener.onBan(event);}
-         });
+         notifyListeners(listener -> listener.onBan(event));
 
          // Was it something I said?
          if (banned.equals(_server.getNick())) {
@@ -491,20 +464,14 @@ public class Channel implements IChatObject, Serializable {
             // Notify listeners that somebody else joined the channel
             final ChannelEvent event =
                new ChannelEvent(Channel.this,nick,user,"");
-            notifyListeners(new _ChannelEventNotifier() {
-               public void notify(ChannelListener listener)
-                  {listener.onJoin(event);}
-            });
+            notifyListeners(listener -> listener.onJoin(event));
          }
       }
       //------------------------------------------------------------------
       public void onJoins(String users, String chans) {
 
          final ChannelEvent event = new ChannelEvent(Channel.this,users);
-         notifyListeners(new _ChannelEventNotifier() {
-            public void notify(ChannelListener listener)
-				   {listener.onJoins(event);}
-         });
+         notifyListeners(listener -> listener.onJoins(event));
       }
       //------------------------------------------------------------------
       public void onKick(String kicked, String chan, String kicker, String txt)
@@ -512,10 +479,7 @@ public class Channel implements IChatObject, Serializable {
          // Notify listeners
          final ChannelEvent event =
             new ChannelEvent(Channel.this,kicker,"",kicked,"",txt);
-         notifyListeners(new _ChannelEventNotifier() {
-            public void notify(ChannelListener listener)
-				   {listener.onKick(event);}
-         });
+         notifyListeners(listener -> listener.onKick(event));
 
          // Were we the user that was kicked?
          if (kicked.equals(_server.getNick())) {

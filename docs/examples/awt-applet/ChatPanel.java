@@ -16,10 +16,10 @@ import java.util.Date;
  * rest of the chat engine architecture.
  *
  * @author David M. Johnson
- * @verion $Revision: 1.1.2.2 $
+ * @verion $Revision: 1.1 $
  *
- * @see org.relayirc.core.IRCConnection
- * @see org.relayirc.core.IRCConnectionAdapter
+ * @see org.relayirc.chatengine.IRCConnection
+ * @see org.relayirc.chatengine.IRCConnectionAdapter
  */
 public class ChatPanel extends Panel {
 

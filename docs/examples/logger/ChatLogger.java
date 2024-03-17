@@ -45,7 +45,7 @@ public class ChatLogger extends ServerAdapter {
    }
 	/** Main method. */
    public static void main(String args[]) {
-        Debug.setDebug(true);
+      //Debug.setDebug(true);
 		chatLogger = new ChatLogger();
 	}
 }
