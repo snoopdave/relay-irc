@@ -20,12 +20,14 @@ The software is available under the terms of the Mozilla public license (see the
 ### History
 
 Relay-IRC was once known as Relay-JFC. 
-There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855). 
+There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://snoopdave.github.io/relay-irc/wfc-vs-jfc/html/showdown.htm). 
 You can also find the old website up and running at SourceForge https://relayirc.sourceforge.net, but most of the links are 404 now.
 
 Here's the old Relay-JFC in action:
 
 ![screenshot of Relay-JFC](/docs/docs/screenshots/screenshot1.jpg "Relay-JFC running on Windows NT")
+
+You can also find a [Relay IRC Developer's Guide](https://snoopdave.github.io/relay-irc/docs/devnotes.html) that explains the internals and how to write a chat-bot with the Chat Engine API, [complete Javadocs](https://snoopdave.github.io/relay-irc/javadocs/org/relayirc/chatengine/package-summary.html) for the Chat Engine and some [screenshots of the Python features in the Relay-IRC UI](https://snoopdave.github.io/relay-irc/docs/preview1.html).
 
 ## 2.0 RELAY-JFC FEATURES
 
