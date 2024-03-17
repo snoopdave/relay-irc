@@ -5,10 +5,10 @@
 
 ## Contents
 
-* 1.0 Introduction
-* 2.0 RELAY-IRC Features
-* 3.0 RELAY-IRC Requirements
-* 4.0 Running Relay-IRC
+* [1.0 Introduction](#10-introduction)
+* [2.0 RELAY-IRC Features](#20-relay-irc-features)
+* [3.0 RELAY-IRC Requirements](#30-relay-irc-requirements)
+* [4.0 Running Relay-IRC](#30-running-relay-irc)
 
 ## 1.0 Introduction
 
