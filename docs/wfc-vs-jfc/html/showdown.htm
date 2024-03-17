@@ -1,0 +1,812 @@
+<html>
+
+<head>
+<title>Foundation Class Showdown</title>
+<meta name="GENERATOR" content="Microsoft FrontPage 3.0">
+</head>
+
+<body>
+
+<p><font size="6" face="Arial Black" color="#000000"><b><i>Foundation Class Showdown</i></b></font></p>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>Comparing WFC and JFC by
+building a real application.</i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000"><i>David M. Johnson</i></font></p>
+
+<p><font size="2" face="Arial" color="#000000">The recent announcement of Microsoft Visual
+J++ 6.0 and the Windows Foundation Classes (WFC) caused quite a stir in the Java
+community. According to Microsoft, WFC provides Java developers with a complete framework
+for creating full-featured and high-quality Windows applications with Java. WFC
+applications will run only under Windows, but this is not a limitation. This allows them
+to take advantage of the rich functionality that Windows provides. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">On the other hand, Java purists argue that
+WFC is unnecessary: Sun&#146;s standard version of Java and the Java Foundation Classes
+(JFC) <i>already</i> provide a framework for developing full-featured and high-quality
+applications for Windows and all other platforms. The purists see WFC as another Microsoft
+ploy to drive developers to Windows-only Java extensions and thus destroy the
+cross-platform promise of Java. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">So whom are we to believe? Does Java have
+what it takes or is WFC the only answer for Java development under Windows? In this
+article I will provide an objective comparison of JFC and WFC by discussing how each was
+used in the development of a real application: an Internet Relay Chat (IRC) chat-client.
+Now, whether an IRC chat client constitutes a real application depends upon your point of
+view. For the purposes of this article a real application is an application that serves a
+useful function and provides a modern GUI complete with tool-bars, tool-tips, accelerator
+keys, menus with icons, tabbed dialogs and a Multiple Document Interface (MDI). </font></p>
+
+<p><font size="2" face="Arial" color="#000000">I am going to start off by presenting the
+requirements for the IRC chat client application, which I&#146;m calling Relay for lack of
+a better name. Following that I will discuss the implementation of the chat engine that
+will be used in both the JFC and WFC versions, the implementation of Relay-JFC, the
+implementation of Relay-WFC and finally I&#146;ll take a look at how the resulting
+applications compare in terms of performance and usability. </font></p>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>Chat Client Requirements </i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">The requirements for the Relay chat client
+are simple. Using Relay you should be able to log into an IRC chat server, join one or
+more chat channels, view the messages being sent to those channels, view the nicknames of
+users in those channels and send messages to those channels. Relay must do this by using
+the standard IRC protocol as specified in Internet RFC1459. <b><u>Table 1</u></b> shows
+these requirements in a little more detail.</font></p>
+
+<p><font size="2" face="Arial" color="#000000"><b><u>Table 1: IRC Chat Client Requirements
+</u></b></font>
+
+<ul>
+  <li><font size="2" face="Arial" color="#000000"><b>Setup Dialog</b> - Relay's setup dialog
+    should allow you to set your IRC server, your nickname and other options. Options should
+    persist from session to session.</font></li>
+  <li><font size="2" face="Arial" color="#000000"><b>Connect and Disconnect</b> - Relay should
+    allow you to connect and disconnect from your selected IRC server with ease.</font></li>
+  <li><font size="2" face="Arial" color="#000000"><b>Join Channels</b> - Once you are
+    connected, Relay should allow you to join chat channels with ease.</font></li>
+  <li><font size="2" face="Arial" color="#000000"><b>MDI Channel Display</b> - Each channel
+    should be displayed in an MDI client window within Relay's main window.</font></li>
+  <li><font size="2" face="Arial" color="#000000"><b>Color Message Display</b> -
+    Conversational messages should be displayed in a different color than informational
+    messages.</font></li>
+  <li><font size="2" face="Arial" color="#000000"><b>Member List</b> - Each channel display
+    window should include an updated list of the channel's members.</font></li>
+  <li><font size="2" face="Arial" color="#000000"><b>Member Information</b> - You should be
+    able to view IRC whois and version information for any channel member.</font></li>
+</ul>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>Chat Engine Architecture</i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">The first step in the development of Relay
+was the development of a GUI independent chat engine to be re-used in both the JFC and WFC
+implementations of the chat client. <b><u>Figure 1</u></b> shows the class and interface
+relationships that make up the chat engine architecture. </font></p>
+
+<p align="center"><font color="#000000"><img src="../images/figure1.gif" width="550"
+height="487"></font></p>
+
+<p><font size="2" face="Arial" color="#000000">The chat engine itself, represented by the <em>IChatEngine</em>
+interface, is responsible for managing the connection to the IRC server, parsing incoming
+messages and sending outgoing messages. The chat engine works with the chat view manager,
+represented by the <em>IChatViewManager</em> interface, to ensure that incoming messages
+are displayed in the appropriate views.</font></p>
+
+<p align="left"><font size="2" face="Arial" color="#000000">The chat application,
+represented by the <em>IChatApp</em> interface, manages the user-interface for the chat
+client. This includes the menus, toolbars, dialogs and the creation of MDI client windows
+to server as views for each chat channel. The core chat engine provides implementations
+for the <em>IChatEngine</em> and <em>IChatViewManager</em> interfaces. The JFC and WFC
+versions will each provide their own implementations of the <em>IChatApp</em> and <i>IChatView</i>
+interfaces.</font></p>
+
+<p align="center"><img src="../images/jfc_ss2.gif" width="630" height="470"
+alt="jfc_ss2.gif (18153 bytes)"></p>
+
+<p align="center"><font size="2" face="Arial Black" color="#000000">Figure 2: Relay-JFC
+Running Under Windows NT</font></p>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>JFC Overview</i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">Sun created the JFC to address the widely
+acknowledged problems with Java&#146;s original AWT user-interface toolkit. AWT was based
+on the native GUI components, known as peers, of each platform and this caused subtle but
+problematic variations in behavior and look-and-feel from platform to platform. JFC
+addresses this problem by avoiding the use of peers altogether. JFC components are written
+in pure Java to ensure identical behavior across all platforms. JFC provides pure Java or
+&quot;lightweight&quot; components to replace all of the fundamental GUI components found
+in AWT such as buttons, edits, combo-boxes, radio buttons, scrollbars and menus.</font></p>
+
+<p><font size="2" face="Arial" color="#000000">AWT was criticized for its &quot;lowest
+common denominator&quot; approach to GUI portability. AWT only provided the GUI features
+that were common to all of its platforms. JFC addresses this problem by providing a very
+rich set of GUI components including table controls, tree controls, image buttons,
+internal frames as well as a rich-text and HTML capable text editor framework. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">JFC 1.1, which was released in February of
+this year, includes the &quot;Swing&quot; GUI components, an accessibility API and a
+pluggable look-and-feel architecture. The pluggable look-and-feel architecture enables
+applications to dynamically select the Windows, Motif or the new Java look-and-feel at
+runtime. It is also possible to develop your own pluggable look-and-feel. Due to a
+licensing issue, the Windows look and feel is only available on Windows platforms. JFC
+will become part of the standard Java Development Kit (JDK) and the run time environment
+when the JDK 1.2 is released later this year. At that point JFC will be expanded to
+include a 2D API and drag-and-drop support.</font></p>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>Developing Relay-JFC </i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">Relay's user-interface requirements are
+relatively simple, but fulfilling these requirements with AWT would have been very
+difficult. Luckily, JFC provides all of the components required for Relay. <b><u>Table 2</u></b>
+summarizes the components that are used in each part of Relay-JFC and <b><u>Figure 2</u></b>
+shows a screenshot of Relay-JFC running under Linux. Most of these components are pretty
+standard run-of-the-mill components that need no introduction. I am going to cover the
+more interesting components that were used in Relay-JFC: <em>JDesktopPane</em>, <em>JInternalFrame</em>,
+<em>AbstractAction</em> and <em>JTextPane</em>. </font></p>
+
+<p><font color="#000000"><font size="2" face="Arial"><b><u>Table 2: JFC Components used in
+Relay-JFC</u></b></font> </font>
+
+<ul>
+  <li><font size="2" face="Arial" color="#000000"><b>Application Window</b></font><ul>
+      <li><font size="2" face="Arial" color="#000000">JFrame </font></li>
+      <li><font size="2" face="Arial" color="#000000">JDesktopPane</font></li>
+      <li><font size="2" face="Arial" color="#000000">JToolbar </font></li>
+      <li><font size="2" face="Arial" color="#000000">JMenuBar </font></li>
+      <li><font size="2" face="Arial" color="#000000">AbstractAction </font></li>
+    </ul>
+  </li>
+  <li><font size="2" face="Arial" color="#000000"><b>Chat Window</b></font><ul>
+      <li><font size="2" face="Arial" color="#000000">JInternalFrame</font></li>
+      <li><font size="2" face="Arial" color="#000000">JTextPane </font></li>
+      <li><font size="2" face="Arial" color="#000000">JList </font></li>
+      <li><font size="2" face="Arial" color="#000000">JPopupMenu </font></li>
+    </ul>
+  </li>
+  <li><font size="2" face="Arial" color="#000000"><b>Dialogs</b></font><ul>
+      <li><font size="2" face="Arial" color="#000000">JTabbedPane </font></li>
+      <li><font size="2" face="Arial" color="#000000">JComboBox </font></li>
+      <li><font size="2" face="Arial" color="#000000">JBorder</font></li>
+    </ul>
+  </li>
+</ul>
+
+<p><font size="2" face="Arial" color="#000000"><strong>Internal Frames </strong></font></p>
+
+<p><font size="2" face="Arial" color="#000000">The MDI style interface used by Relay-JFC
+is provided by the JFC internal frames classes. The major players in the JFC internal
+frame architecture are the <i>JInternalFrame</i>, <i>JDesktopPane</i> and the <i>DesktopManager</i>
+interface. Internal frame windows, similar to MDI client windows under Windows, must be
+derived from the JFC <em>JInternalFrame</em> class. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">The JFC <em>JDesktopPane</em> class serves
+as container for internal frames, but delegates the responsibility of managing the
+activation, opening, closing, dragging resizing and iconification of the internal frames
+to a <i>DesktopManager</i> interface. You can provide your own <i>DesktopManager</i>
+implementation, but you will probably need to do this only if you are developing your own
+pluggable look-and-feel. <b><u>Example 1</u></b> shows a simple JFC desktop pane
+application that will create a new internal frame every time you hit the &quot;Add
+Internal Frame&quot; button.</font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u>Example 1</u></strong></font></p>
+
+<p align="center"><font color="#000000"><img src="../images/example1.gif" width="302"
+height="336"></font></p>
+
+<pre><font color="#000000"><font face="Times New Roman">
+</font>import java.awt.*;
+import java.awt.event.*;
+import com.sun.java.swing.*;
+/** 
+ * Frame with desktop pane and button that creates internal frames.
+ */
+public class example1 extends JFrame {
+   private JDesktopPane _desktop = new JDesktopPane();
+   private JButton _button = new JButton(&quot;Add Internal Frame&quot;);</font></pre>
+
+<pre><font color="#000000">   public example1() {
+      super(&quot;example1&quot;);</font></pre>
+
+<pre><font color="#000000">      // Add button in the north and desktop pane in center
+      getContentPane().setLayout(new BorderLayout());
+      getContentPane().add(_button,&quot;North&quot;);
+      getContentPane().add(_desktop,&quot;Center&quot;);</font></pre>
+
+<pre><font color="#000000">      // Add listener to button to create new internal frame
+      _button.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            _desktop.add(new intframe(),JLayeredPane.PALETTE_LAYER);   
+         }
+      });
+      // Add listener to window to exit on window close
+      addWindowListener(new WindowAdapter() {
+         public void windowClosing(WindowEvent e) {
+            System.exit(0);
+         }
+      });
+      // Size and display the frame
+      setVisible(true);
+      setSize(500,400);
+   }
+   public static void main(String[] args) {
+      new example1();
+   }
+}
+/**
+ * Internal frame containing a button 
+ */
+class intframe extends JInternalFrame {
+   public intframe() {
+      getContentPane().setLayout(new BorderLayout());
+      getContentPane().add(new JButton(&quot;Internal Frame&quot;));
+      setSize(200,200);
+      setVisible(true);
+   }
+}</font></pre>
+
+<p><font size="2" face="Arial" color="#000000"><strong>Actions</strong></font></p>
+
+<p><font size="2" face="Arial" color="#000000">Relay-JFC supports a small set of user
+actions such as connect, disconnect, join and setup. The user may initiate these actions
+from the toolbar or from the main menu. The JFC <em>Action</em> interface provides a way
+to encapsulate such actions so that JFC can manage the presentation of toolbar icons, menu
+icons and tooltip help text. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">To take advantage of the JFC action
+architecture, you must provide an implementation of the <em>Action</em> interface for each
+user action that your application will support. JFC provides a default implementation of <em>Action</em>
+called <em>AbstractAction</em> that supports the standard properties that the JFC toolbars
+and menubars will expect. If you derive your action classes from <em>AbstractAction</em>,
+then you will only have to implement the <em>actionPerformed()</em> method for each of
+your actions. <b><u>Example 2</u></b> shows a simple JFC application that uses <i>AbstractAction</i>
+classes to provide two menu items and two corresponding toolbar buttons.</font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u>Example 2</u></strong></font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u><img
+src="../images/example2.gif" width="253" height="156"></u></strong></font></p>
+
+<pre><font color="#000000">import java.awt.*;
+import java.awt.event.*;
+import com.sun.java.swing.*;
+/**
+ * Frame with menu bar, toolbar and two actions.
+ */
+public class example2 extends JFrame {
+   JMenuBar _menubar = new JMenuBar();
+   JToolBar _toolbar = new JToolBar();
+   Action _action1 = new Action1();
+   Action _action2 = new Action2();</font></pre>
+
+<pre><font color="#000000">   public example2() {
+      super(&quot;example2&quot;);
+      getContentPane().setLayout(new BorderLayout());</font></pre>
+
+<pre><font color="#000000">      // Create menu and add actions
+      JMenu menu = new JMenu(&quot;Menu&quot;,false);
+      menu.add(_action1);
+      menu.add(_action2);
+      _menubar.add(menu);
+      setJMenuBar(_menubar);</font></pre>
+
+<pre><font color="#000000">      // Create toolbar and add actions
+      _toolbar.add(_action1);
+      _toolbar.add(_action2);
+      getContentPane().add(_toolbar,&quot;North&quot;);</font></pre>
+
+<pre><font color="#000000">      // Add listener to window to exit on window close
+      addWindowListener(new WindowAdapter() {
+         public void windowClosing(WindowEvent e) {
+            System.exit(0);
+         }
+      });
+      // Size and display frame
+      setVisible(true);
+      setSize(500,400);
+   }
+   /** Private inner class for action 1 */
+   private class Action1 extends AbstractAction {
+      public Action1() {
+         super(&quot;Action1&quot;);
+      }
+      public void actionPerformed(ActionEvent e) {
+         System.out.println(&quot;You requested action 1&quot;);
+      }
+   }
+   /** Private inner class for action 2 */
+   private class Action2 extends AbstractAction {
+      public Action2() {
+         super(&quot;Action2&quot;);
+      }
+      public void actionPerformed(ActionEvent e) {
+         System.out.println(&quot;You requested action 2&quot;);
+      }
+   }
+   public static void main(String[] args) {
+      new example2();
+   }
+}
+</font></pre>
+
+<p><font size="2" face="Arial" color="#000000"><strong>Text Pane</strong></font></p>
+
+<p><font size="2" face="Arial" color="#000000">One of the requirements for the Relay chat
+client is to display color-coded chat messages. Informational messages, such as
+&quot;HaXXor has left the #raleigh channel&quot; or &quot;RaTBoY has quit IRC,&quot;
+should be displayed in a different colors than that of the chat conversation. To
+accomplish this, Relay-JFC uses the JFC <em>JTextPane</em> class. <em>JTextPane</em> is
+part of a JFC framework for developing viewers and editors for HTML, RTF and similar
+formats. As a result of this, the <i>JTextPane</i> API is a somewhat complex. <b><u>Example
+3</u></b> shows a simple JFC <i>JTextPane</i> application that displays red text and blue
+text when you hit the corresponding buttons.</font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u>Example 3</u></strong></font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u><img
+src="../images/example3.gif" width="334" height="239"></u></strong></font></p>
+
+<pre><font color="#000000">import java.awt.*;
+import java.awt.event.*;
+import com.sun.java.swing.*;
+import com.sun.java.swing.text.*;
+/**
+ * Frame with text pane and buttons to display red and blue text.
+ */
+public class example3 extends JFrame {
+   private JTextPane _display = new JTextPane();
+   private JButton _redbutton = new JButton(&quot;Add Red Text&quot;);
+   private JButton _bluebutton = new JButton(&quot;Add Blue Text&quot;);
+   private StyleContext _styles = new StyleContext();</font></pre>
+
+<pre><font color="#000000">   public example3() {
+      super(&quot;example3&quot;);</font></pre>
+
+<pre><font color="#000000">      // Create panel to hold blue and red buttons
+      JPanel buttonpanel = new JPanel();
+      buttonpanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+      buttonpanel.add(_redbutton);
+      buttonpanel.add(_bluebutton);
+      </font></pre>
+
+<pre><font color="#000000">      // Add button panel in the north and text pane in center
+      getContentPane().setLayout(new BorderLayout());
+      getContentPane().add(buttonpanel,&quot;North&quot;);
+      getContentPane().add(_display,&quot;Center&quot;);</font></pre>
+
+<pre><font color="#000000">      // Define named styles for displaying blue and red text
+      Style def = _styles.getStyle(StyleContext.DEFAULT_STYLE);
+      Style bluestyle = _styles.addStyle(&quot;blue&quot;,def);
+      Style redstyle = _styles.addStyle(&quot;red&quot;,def);
+      StyleConstants.setForeground(bluestyle, Color.blue);
+      StyleConstants.setForeground(redstyle, Color.red);</font></pre>
+
+<pre><font color="#000000">      // Add listener to blue button to display blue text
+      _bluebutton.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            display(&quot;Here is some blue text\n&quot;,&quot;blue&quot;);
+         }
+      });
+      // Add listener to red button to display red text
+      _redbutton.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent e) {
+            display(&quot;Here is some red text\n&quot;,&quot;red&quot;);
+         }
+      });
+      // Add listener to window to exit on window close
+      addWindowListener(new WindowAdapter() {
+         public void windowClosing(WindowEvent e) {
+            System.exit(0);
+         }
+      });
+      // Size and display the frame
+      setSize(500,400);
+      setVisible(true);
+   }
+   /** Display text using specified style */
+   public void display( String text, String style ) {
+      Document doc = _display.getDocument();
+      try { 
+         doc.insertString(doc.getLength(),text,_styles.getStyle(style)); 
+      }
+      catch (Exception e) {
+         System.out.println(&quot;Error displaying text!&quot;);
+         e.printStackTrace();
+      }
+   }
+   public static void main(String[] args) {
+      new example3();
+   }
+}</font></pre>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>JFC Limitations</i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">Although I found the design of JFC to be
+excellent, I also ran into some serious limitations. Probably the most alarming problem
+was the overall sluggishness of JFC, especially when using internal frames. JFC also
+exhibited some strange drawing behavior. For example, when a simple yes-no message box is
+dismissed, the whole application is repainted. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">Another limitation is common dialogs.
+Windows provides common dialogs for opening files, selecting colors and choosing fonts.
+JFC was originally slated to include common dialogs, but due to scheduling problems they
+were dropped. Some of the common dialogs were shipped in the <i>com.sun.java.swing.preview</i>
+package, but the font dialog was left out entirely.</font></p>
+
+<p><font size="2" face="Arial" color="#000000">If you have AWT components that you wish to
+reuse with JFC, then you should be aware of another problem. Heavyweight AWT components,
+such as those derived from the Panel and Canvas classes, do not mix well with JFC. AWT
+classes that are not based on native peers, such as the layout managers, work fine with
+JFC. However, heavyweight AWT components do not mix well with JFC. There is an article on
+the Javasoft web site that discusses this issue in more depth [1]. </font></p>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>WFC Overview</i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">Microsoft developed WFC to provide Java
+programmers access to the rich set of GUI components and other services of Windows. WFC is
+implemented using Microsoft&#146;s J/Direct technology, which allows a Java program to
+call individual functions within the Windows API. WFC builds upon J/Direct to provide an
+object-oriented interface to Windows in the form of a Java class library. (See <u>Examining
+Microsoft&#146;s J/Direct</u> in the January 1998 issue of Dr. Dobb&#146;s for more on
+J/Direct). WFC also wraps the HTML object model, so programmers can program HTML forms in
+the same way that they program standard GUI forms.</font></p>
+
+<p><font size="2" face="Arial" color="#000000">By simply providing wrappers around the
+Windows GUI components and COM interfaces, Microsoft has been able to provide a set of
+components that match the rich set of components found in JFC. WFC also allows access to
+the hundreds of ActiveX controls available from 3<sup>rd</sup> party developers. Windows
+programmers, whether they come from a Visual Basic or MFC C++ background should find that
+WFC is familiar territory.</font></p>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>Developing Relay-WFC </i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">WFC provides all of the GUI components
+necessary for the Relay chat client right out of the box. For every JFC component required
+by Relay-JFC there is an equivalent WFC component. <b><u>Table 3</u></b> summarizes the
+components that are used in each part of Relay-WFC and <b><u>Figure 3</u></b> shows a
+screenshot of Relay-WFC running under Windows 95. In this section I will focus on the WFC <i>Form</i>,
+<i>Menu</i> and <i>RichEdit</i> classes. I will use the classes to develop examples that
+are similar the to examples that I presented in the Relay-JFC section.</font></p>
+
+<p><font size="2" face="Arial" color="#000000"><b><u>Table 3: WFC Components used in
+Relay-WFC<br>
+</u></b></font>
+
+<ul>
+  <li><font size="2" face="Arial" color="#000000"><b>Application Window</b></font><ul>
+      <li><font size="2" face="Arial" color="#000000">Form</font></li>
+      <li><font size="2" face="Arial" color="#000000">Toolbar</font></li>
+      <li><font size="2" face="Arial" color="#000000">Menu </font></li>
+    </ul>
+  </li>
+  <li><font size="2" face="Arial" color="#000000"><b>Chat Window</b></font><ul>
+      <li><font size="2" face="Arial" color="#000000">RichEdit</font></li>
+      <li><font size="2" face="Arial" color="#000000">List</font></li>
+      <li><font size="2" face="Arial" color="#000000">Edit</font></li>
+      <li><font size="2" face="Arial" color="#000000">ContextMenu </font></li>
+    </ul>
+  </li>
+  <li><font size="2" face="Arial" color="#000000"><b>Dialogs</b></font><ul>
+      <li><font size="2" face="Arial" color="#000000">TabControl</font></li>
+      <li><font size="2" face="Arial" color="#000000">TabPage</font></li>
+      <li><font size="2" face="Arial" color="#000000">ComboBox</font></li>
+    </ul>
+  </li>
+</ul>
+
+<h4><font color="#000000">Form</font></h4>
+
+<p><font size="2" face="Arial" color="#000000">The WFC <i>Form</i> class is the base class
+for windows and dialogs in WFC. WFC does not make a distinction between windows and
+dialogs. A class derived from <i>Form</i> can also be used as a MDI client frame by simply
+specifying an MDI container <i>Form</i> as its MDI parent. JFC is somewhat less
+convenient. In JFC, frames must be derived from <i>JInternalFrame</i> if they are to be
+used within a <i>JDesktopPane</i>.</font></p>
+
+<p><font size="2" face="Arial" color="#000000">The WFC <i>Form</i> class is used as the
+base class for the Relay-WFC main MDI container window, the MDI client chat windows and
+the dialogs. <b><u>Example 4</u></b> illustrates the use of <i>Forms</i> in an MDI style
+interface. It shows a simple WFC MDI application that will create a new MDI frame every
+time you hit the &quot;Add New MDI Client Frame&quot; button.</font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u>Example 4</u></strong></font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><img
+src="../images/example4.gif" width="300" height="300"></font></p>
+
+<pre><font color="#000000">import com.ms.wfc.app.*;
+import com.ms.wfc.core.*;
+import com.ms.wfc.ui.*;
+/** 
+ * MDI container form with button that creates MDI client frames.
+ */
+public class example4 extends Form {
+   Container components = new Container();
+   Button button1 = new Button();</font></pre>
+
+<pre><font color="#000000">   public example4() {
+      setSize(new Point(300, 300));
+      setText(&quot;example4&quot;);
+      setIsMDIContainer(true);
+      button1.setDock(ControlDock.TOP);
+      button1.setText(&quot;Add MDI Client Frame&quot;);</font></pre>
+
+<pre><font color="#000000">      // Add event handler to button
+      button1.addOnClick(new EventHandler(button1_click));</font></pre>
+
+<pre><font color="#000000">      setNewControls(new Control[] { button1 });
+   }
+   /** Handle button click by creating new MDI client frame. */
+   private void button1_click(Object sender, Event e) {
+      mdiframe frame = new mdiframe();
+      frame.setMDIParent(this);
+      frame.setVisible(true);
+   }
+   public static void main(String args[]) {
+      Application.run(new example4());
+   }
+}
+/**
+* MDI client frame with a button.
+*/
+class mdiframe extends Form {
+   Container components = new Container();
+   Button button1 = new Button();</font></pre>
+
+<pre><font color="#000000">   public mdiframe() {
+      button1.setDock(ControlDock.FILL);
+      button1.setText(&quot;MDI Client Frame&quot;);
+      this.setNewControls(new Control[] { button1 });
+   }
+}</font></pre>
+
+<h4><font color="#000000">Menu</font></h4>
+
+<p><font size="2" face="Arial" color="#000000">WFC does not provide anything similar to
+JFC&#146;s Action architecture. In fact, the Action architecture runs counter to the
+design philosophy of WFC. The designer of WFC, Anders Hejlsberg, has criticized the JDK
+1.1 event model because it requires you to implement a listener class if you want to be
+notified of an event [2]. Implementing a listener class is not only inconvenient, but also
+inefficient. Every listener is, after all, a class and classes take up memory, disk space
+and network bandwidth if used in an applet. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">To allow for more efficient event handling
+in WFC, Microsoft introduced the new <i>delegate</i> keyword to Java. A <i>delegate</i> is
+a function pointer that is to be used as a callback. WFC allows you to register a <i>delegate</i>
+for each event you wish to handle. This is similar to the style of event handling found in
+X-Windows and Motif as well as Rogue Wave&#146;s zApp. <b><u>Example 5</u></b> shows a
+simple WFC application, which uses delegates to implement simple actions for two menu
+items and two corresponding toolbar buttons. </font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u>Example 5</u></strong></font></p>
+
+<p align="center"><font size="2" face="Arial" color="#000000"><strong><u><img
+src="../images/example5.gif" width="300" height="200"></u></strong></font></p>
+
+<pre><font color="#000000">import com.ms.wfc.app.*;
+import com.ms.wfc.core.*;
+import com.ms.wfc.ui.*;
+/**
+ * Frame with menu bar, toolbar and two actions.
+ */
+public class example5 extends Form {
+   Container components = new Container();
+   MainMenu mainMenu1 = new MainMenu();
+   MenuItem menuItem1 = new MenuItem();
+   MenuItem menuItem2 = new MenuItem();
+   MenuItem menuItem3 = new MenuItem();
+   ToolBar toolBar1 = new ToolBar();
+   Button button1 = new Button();
+   Button button2 = new Button();</font></pre>
+
+<pre><font color="#000000">   public example5() {
+      setText(&quot;example5&quot;);
+      setSize(new Point(300, 300));</font></pre>
+
+<pre><font color="#000000">      // Create menu and add event handlers
+      menuItem2.setText(&quot;Action1&quot;);
+      menuItem2.addOnClick(new EventHandler(do_action1));
+      menuItem3.setText(&quot;Action2&quot;);
+      menuItem3.addOnClick(new EventHandler(do_action2));
+      menuItem1.setText(&quot;Menu&quot;);
+      menuItem1.setMenuItems(new MenuItem[] {menuItem2, menuItem3});
+      mainMenu1.setMenuItems(new MenuItem[] {menuItem1});
+      setMenu(mainMenu1);</font></pre>
+
+<pre><font color="#000000">      // Create toolbar buttons and add event handlers
+      toolBar1.setDock(ControlDock.TOP);
+      button1.setLocation(new Point(0, 0));
+      button1.setText(&quot;Action1&quot;);
+      button1.addOnClick(new EventHandler(do_action1));
+      button2.setLocation(new Point(75, 0));
+      button2.setText(&quot;Action2&quot;);
+      button2.addOnClick(new EventHandler(do_action2));</font></pre>
+
+<pre><font color="#000000">      setNewControls(new Control[] {
+      button2, 
+      button1, 
+      toolBar1});
+   }
+   private void do_action1(Object sender, Event e) {
+      System.out.println(&quot;You requested action 1&quot;);
+   }
+   private void do_action2(Object sender, Event e) {
+      System.out.println(&quot;You requested action 2&quot;);
+   }
+   public static void main(String args[]) {
+      Application.run(new example5());
+   }
+}</font></pre>
+
+<h4><font face="Arial" color="#000000"><small>RichEdit</small></font></h4>
+
+<p><font face="Arial" color="#000000"><small>Where JFC provides a group of classes which
+work together to form a mini framework for developing text, RTF and HTML editors, WFC just
+provides a simple Rich Text Format control which will meet the needs of most programmer.
+This control, RichEdit, certainly meets the needs of Relay-WFC. Example 6 shows a simple
+WFC RichEdit application that displays red text and blue text when you hit the
+corresponding buttons.</small></font></p>
+
+<p align="center"><font face="Arial" color="#000000"><strong><small>Example 6</small></strong></font></p>
+
+<p align="center"><font color="#000000"><img src="../images/example6.gif" width="335"
+height="237"></font></p>
+<div align="left">
+
+<pre><font color="#000000">
+import com.ms.wfc.app.*;
+import com.ms.wfc.core.*;
+import com.ms.wfc.ui.*;
+/** 
+ * Shows inserting colored text into a RichEdit control.
+ */
+public class example6 extends Form {
+
+   Button btnRed = new Button();
+   Button btnBlue = new Button();
+   RichEdit richEdit1 = new RichEdit();
+   Container components = new Container();
+
+   public example6() {
+      initForm();    
+   }
+   public void dispose() {
+      super.dispose();
+      components.dispose();
+   }
+   private void btnRed_click(Object source, Event e) { 
+      appendText(&quot;This is red text\n&quot;,Color.RED);
+   }
+   private void btnBlue_click(Object source, Event e) {
+      appendText(&quot;This is blue text\n&quot;,Color.BLUE);
+   }
+   public void appendText(String str, Color col) {
+      int begin = richEdit1.getText().length();
+      richEdit1.select(begin,begin);
+      Clipboard.setDataObject(str);
+      richEdit1.paste();
+      int end = richEdit1.getText().length();
+
+      richEdit1.select(begin,end-1);
+      richEdit1.setSelColor(col);
+      richEdit1.select(0,0);
+   }
+   private void initForm() {
+      this.setText(&quot;example6&quot;);
+      this.setAutoScaleBaseSize(new Point(5, 13));
+      this.setBorderStyle(FormBorderStyle.FIXED_DIALOG);
+      this.setClientSize(new Point(328, 211));
+
+      btnRed.setLocation(new Point(8, 8));
+      btnRed.setSize(new Point(75, 23));
+      btnRed.setText(&quot;Red Text&quot;);
+      btnRed.addOnClick(new EventHandler(this.btnRed_click));
+
+      btnBlue.setLocation(new Point(88, 8));
+      btnBlue.setSize(new Point(75, 23));
+      btnBlue.setText(&quot;Blue Text&quot;);
+      btnBlue.addOnClick(new EventHandler(this.btnBlue_click));
+
+      richEdit1.setLocation(new Point(8, 40));
+      richEdit1.setSize(new Point(312, 160));
+
+      this.setNewControls(new Control[] {richEdit1,btnBlue,btnRed});
+   }
+   public static void main(String args[]) {
+      Application.run(new example6());
+   }
+}
+</font></pre>
+</div>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>Comparing WFC and JFC</i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">The development of Relay for JFC and WFC
+allowed me to compare the two GUI toolkits in terms of variety of components, performance,
+portability, extensibility and tool support. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">Both JFC&nbsp;and WFC&nbsp;support a very
+wide variety of component types.&nbsp; They provide nearly everything that you would
+expect from a GUI&nbsp;class library and more.&nbsp;&nbsp; Currently, WFC&nbsp;has a
+slight edge in this category. I have already mentioned that JFC does not provide full
+support for common dialogs. Microsoft&#146;s Internet Controls package that ships with WFC
+also provides number of useful controls that have no equivalent in JFC. </font></p>
+
+<p><font size="2" face="Arial" color="#000000">In GUI performance, WFC is the clear
+winner. Take a look at the Relay-JFC and Relay-WFC clients running side by side and you
+will immediately see the difference. Even with the new dynamic and native compilers, JFC
+may still have problems with GUI sluggishness because of the overhead of its look-and-feel
+emulation.</font></p>
+
+<p><font size="2" face="Arial" color="#000000">In the area of portability, JFC is the only
+choice. Since JFC is written in pure Java it will run on any of the numerous<i> </i>operating
+systems that support a Java JDK 1.1.2 or better VM. One of the design goals of JFC was to
+eliminate the subtle differences in GUI behavior of AWT. JFC seems to have met that goal.
+There are probably some platform specific incompatibilities, but I have worked with JFC
+under Windows 95, Windows NT and Linux and I have not encountered one.</font></p>
+
+<p><font face="Arial" color="#000000"><small>JFC was designed with extensibility in mind
+and this is clear in almost every part of the library. For example, with JFC it easy to
+provide your own plug-in editors, renderers and data models for cells within table
+controls, items within list boxes and other controls. WFC provides adequate extensibility,
+but the individual controls do not provide quite as much flexibility as those of WFC. I
+prefer JFC in this area.</small></font></p>
+
+<p><font size="2" face="Arial" color="#000000">It&nbsp;appears that both JFC&nbsp;and
+WFC&nbsp;will have excellent tool support.&nbsp; Microsoft will provide support for
+WFC&nbsp;through the Visual J++ IDE and GUI&nbsp;builder. Microsoft has also lined up
+numerous third party software vendors to provide WFC&nbsp;components and add-ons.&nbsp;
+Borland, Symantec and others will be providing full support for JFC&nbsp;in their
+GUI&nbsp;builders and most Java Beans vendors are tooling-up to offer JFC versions of
+their products.&nbsp;&nbsp; </font></p>
+
+<p><font size="2" face="Arial" color="#000000"><u>Table 4</u> summarizes the advantages
+and disadvantages of JFC and WFC. </font></p>
+
+<p><font size="2" face="Arial Black" color="#000000"><b><i>Conclusion</i></b></font></p>
+
+<p><font size="2" face="Arial" color="#000000">JFC and WFC both provide excellent toolkits
+for GUI development and both will have excellent tool support. Even though they seem to
+have divided the Java community, JFC and WFC are signs of Java&#146;s growing maturity and
+suitability for real application development. So, which of these two Java class libraries
+is best for you? As you might expect, the answer is &quot;it depends.&quot; JFC is well
+designed, full-featured and is a natural next step for developers familiar with AWT. If
+you have cross-platform requirements, or you suspect that you may have such requirements
+in the future, then JFC is your best choice. WFC is fast, full-featured and should be
+familiar territory to Windows developers of all stripes. If you are specifically targeting
+the Windows platform, then WFC is your best choice.</font></p>
+
+<p><font size="2" face="Arial" color="#000000"><em>--</em></font></p>
+
+<p><font color="#000000"><font size="2" face="Arial"><em>Endnotes</em></font> </font>
+
+<ul>
+  <li><font size="2" face="Arial" color="#000000"><em>David M. Johnson is a software engineer
+    with Virtual Corporation in Charlotte, North Carolina and can be contacted at </em><a
+    href="mailto:johnson@roguewave.com">djohnson@virtual-online.com</a><em>.</em></font></li>
+</ul>
+
+<ul>
+  <li><font size="2" face="Arial" color="#000000">Full source code for the Relay-JFC and
+    Relay-WFC chat client programs can be retrieved from <a
+    href="http://www.geocities.com/SiliconValley/Vista/8169/relay.htm">http://www.geocities.com/SiliconValley/Vista/8169</a></font></li>
+</ul>
+
+<p><font color="#000000"><font size="2" face="Arial">Footnotes</font> </font>
+
+<ol>
+  <li><font size="2" face="Arial" color="#000000"><u>Anders Hejlsberg tells how his team
+    designed WFC</u>, MSDN Online, <a
+    href="http://www.microsoft.com/msdn/news/feature/031198/andersh.htm">http://www.microsoft.com/msdn/news/feature/031198/andersh.htm</a>.</font></li>
+  <li><font size="2" face="Arial" color="#000000"><u>Mixing Heavy and Light Components</u>,
+    Java Developers Connection, <a
+    href="http://java.sun.com/products/jfc/swingdoc-current/mixing.html">http://java.sun.com/products/jfc/swingdoc-current/mixing.html</a>).</font></li>
+</ol>
+
+<dl>
+  <dt>&nbsp;</dt>
+</dl>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</body>
+</html>

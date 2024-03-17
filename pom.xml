@@ -68,6 +68,7 @@
             <artifactId>batik-codec</artifactId>
             <version>1.17</version>
         </dependency>
+
         <dependency>
             <groupId>com.github.spotbugs</groupId>
             <artifactId>spotbugs-annotations</artifactId>
@@ -76,8 +77,6 @@
         </dependency>
 
     </dependencies>
-
-    <!-- Build Plugins -->
 
     <build>
 
