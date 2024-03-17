@@ -22,7 +22,7 @@ There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Compari
 
 Here's the old Relay-JFC in action:
 
-![screenshot if Relay-JFC](docs/screenshoots/screenshot1.jpg "Relay-JFC running on Windows NT")
+![screenshot of Relay-JFC](docs/screenshots/screenshot1.jpg "Relay-JFC running on Windows NT")
 
 # 2.0 RELAY-JFC FEATURES
 
