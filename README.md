@@ -3,7 +3,7 @@
 
 *Copyright 1997 - 2024 by David M. Johnson*
 
-### TABLE OF CONTENTS
+## TABLE OF CONTENTS
 
 * 1.0 INTRODUCTION
 * 2.0 RELAY-IRC FEATURES
@@ -17,14 +17,17 @@ Relay-IRC is an Open Source IRC chat program with an easy-to-use graphical user 
 Written in Java and Swing (aka JFC), it should run on just about any computer.
 The software is available under the terms of the Mozilla public license (see the file LICENSE or the Mozilla web site for more on this license).
 
+### History
+
 Relay-IRC was once known as Relay-JFC. 
-There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855)
+There is an article about Relay-JFC in Dr. Dobb's, February 1999 issue: [Comparing WFC and JFC](https://www.drdobbs.com/jvm/comparing-wfc-and-jfc/184410855). 
+You can also find the old website up and running at SourceForge https://relayirc.sourceforge.net, but most of the links are 404 now.
 
 Here's the old Relay-JFC in action:
 
 ![screenshot of Relay-JFC](/docs/docs/screenshots/screenshot1.jpg "Relay-JFC running on Windows NT")
 
-# 2.0 RELAY-JFC FEATURES
+## 2.0 RELAY-JFC FEATURES
 
 The significant features of Relay-JFC are:
    * GUI with multiple window interface
@@ -41,11 +44,11 @@ There are also some significant limitations:
    * Currently cannot be used as an applet
    * Does not support DCC file transfer
 
-# 3.0 RELAY-JFC REQUIREMENTS
+## 3.0 RELAY-JFC REQUIREMENTS
 
 Relay-JFC requires a Java Development Kit (JDK) and is known to run on Java 21.
 
-# 4.0 INSTALLING & RUNNING RELAY-JFC 
+## 4.0 INSTALLING & RUNNING RELAY-JFC 
 
 Currently, there are no releases of Relay-JFC. So, the only way to run it is to clone this Github repo, build and run the code as follows:
    
