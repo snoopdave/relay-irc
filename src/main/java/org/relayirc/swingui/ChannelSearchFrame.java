@@ -16,9 +16,9 @@ import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////////
 
-/** 
- * Internal frame/MDI client frame that holds ChannelSeachPanel. 
- * @see org.relayirc.swingui.ChannelSearchPanel 
+/**
+ * Internal frame/MDI client frame that holds ChannelSeachPanel.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -31,23 +31,27 @@ import java.awt.*;
  * Contributor(s): No contributors to this file <br>
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
+ * @see org.relayirc.swingui.ChannelSearchPanel
  */
 public class ChannelSearchFrame extends JInternalFrame implements MDIClientFrame {
-   ChannelSearchPanel _panel;
-    
-	public ChannelSearchFrame(ChannelSearch search) {
-      super("Channel Search",true,true,true,true);
-      getContentPane().setLayout(new BorderLayout());
-      _panel = new ChannelSearchPanel(search);
-      getContentPane().add(_panel,BorderLayout.CENTER);
-	}
-   public MDIClientPanel getClientPanel() {
-      return _panel;
-   }
-   public void setClientPanel(MDIClientPanel clientPanel) {
-      //_panel = clientPanel;
-   }
-   public JInternalFrame getFrame() {
-      return this;
-   }
+    ChannelSearchPanel _panel;
+
+    public ChannelSearchFrame(ChannelSearch search) {
+        super("Channel Search", true, true, true, true);
+        getContentPane().setLayout(new BorderLayout());
+        _panel = new ChannelSearchPanel(search);
+        getContentPane().add(_panel, BorderLayout.CENTER);
+    }
+
+    public MDIClientPanel getClientPanel() {
+        return _panel;
+    }
+
+    public void setClientPanel(MDIClientPanel clientPanel) {
+        //_panel = clientPanel;
+    }
+
+    public JInternalFrame getFrame() {
+        return this;
+    }
 }

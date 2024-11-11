@@ -16,8 +16,9 @@ import java.beans.SimpleBeanInfo;
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * BeanInfo for org.relayirc.chatengine.Server class. Exposes only those 
- * properties that should be displayed the user's property dialog. 
+ * BeanInfo for org.relayirc.chatengine.Server class. Exposes only those
+ * properties that should be displayed the user's property dialog.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -34,35 +35,39 @@ import java.beans.SimpleBeanInfo;
  */
 public class ServerBeanInfo extends SimpleBeanInfo {
 
-   private final PropertyDescriptor[] _descriptors;
+    /**
+     * Collection of property names and display names.
+     */
+    private static final String[][] _propNames = {
+            {"name", "Name"},
+            {"network", "Network"},
+            {"port", "Port"},
+            {"favorite", "Favorite"}
+    };
+    private final PropertyDescriptor[] _descriptors;
 
-   /** Collection of property names and display names. */
-   private static final String[][] _propNames = {
-      {"name","Name"},
-      {"network","Network"},
-      {"port","Port"},
-      {"favorite","Favorite"}
-   };
+    /**
+     * Construct BeanInfo by creating array of property descriptors.
+     */
+    public ServerBeanInfo() {
+        _descriptors = new PropertyDescriptor[_propNames.length];
+        try {
+            for (int i = 0; i < _propNames.length; i++) {
+                PropertyDescriptor desc;
+                desc = new PropertyDescriptor(_propNames[i][0], Server.class);
+                desc.setDisplayName(_propNames[i][1]);
+                _descriptors[i] = desc;
+            }
+        } catch (Exception e) {
+            Debug.println("<" + e + "> in ServerBeanInfo ctor");
+        }
+    }
 
-   /** Construct BeanInfo by creating array of property descriptors. */
-   public ServerBeanInfo() {
-      _descriptors = new PropertyDescriptor[_propNames.length]; 
-      try {
-         for (int i=0; i<_propNames.length; i++) {
-            PropertyDescriptor desc;
-            desc = new PropertyDescriptor(_propNames[i][0],Server.class);
-            desc.setDisplayName(_propNames[i][1]);
-            _descriptors[i] = desc; 
-         }
-      }
-      catch (Exception e) {
-         Debug.println("<"+e+"> in ServerBeanInfo ctor");
-      }
-   }
-
-   /** Return array of property descriptors. */ 
-   public PropertyDescriptor[] getPropertyDescriptors() {
-      return _descriptors;
-   }
+    /**
+     * Return array of property descriptors.
+     */
+    public PropertyDescriptor[] getPropertyDescriptors() {
+        return _descriptors;
+    }
 }
 

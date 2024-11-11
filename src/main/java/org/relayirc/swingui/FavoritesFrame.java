@@ -15,8 +15,10 @@ import javax.swing.*;
 import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////////
+
 /**
  * MDI client frame that holds FavoritesPanel.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -31,22 +33,25 @@ import java.awt.*;
  * All Rights Reserved.
  */
 public class FavoritesFrame extends JInternalFrame implements MDIClientFrame {
-   FavoritesPanel _panel;
+    FavoritesPanel _panel;
 
-	public FavoritesFrame(ChatApp app) {
-      super("Favorites",true,true,true,true);
-      getContentPane().setLayout(new BorderLayout());
-      setFrameIcon(IconManager.getIcon("Favorite"));
-      _panel = new FavoritesPanel(app);
-      getContentPane().add(_panel,BorderLayout.CENTER);
-	}
-   public MDIClientPanel getClientPanel() {
-      return _panel;
-   }
-   public void setClientPanel(MDIClientPanel clientPanel) {
-      //_panel = clientPanel;
-   }
-   public JInternalFrame getFrame() {
-      return this;
-   }
+    public FavoritesFrame(ChatApp app) {
+        super("Favorites", true, true, true, true);
+        getContentPane().setLayout(new BorderLayout());
+        setFrameIcon(IconManager.getIcon("Favorite"));
+        _panel = new FavoritesPanel(app);
+        getContentPane().add(_panel, BorderLayout.CENTER);
+    }
+
+    public MDIClientPanel getClientPanel() {
+        return _panel;
+    }
+
+    public void setClientPanel(MDIClientPanel clientPanel) {
+        //_panel = clientPanel;
+    }
+
+    public JInternalFrame getFrame() {
+        return this;
+    }
 }

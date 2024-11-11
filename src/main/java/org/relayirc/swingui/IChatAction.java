@@ -6,11 +6,14 @@
 //-----------------------------------------------------------------------------
 
 package org.relayirc.swingui;
+
 import javax.swing.*;
 
 ///////////////////////////////////////////////////////////////////////////////
-/** 
- * Actions returned by ChatApp.getAction() all implement this. 
+
+/**
+ * Actions returned by ChatApp.getAction() all implement this.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -26,15 +29,23 @@ import javax.swing.*;
  */
 public interface IChatAction {
 
-   /** Set enabled or disabled, depending on chat app state. */
-   void update();
+    /**
+     * Set enabled or disabled, depending on chat app state.
+     */
+    void update();
 
-   /** Get the actual action object. */
-   AbstractAction getActionObject();
+    /**
+     * Get the actual action object.
+     */
+    AbstractAction getActionObject();
 
-   /** Set context for action. */
-   void setContext(Object context);
+    /**
+     * Get context for action.
+     */
+    Object getContext();
 
-   /** Get context for action. */
-   Object getContext();
+    /**
+     * Set context for action.
+     */
+    void setContext(Object context);
 }

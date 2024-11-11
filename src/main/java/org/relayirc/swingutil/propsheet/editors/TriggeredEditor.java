@@ -15,8 +15,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
- * Label wih a trigger button. 
+ * Label wih a trigger button.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -34,77 +36,91 @@ import java.awt.event.ActionListener;
  */
 public abstract class TriggeredEditor extends PropSheetEditor {
 
-   private _TriggeredEditor _editor = null;
-   public JButton getButton() {return _editor.getButton();}
+    private _TriggeredEditor _editor = null;
 
-   //---------------------------------------------------------------------------
-   public TriggeredEditor() {
-      super();
-   }
-   //--------------------------------------------------------------------------
-   public abstract void triggered();
-   //---------------------------------------------------------------------------
-   public boolean isPaintable() {
-      return true;
-   }
-   //---------------------------------------------------------------------------
-   public void paintValue(Graphics gfx, Rectangle rect) {
-      // This seems to align perfectly with the TriggeredEditor's text
-      gfx.drawString(getAsText(),0,(int)(rect.height*0.8));
-   }
-   //--------------------------------------------------------------------------
-   public Component getCustomEditor() {
-		if (_editor == null) {
-		 _editor = new _TriggeredEditor();
-		}
-		_editor.setEnabled( isWritable() );
+    //---------------------------------------------------------------------------
+    public TriggeredEditor() {
+        super();
+    }
 
-		if (getToolTipText() != null) {
-		 _editor.setToolTipText(getToolTipText());
-		}
-		_editor.getLabel().setText(getAsText());
-		return _editor;
-   }
-   //===========================================================================
-   private class _TriggeredEditor extends JComponent {
+    public JButton getButton() {
+        return _editor.getButton();
+    }
 
-      public JButton getButton() {return _button;}
-      private final JButton _button;
+    //--------------------------------------------------------------------------
+    public abstract void triggered();
 
-      public JLabel getLabel() {return _label;}
-      private final JLabel _label;
+    //---------------------------------------------------------------------------
+    public boolean isPaintable() {
+        return true;
+    }
 
-      public void setEnabled(boolean flag) {
-		  getButton().setEnabled(flag);
-      }
-      public void setToolTipText(String text) {
-		  getButton().setToolTipText(text);
-		  getLabel().setToolTipText(text);
-      }	
+    //---------------------------------------------------------------------------
+    public void paintValue(Graphics gfx, Rectangle rect) {
+        // This seems to align perfectly with the TriggeredEditor's text
+        gfx.drawString(getAsText(), 0, (int) (rect.height * 0.8));
+    }
 
-      public _TriggeredEditor() {
+    //--------------------------------------------------------------------------
+    public Component getCustomEditor() {
+        if (_editor == null) {
+            _editor = new _TriggeredEditor();
+        }
+        _editor.setEnabled(isWritable());
 
-         setLayout(new BorderLayout());
+        if (getToolTipText() != null) {
+            _editor.setToolTipText(getToolTipText());
+        }
+        _editor.getLabel().setText(getAsText());
+        return _editor;
+    }
 
-         // Text label displays property as text
-         _label = new JLabel();
-         _label.setText(getAsText());
-         _label.setBorder(null);
-         add( _label, BorderLayout.CENTER );
+    //===========================================================================
+    private class _TriggeredEditor extends JComponent {
 
-		 _button = new JButton("...");
-		 _button.setToolTipText("Click to edit list");
-		 add( _button, BorderLayout.EAST );
+        private final JButton _button;
+        private final JLabel _label;
 
-         // Listen to trigger button
-         _button.addActionListener( new ActionListener() {
-            public void actionPerformed( ActionEvent event) {
-				triggered();
-				_label.setText(getAsText());
-            }
-         });
-      }
-   }
+        public _TriggeredEditor() {
+
+            setLayout(new BorderLayout());
+
+            // Text label displays property as text
+            _label = new JLabel();
+            _label.setText(getAsText());
+            _label.setBorder(null);
+            add(_label, BorderLayout.CENTER);
+
+            _button = new JButton("...");
+            _button.setToolTipText("Click to edit list");
+            add(_button, BorderLayout.EAST);
+
+            // Listen to trigger button
+            _button.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent event) {
+                    triggered();
+                    _label.setText(getAsText());
+                }
+            });
+        }
+
+        public JButton getButton() {
+            return _button;
+        }
+
+        public JLabel getLabel() {
+            return _label;
+        }
+
+        public void setEnabled(boolean flag) {
+            getButton().setEnabled(flag);
+        }
+
+        public void setToolTipText(String text) {
+            getButton().setToolTipText(text);
+            getLabel().setToolTipText(text);
+        }
+    }
 }
 
 /*

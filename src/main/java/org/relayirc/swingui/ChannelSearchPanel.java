@@ -26,6 +26,7 @@ import java.awt.event.*;
  * A panel containing fields for specifying a channel search, a search
  * button to start the search and a table in which to display the
  * search results.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -40,83 +41,106 @@ import java.awt.event.*;
  * All Rights Reserved.
  */
 public class ChannelSearchPanel extends JPanel
-   implements MDIClientPanel, ChannelSearchListener {
+        implements MDIClientPanel, ChannelSearchListener {
 
-   private final ChannelSearch _search;
-   private String        _dockState = MDIPanel.DOCK_NONE;
-   private final ChannelTable  _table;
-   private final JLabel        _status;
-   private final JProgressBar  _progress;
-   private int           _progressValue = 0;
+    private final ChannelSearch _search;
+    private final ChannelTable _table;
+    private final JLabel _status;
+    private final JProgressBar _progress;
+    private String _dockState = MDIPanel.DOCK_NONE;
+    private int _progressValue = 0;
 
-   /** Construct a search panel for a specified channel search object. */
-   public ChannelSearchPanel(ChannelSearch search) {
-      _search = search;
-      _search.addChannelSearchListener(this);
+    /**
+     * Construct a search panel for a specified channel search object.
+     */
+    public ChannelSearchPanel(ChannelSearch search) {
+        _search = search;
+        _search.addChannelSearchListener(this);
 
-      setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
-      // Query panel to specify search parameters
-      add(new QueryPanel(this),BorderLayout.NORTH);
+        // Query panel to specify search parameters
+        add(new QueryPanel(this), BorderLayout.NORTH);
 
-      // Channel table to show results
-      _table = new ChannelTable(search);
-      add(new JScrollPane(_table),BorderLayout.CENTER);
+        // Channel table to show results
+        _table = new ChannelTable(search);
+        add(new JScrollPane(_table), BorderLayout.CENTER);
 
-      // Status bar and progress meter
-      JPanel statusPanel = new JPanel();
-      statusPanel.setLayout(new BorderLayout());
+        // Status bar and progress meter
+        JPanel statusPanel = new JPanel();
+        statusPanel.setLayout(new BorderLayout());
 
-      _status = new JLabel();
-      _status.setBorder(new BevelBorder(BevelBorder.LOWERED));
-      statusPanel.add(_status,BorderLayout.CENTER);
+        _status = new JLabel();
+        _status.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        statusPanel.add(_status, BorderLayout.CENTER);
 
-      _progress = new JProgressBar();
-      _progress.setBorder(new BevelBorder(BevelBorder.LOWERED));
-      statusPanel.add(_progress,BorderLayout.EAST);
+        _progress = new JProgressBar();
+        _progress.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        statusPanel.add(_progress, BorderLayout.EAST);
 
-      add(statusPanel,BorderLayout.SOUTH);
-   }
-   //-----------------------------------------------------------------
-   /** Returns panel's search object. */
-   public ChannelSearch getChannelSearch() {
-      return _search;
-   }
-   //------------------------------------------------------------------
-   /** Get dock-state of this panel. @see org.relayirc.swingutil.MDIClientPanel */
-   public String getDockState() {
-      return _dockState;
-   }
-   //------------------------------------------------------------------
-   /** Set dock-state of this panel. @see org.relayirc.swingutil.MDIClientPanel */
-   public void setDockState(String dockState) {
-      _dockState = dockState;
-   }
-   //------------------------------------------------------------------
-   /** Get panel for this MDI client. @see org.relayirc.swingutil.MDIClientPanel */
-   public JPanel getPanel() {
-      return this;
-   }
-   //----------------------------------------------------------------------
-   /** Called when the search is started. */
-   public void searchStarted(int channels) {
-      _status.setText("Searching...");
-      _progressValue = 0;
-      _progress.setMinimum(0);
-      _progress.setMaximum(channels);
-   }
-   //----------------------------------------------------------------------
-   /** Called with a channel has been found by the search. */
-   public void searchFound(Channel chan) {
-      _progress.setValue(++_progressValue);
-   }
-   //----------------------------------------------------------------------
-   /** Called when the search is complete. */
-   public void searchEnded() {
-      _status.setText("Search Complete ("+_table.getRowCount()+" channels found)");
-      _progressValue = 0;
-      _progress.setValue(0);
-   }
+        add(statusPanel, BorderLayout.SOUTH);
+    }
+    //-----------------------------------------------------------------
+
+    /**
+     * Returns panel's search object.
+     */
+    public ChannelSearch getChannelSearch() {
+        return _search;
+    }
+    //------------------------------------------------------------------
+
+    /**
+     * Get dock-state of this panel. @see org.relayirc.swingutil.MDIClientPanel
+     */
+    public String getDockState() {
+        return _dockState;
+    }
+    //------------------------------------------------------------------
+
+    /**
+     * Set dock-state of this panel. @see org.relayirc.swingutil.MDIClientPanel
+     */
+    public void setDockState(String dockState) {
+        _dockState = dockState;
+    }
+    //------------------------------------------------------------------
+
+    /**
+     * Get panel for this MDI client. @see org.relayirc.swingutil.MDIClientPanel
+     */
+    public JPanel getPanel() {
+        return this;
+    }
+    //----------------------------------------------------------------------
+
+    /**
+     * Called when the search is started.
+     */
+    public void searchStarted(int channels) {
+        _status.setText("Searching...");
+        _progressValue = 0;
+        _progress.setMinimum(0);
+        _progress.setMaximum(channels);
+    }
+    //----------------------------------------------------------------------
+
+    /**
+     * Called with a channel has been found by the search.
+     */
+    public void searchFound(Channel chan) {
+        _progress.setValue(++_progressValue);
+    }
+    //----------------------------------------------------------------------
+
+    /**
+     * Called when the search is complete.
+     */
+    public void searchEnded() {
+        _status.setText("Search Complete (" + _table.getRowCount() + " channels found)");
+        _progressValue = 0;
+        _progress.setValue(0);
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -125,104 +149,109 @@ public class ChannelSearchPanel extends JPanel
  * Panel of text fields for entering search criteria such as Name,
  * Min Users, Max Users, etc. Designed to be used within a
  * ChannelSearchPanel.
+ *
  * @see ChannelSearchPanel
  */
 class QueryPanel extends JPanel {
-   private final JTextField _nameField = new JTextField(10);
-   private final JTextField _minField = new JTextField(3);
-   private final JTextField _maxField = new JTextField(3);
-   private final ChannelSearchPanel _searchPanel;
+    private final JTextField _nameField = new JTextField(10);
+    private final JTextField _minField = new JTextField(3);
+    private final JTextField _maxField = new JTextField(3);
+    private final ChannelSearchPanel _searchPanel;
 
-   public QueryPanel(ChannelSearchPanel searchPanel) {
-      _searchPanel = searchPanel;
+    public QueryPanel(ChannelSearchPanel searchPanel) {
+        _searchPanel = searchPanel;
 
-      setBorder(new EmptyBorder(10,10,10,10));
-      setLayout(new GridBagLayout());
+        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setLayout(new GridBagLayout());
 
-      // TODO: Implement search-by-channel name or regex against channel names
-      //add(new JLabel("Name",SwingConstants.RIGHT),
-         //new GridBagConstraints2(0,0,1,1, 0.0,0.0,
-         //GridBagConstraints.EAST,GridBagConstraints.NONE,
-         //new Insets(1,1,1,1),0,0));
-      //add(_nameField,
-         //new GridBagConstraints2(1,0,1,1, 1.0,0.0,
-         //GridBagConstraints.WEST,GridBagConstraints.NONE,
-         //new Insets(1,1,1,1),0,0));
+        // TODO: Implement search-by-channel name or regex against channel names
+        //add(new JLabel("Name",SwingConstants.RIGHT),
+        //new GridBagConstraints2(0,0,1,1, 0.0,0.0,
+        //GridBagConstraints.EAST,GridBagConstraints.NONE,
+        //new Insets(1,1,1,1),0,0));
+        //add(_nameField,
+        //new GridBagConstraints2(1,0,1,1, 1.0,0.0,
+        //GridBagConstraints.WEST,GridBagConstraints.NONE,
+        //new Insets(1,1,1,1),0,0));
 
-      // Min users field
-      add(new JLabel("Min Users",SwingConstants.RIGHT),
-         new GridBagConstraints2(0,0,1,1, 0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(1,1,1,1),0,0));
-      add(_minField,
-         new GridBagConstraints2(1,0,1,1, 0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(1,1,1,1),0,0));
-      // If min users is set, then put value in min field
-      if (_searchPanel.getChannelSearch().getMinUsers() != Integer.MIN_VALUE) {
-         _minField.setText(
-           Integer.toString(_searchPanel.getChannelSearch().getMinUsers()));
-      }
-
-
-      // Max users field
-      add(new JLabel("Max Users",SwingConstants.RIGHT),
-         new GridBagConstraints2(0,1,1,1, 0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(1,1,1,1),0,0));
-      add(_maxField,
-         new GridBagConstraints2(1,1,1,1, 0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(1,1,1,1),0,0));
-      // If max users is set, then put value in max field
-      if (_searchPanel.getChannelSearch().getMaxUsers() != Integer.MAX_VALUE) {
-         _maxField.setText(
-           Integer.toString(_searchPanel.getChannelSearch().getMaxUsers()));
-      }
+        // Min users field
+        add(new JLabel("Min Users", SwingConstants.RIGHT),
+                new GridBagConstraints2(0, 0, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.WEST, GridBagConstraints.NONE,
+                        new Insets(1, 1, 1, 1), 0, 0));
+        add(_minField,
+                new GridBagConstraints2(1, 0, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.WEST, GridBagConstraints.NONE,
+                        new Insets(1, 1, 1, 1), 0, 0));
+        // If min users is set, then put value in min field
+        if (_searchPanel.getChannelSearch().getMinUsers() != Integer.MIN_VALUE) {
+            _minField.setText(
+                    Integer.toString(_searchPanel.getChannelSearch().getMinUsers()));
+        }
 
 
-      //add(new JCheckBox("Save Results"),
-         //new GridBagConstraints2(2,2,1,1,0.0,0.0,
-         //GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
-         //new Insets(1,1,1,1),0,0));
+        // Max users field
+        add(new JLabel("Max Users", SwingConstants.RIGHT),
+                new GridBagConstraints2(0, 1, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.WEST, GridBagConstraints.NONE,
+                        new Insets(1, 1, 1, 1), 0, 0));
+        add(_maxField,
+                new GridBagConstraints2(1, 1, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.WEST, GridBagConstraints.NONE,
+                        new Insets(1, 1, 1, 1), 0, 0));
+        // If max users is set, then put value in max field
+        if (_searchPanel.getChannelSearch().getMaxUsers() != Integer.MAX_VALUE) {
+            _maxField.setText(
+                    Integer.toString(_searchPanel.getChannelSearch().getMaxUsers()));
+        }
 
 
-      // Search button starts search
-      JButton searchButton = new JButton("Search");
-      add(searchButton,
-         new GridBagConstraints2(2,0,1,1,0.0,0.0,
-         GridBagConstraints.EAST,
-         GridBagConstraints.HORIZONTAL,new Insets(1,1,1,1),0,0));
+        //add(new JCheckBox("Save Results"),
+        //new GridBagConstraints2(2,2,1,1,0.0,0.0,
+        //GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
+        //new Insets(1,1,1,1),0,0));
 
-      searchButton.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent event) {
 
-            int ret = JOptionPane.showConfirmDialog(ChatApp.getChatApp(),
-               "Some servers do not support channel searches and may \n"
-               +"disconnect. Are you sure you want to run this search?");
+        // Search button starts search
+        JButton searchButton = new JButton("Search");
+        add(searchButton,
+                new GridBagConstraints2(2, 0, 1, 1, 0.0, 0.0,
+                        GridBagConstraints.EAST,
+                        GridBagConstraints.HORIZONTAL, new Insets(1, 1, 1, 1), 0, 0));
 
-            if (ret == JOptionPane.YES_OPTION) { // or JOptionPane.OK_OPTION
-               int min = Integer.MIN_VALUE;
-               int max = Integer.MAX_VALUE;
+        searchButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
 
-               try {min = Integer.parseInt(_minField.getText())-1;} 
-               catch (Exception e) {}
+                int ret = JOptionPane.showConfirmDialog(ChatApp.getChatApp(),
+                        "Some servers do not support channel searches and may \n"
+                                + "disconnect. Are you sure you want to run this search?");
 
-               try {max = Integer.parseInt(_maxField.getText())+1;} 
-               catch (Exception e) {}
+                if (ret == JOptionPane.YES_OPTION) { // or JOptionPane.OK_OPTION
+                    int min = Integer.MIN_VALUE;
+                    int max = Integer.MAX_VALUE;
 
-               _searchPanel.getChannelSearch().setMinUsers(min);
-               _searchPanel.getChannelSearch().setMaxUsers(max);
-               _searchPanel.getChannelSearch().start();
+                    try {
+                        min = Integer.parseInt(_minField.getText()) - 1;
+                    } catch (Exception e) {
+                    }
+
+                    try {
+                        max = Integer.parseInt(_maxField.getText()) + 1;
+                    } catch (Exception e) {
+                    }
+
+                    _searchPanel.getChannelSearch().setMinUsers(min);
+                    _searchPanel.getChannelSearch().setMaxUsers(max);
+                    _searchPanel.getChannelSearch().start();
+                }
             }
-         }
-      });
+        });
 
-      //add(new JButton("Save"),
-         //new GridBagConstraints2(2,1,1,1,0.0,0.0,
-         //GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
-         //new Insets(1,1,1,1),0,0));
-   }
+        //add(new JButton("Save"),
+        //new GridBagConstraints2(2,1,1,1,0.0,0.0,
+        //GridBagConstraints.EAST,GridBagConstraints.HORIZONTAL,
+        //new Insets(1,1,1,1),0,0));
+    }
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
@@ -230,129 +259,131 @@ class QueryPanel extends JPanel {
 /**
  * Table of channels that met search criteria. Uses ChannelTableModel
  * to allow editing of channel information right in the table.
+ *
  * @see ChannelTableModel
  */
 class ChannelTable extends JTable {
-   private final ChannelSearch _search;
-   private final TableSorter _sortedTableModel;
+    private final ChannelSearch _search;
+    private final TableSorter _sortedTableModel;
 
-   /**
-    * Construct channel table by adding custom cell renderers 
-    * and mouse listeners.
-    */
-   public ChannelTable(ChannelSearch search) {
-      //super(new ChannelTableModel(search));
+    /**
+     * Construct channel table by adding custom cell renderers
+     * and mouse listeners.
+     */
+    public ChannelTable(ChannelSearch search) {
+        //super(new ChannelTableModel(search));
 
-      _search = search;
+        _search = search;
 
-      _sortedTableModel = new TableSorter(new ChannelTableModel(search));
-      _sortedTableModel.addMouseListenerToHeaderInTable(this);
-      setModel(_sortedTableModel);
+        _sortedTableModel = new TableSorter(new ChannelTableModel(search));
+        _sortedTableModel.addMouseListenerToHeaderInTable(this);
+        setModel(_sortedTableModel);
 
-      setRowHeight(20);
-      setShowGrid(false);
-      setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        setRowHeight(20);
+        setShowGrid(false);
+        setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-      getColumn(
-              "Name").setHeaderRenderer(new SortedHeaderRenderer());
-      getColumn(
-              "Name").setCellRenderer(new GuiTableCellRenderer());
+        getColumn(
+                "Name").setHeaderRenderer(new SortedHeaderRenderer());
+        getColumn(
+                "Name").setCellRenderer(new GuiTableCellRenderer());
 
-      getColumn(
-              "Users").setHeaderRenderer(new SortedHeaderRenderer());
-      getColumn(
-              "Users").setCellRenderer(new TableCellRenderer() {
+        getColumn(
+                "Users").setHeaderRenderer(new SortedHeaderRenderer());
+        getColumn(
+                "Users").setCellRenderer(new TableCellRenderer() {
 
-         public Component getTableCellRendererComponent(
-            JTable table, Object value,
+            public Component getTableCellRendererComponent(
+                    JTable table, Object value,
 
-            boolean isSelected, boolean hasFocus, int row, int column) {
-            JLabel comp = new JLabel(value.toString(),SwingConstants.CENTER);
-            comp.setOpaque(true);
-            if (isSelected) {
-               comp.setForeground(table.getSelectionForeground());
-               comp.setBackground(table.getSelectionBackground());
-            } else {
-               comp.setForeground(table.getForeground());
-               comp.setBackground(table.getBackground());
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                JLabel comp = new JLabel(value.toString(), SwingConstants.CENTER);
+                comp.setOpaque(true);
+                if (isSelected) {
+                    comp.setForeground(table.getSelectionForeground());
+                    comp.setBackground(table.getSelectionBackground());
+                } else {
+                    comp.setForeground(table.getForeground());
+                    comp.setBackground(table.getBackground());
+                }
+                return comp;
             }
-            return comp;
-         }
-      });
+        });
 
-      getColumn(
-              "Topic").setHeaderRenderer(new SortedHeaderRenderer());
+        getColumn(
+                "Topic").setHeaderRenderer(new SortedHeaderRenderer());
 
-      // Listen for double-clicks and right-clicks
-      addMouseListener(new MouseAdapter() {
-         public void mouseClicked(MouseEvent event) {
-            final MouseEvent me = event;
+        // Listen for double-clicks and right-clicks
+        addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent event) {
+                final MouseEvent me = event;
 
-            // Double-click?
-            if (me.getClickCount()==2) {
+                // Double-click?
+                if (me.getClickCount() == 2) {
 
-               // Yes, join that channel!
-               int row = rowAtPoint(me.getPoint());
-               if (row!=-1) {
-                   String chan = getModel().getValueAt(row,0).toString();
-                   ChatApp.getChatApp().getServer().sendJoin(chan);
-               }
+                    // Yes, join that channel!
+                    int row = rowAtPoint(me.getPoint());
+                    if (row != -1) {
+                        String chan = getModel().getValueAt(row, 0).toString();
+                        ChatApp.getChatApp().getServer().sendJoin(chan);
+                    }
+                }
             }
-         }
-      });
-   }
-   //-----------------------------------------------------------------
-   /**
-    * For some reason, the mouse listener does not see popup-triggers
-    * so this method is necessary. This method handles right-clicks
-    * the channel table. There is also a mouse listener, created in
-    * the constructor, that handles double-clicks.
-    */
-   public void processMouseEvent( MouseEvent e ) {
-      final MouseEvent me = e;
+        });
+    }
+    //-----------------------------------------------------------------
 
-		// Right-click?
- 	   if (e.isPopupTrigger()
-          || (e.getModifiers() & InputEvent.BUTTON2_MASK) != 0
-          || (e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
+    /**
+     * For some reason, the mouse listener does not see popup-triggers
+     * so this method is necessary. This method handles right-clicks
+     * the channel table. There is also a mouse listener, created in
+     * the constructor, that handles double-clicks.
+     */
+    public void processMouseEvent(MouseEvent e) {
+        final MouseEvent me = e;
 
-         // Yes, show popup menu
-         final JPopupMenu popup = new JPopupMenu();
+        // Right-click?
+        if (e.isPopupTrigger()
+                || (e.getModifiers() & InputEvent.BUTTON2_MASK) != 0
+                || (e.getModifiers() & InputEvent.BUTTON3_MASK) != 0) {
 
-         JMenuItem addFaveItem = new JMenuItem("Add channel to favorites");
-         popup.add(addFaveItem);
-         addFaveItem.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-               int row = rowAtPoint(me.getPoint());
-               if (row!=-1) {
-                  String chanName = getModel().getValueAt(row,0).toString();
-		            Channel chan = new Channel(chanName);
-                  ChatOptions opts = ChatApp.getChatApp().getOptions();
-                  opts.getFavoriteChannels().addChannel(chan);
-               }
-            }
-         });
+            // Yes, show popup menu
+            final JPopupMenu popup = new JPopupMenu();
 
-         JMenuItem joinItem = new JMenuItem("Join channel");
-         popup.add(joinItem);
-         joinItem.addActionListener( new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-               int row = rowAtPoint(me.getPoint());
-               if (row!=-1) {
-                  String chan = getModel().getValueAt(row,0).toString();
-                  ChatApp.getChatApp().getServer().sendJoin(chan);
-               }
-            }
-         });
+            JMenuItem addFaveItem = new JMenuItem("Add channel to favorites");
+            popup.add(addFaveItem);
+            addFaveItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    int row = rowAtPoint(me.getPoint());
+                    if (row != -1) {
+                        String chanName = getModel().getValueAt(row, 0).toString();
+                        Channel chan = new Channel(chanName);
+                        ChatOptions opts = ChatApp.getChatApp().getOptions();
+                        opts.getFavoriteChannels().addChannel(chan);
+                    }
+                }
+            });
 
-         Point pt2 = SwingUtilities.convertPoint(
-            (Component)me.getSource(),
-            new Point(me.getX(),me.getY()),ChannelTable.this);
+            JMenuItem joinItem = new JMenuItem("Join channel");
+            popup.add(joinItem);
+            joinItem.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    int row = rowAtPoint(me.getPoint());
+                    if (row != -1) {
+                        String chan = getModel().getValueAt(row, 0).toString();
+                        ChatApp.getChatApp().getServer().sendJoin(chan);
+                    }
+                }
+            });
 
-         popup.show(ChannelTable.this,pt2.x,pt2.y);
-		}
-      super.processMouseEvent(e);
-   }
+            Point pt2 = SwingUtilities.convertPoint(
+                    (Component) me.getSource(),
+                    new Point(me.getX(), me.getY()), ChannelTable.this);
+
+            popup.show(ChannelTable.this, pt2.x, pt2.y);
+        }
+        super.processMouseEvent(e);
+    }
 }
 
 
@@ -362,89 +393,89 @@ class ChannelTable extends JTable {
  * Table model for displaying channel search results with each row
  * represents a channel.
  */
-class ChannelTableModel extends DefaultTableModel 
-   implements ChannelSearchListener {
+class ChannelTableModel extends DefaultTableModel
+        implements ChannelSearchListener {
 
-   private final ChannelSearch _search;
+    private final ChannelSearch _search;
 
-   //----------------------------------------------------------------------
-   public ChannelTableModel(ChannelSearch search) {
-      _search = search;
-      _search.addChannelSearchListener(this);
-   }
+    //----------------------------------------------------------------------
+    public ChannelTableModel(ChannelSearch search) {
+        _search = search;
+        _search.addChannelSearchListener(this);
+    }
 
-   //----------------------------------------------------------------------
-   public void searchStarted(int channels) {
-   }
+    //----------------------------------------------------------------------
+    public void searchStarted(int channels) {
+    }
 
-   //----------------------------------------------------------------------
-   public void searchFound(Channel chan) {
-      fireTableDataChanged();
-   }
+    //----------------------------------------------------------------------
+    public void searchFound(Channel chan) {
+        fireTableDataChanged();
+    }
 
-   //----------------------------------------------------------------------
-   public void searchEnded() {
-   }
+    //----------------------------------------------------------------------
+    public void searchEnded() {
+    }
 
-   //----------------------------------------------------------------------
-   public int getRowCount() {
-      if (_search!=null)
-         return _search.getChannelCount();
-      else
-         return 0;
-   }
+    //----------------------------------------------------------------------
+    public int getRowCount() {
+        if (_search != null)
+            return _search.getChannelCount();
+        else
+            return 0;
+    }
 
-   //----------------------------------------------------------------------
-   public Class getColumnClass(int column) {
-      switch (column) {
-         case 1:
-            return Integer.class; 
-         default:
-            return String.class; 
-      }
-   }
-
-   //----------------------------------------------------------------------
-   public int getColumnCount() {
-      return 3; // Name, User Count and Topic
-   }
-
-   //----------------------------------------------------------------------
-   public String getColumnName(int column) {
-      switch (column) {
-         case 0:
-            return "Name";
-         case 1:
-            return "Users";
-         case 2:
-            return "Topic";
-         default:
-            return "";
-      }
-   }
-
-   //----------------------------------------------------------------------
-   public Object getValueAt(int row, int column) {
-      if (_search!=null) {
-         switch (column) {
-            case 0:
-               return new GuiObject(
-                  _search.getChannelAt(row).getName(),_search.getChannelAt(row),
-                  IconManager.getIcon("users"));
+    //----------------------------------------------------------------------
+    public Class getColumnClass(int column) {
+        switch (column) {
             case 1:
-               return Integer.valueOf(_search.getChannelAt(row).getUserCount());
-            case 2:
-               return _search.getChannelAt(row).getTopic();
+                return Integer.class;
             default:
-               return "";
-         }
-      }
-      else return null;
-   }
-   //----------------------------------------------------------------------
-   public boolean isCellEditable(int rowIndex,int columnIndex) {
-      return false;
-   }
+                return String.class;
+        }
+    }
+
+    //----------------------------------------------------------------------
+    public int getColumnCount() {
+        return 3; // Name, User Count and Topic
+    }
+
+    //----------------------------------------------------------------------
+    public String getColumnName(int column) {
+        switch (column) {
+            case 0:
+                return "Name";
+            case 1:
+                return "Users";
+            case 2:
+                return "Topic";
+            default:
+                return "";
+        }
+    }
+
+    //----------------------------------------------------------------------
+    public Object getValueAt(int row, int column) {
+        if (_search != null) {
+            switch (column) {
+                case 0:
+                    return new GuiObject(
+                            _search.getChannelAt(row).getName(), _search.getChannelAt(row),
+                            IconManager.getIcon("users"));
+                case 1:
+                    return Integer.valueOf(_search.getChannelAt(row).getUserCount());
+                case 2:
+                    return _search.getChannelAt(row).getTopic();
+                default:
+                    return "";
+            }
+        } else return null;
+    }
+
+    //----------------------------------------------------------------------
+    public boolean isCellEditable(int rowIndex, int columnIndex) {
+        return false;
+    }
 }
 
 

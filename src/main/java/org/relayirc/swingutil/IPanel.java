@@ -11,8 +11,8 @@ import javax.swing.*;
 
 
 //////////////////////////////////////////////////////////////////////////////
+
 /**
- * @see PanelDlg 
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -25,19 +25,28 @@ import javax.swing.*;
  * Contributor(s): No contributors to this file <br>
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
+ * @see PanelDlg
  */
 public interface IPanel extends ITab {
-   
-   /** Get panel's Ok button. */
-   JButton getOkButton();
-   
-   /** Get panel's Cancel button. */
-   JButton getCancelButton();
 
-   /** Get panel itself. */
-   JPanel getPanel();
+    /**
+     * Get panel's Ok button.
+     */
+    JButton getOkButton();
 
-   /** Inform panel of cancellation. */
-   void onCancel();
+    /**
+     * Get panel's Cancel button.
+     */
+    JButton getCancelButton();
+
+    /**
+     * Get panel itself.
+     */
+    JPanel getPanel();
+
+    /**
+     * Inform panel of cancellation.
+     */
+    void onCancel();
 }
 

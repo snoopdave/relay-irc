@@ -15,8 +15,10 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Default implementation that provides default editors for strings.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -32,73 +34,75 @@ import java.util.Hashtable;
  * All Rights Reserved.
  */
 public class DefaultPropModel implements IPropModel {
-   private final Hashtable _values = new Hashtable();
-   private final Hashtable _editors = new Hashtable();
+    private final Hashtable _values = new Hashtable();
+    private final Hashtable _editors = new Hashtable();
 
-   //---------------------------------------------------------------------------
-   public DefaultPropModel() {
-   }
-   //---------------------------------------------------------------------------
-   public int getPropertyCount() {
-      return _values.size();
-   }
-   //---------------------------------------------------------------------------
-   public Enumeration propertyNames() {
-      return _values.keys();
-   }
-   //---------------------------------------------------------------------------
-   public Object getProperty(String key) {
-      return _values.get(key);
-   } 
-   //---------------------------------------------------------------------------
-   public String getPropertyDisplayName(String key) {
-      return key; 
-   } 
-   //---------------------------------------------------------------------------
-   public Object setProperty(String key, Object value) {
-      if (key != null && value != null) {
-         return _values.put(key,value);
-      } 
-      else {
-         Debug.println("DefaultPropModel.setProperty: null propname or value");
-         return null;
-      }
-   }
-   //---------------------------------------------------------------------------
-   public void setEditor(String propName, PropertyEditor editor) {
-      if (propName != null && editor != null) {
-         _editors.put(propName,editor);
-      }
-      else {
-         Debug.println("DefaultPropModel.setEditor: null propname or editor");
-      }
-   }
-   //---------------------------------------------------------------------------
-   public PropertyEditor getEditor(String propName) { 
-      PropertyEditor ret = null;
+    //---------------------------------------------------------------------------
+    public DefaultPropModel() {
+    }
 
-      // If editor has been set for this propName, then return that editor 
-      if (_editors.get(propName) != null) {
-         ret = (PropertyEditor)_editors.get(propName);
-      }
-      else {
-         // Use a registered editor from PropertyEditorManager
-         Object propVal = getProperty(propName);
-         if (propVal != null) {
-            ret = PropertyEditorManager.findEditor(propVal.getClass());
-            if (ret != null) {
-               setEditor(propName,ret);
+    //---------------------------------------------------------------------------
+    public int getPropertyCount() {
+        return _values.size();
+    }
+
+    //---------------------------------------------------------------------------
+    public Enumeration propertyNames() {
+        return _values.keys();
+    }
+
+    //---------------------------------------------------------------------------
+    public Object getProperty(String key) {
+        return _values.get(key);
+    }
+
+    //---------------------------------------------------------------------------
+    public String getPropertyDisplayName(String key) {
+        return key;
+    }
+
+    //---------------------------------------------------------------------------
+    public Object setProperty(String key, Object value) {
+        if (key != null && value != null) {
+            return _values.put(key, value);
+        } else {
+            Debug.println("DefaultPropModel.setProperty: null propname or value");
+            return null;
+        }
+    }
+
+    //---------------------------------------------------------------------------
+    public void setEditor(String propName, PropertyEditor editor) {
+        if (propName != null && editor != null) {
+            _editors.put(propName, editor);
+        } else {
+            Debug.println("DefaultPropModel.setEditor: null propname or editor");
+        }
+    }
+
+    //---------------------------------------------------------------------------
+    public PropertyEditor getEditor(String propName) {
+        PropertyEditor ret = null;
+
+        // If editor has been set for this propName, then return that editor
+        if (_editors.get(propName) != null) {
+            ret = (PropertyEditor) _editors.get(propName);
+        } else {
+            // Use a registered editor from PropertyEditorManager
+            Object propVal = getProperty(propName);
+            if (propVal != null) {
+                ret = PropertyEditorManager.findEditor(propVal.getClass());
+                if (ret != null) {
+                    setEditor(propName, ret);
+                } else {
+                    Debug.println("DefaultPropModel.getEditor: can't find editor");
+                }
+            } else {
+                Debug.println("DefaultPropModel.getEditor: can't find property");
             }
-            else {
-               Debug.println("DefaultPropModel.getEditor: can't find editor");
-            }
-         }
-         else {
-            Debug.println("DefaultPropModel.getEditor: can't find property");
-         }
-      }
-      return ret;
-   }
+        }
+        return ret;
+    }
 }
 
 

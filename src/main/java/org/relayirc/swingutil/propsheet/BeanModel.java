@@ -16,7 +16,8 @@ import java.util.Hashtable;
 
 
 /**
- * PropModel that wraps a bean. 
+ * PropModel that wraps a bean.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -31,129 +32,130 @@ import java.util.Hashtable;
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
- public class BeanModel implements IPropModel {
-   private final Object _bean;
-   private final Hashtable _propDescs = new Hashtable();
-   private final Hashtable _editors = new Hashtable();
-   private final boolean _isReadOnly = true;
+public class BeanModel implements IPropModel {
+    private final Object _bean;
+    private final Hashtable _propDescs = new Hashtable();
+    private final Hashtable _editors = new Hashtable();
+    private final boolean _isReadOnly = true;
 
-   //-----------------------------------------------------------------
-   public BeanModel(Object bean) {
-      _bean = bean;
+    //-----------------------------------------------------------------
+    public BeanModel(Object bean) {
+        _bean = bean;
 
-      // Hash the bean's property descriptors by property name for fast access
-      BeanInfo info = null;
-      try {
-         info = Introspector.getBeanInfo(bean.getClass());
-         Debug.println(info.getClass().toString());
-         PropertyDescriptor[] descs = info.getPropertyDescriptors();
+        // Hash the bean's property descriptors by property name for fast access
+        BeanInfo info = null;
+        try {
+            info = Introspector.getBeanInfo(bean.getClass());
+            Debug.println(info.getClass().toString());
+            PropertyDescriptor[] descs = info.getPropertyDescriptors();
 
-         for (int i=0; i<descs.length; i++) {
-            _propDescs.put(descs[i].getName(),descs[i]);
-         }
-      }
-      catch (IntrospectionException e) {
-      }
-   }
-   //-----------------------------------------------------------------
-   public int getPropertyCount() {
-      return _propDescs.size();
-   }
-   //-----------------------------------------------------------------
-   public Enumeration propertyNames() {
-      return _propDescs.keys();
-   }
-   //-----------------------------------------------------------------
-   public String getPropertyDisplayName(String propName) {
-      String ret = null; 
-      try {
-         PropertyDescriptor desc = (PropertyDescriptor)_propDescs.get(propName);
-         ret = desc.getDisplayName();
-      }
-      catch (Exception e) {
-         //Debug.println("("+e+") in BeanModel.getProperty()");
-      }
-      return ret != null ? ret : propName;
-   }
-   //-----------------------------------------------------------------
-   public Object getProperty(String propName) {
-      Object ret = null;
-      try {
-         PropertyDescriptor desc = (PropertyDescriptor)_propDescs.get(propName);
-         ret = desc.getReadMethod().invoke(_bean,(Object[])null);
-      }
-      catch (Exception e) {
-         //Debug.println("("+e+") in BeanModel.getProperty()");
-      }
-      return ret;
-   }
-   //-----------------------------------------------------------------
-   public Object setProperty(String key, Object value) {
-      Object prevVal = null;
-      if (!_isReadOnly) {
-         try {
-            PropertyDescriptor desc = (PropertyDescriptor)_propDescs.get(key);
-            Object[] values = new Object[1];
-            values[0] = value;
-            prevVal = desc.getWriteMethod().invoke(_bean,values);
-         }
-         catch (Exception e) {
-            //Debug.println("("+e+") in BeanModel.setProperty()");
-         }
-      }
-      return prevVal;
-   }
-   //-----------------------------------------------------------------
-   public void setEditor(String propName, PropertyEditor editor) {
-      _editors.put(propName,editor);
-   }
-   //-----------------------------------------------------------------
-   public PropertyEditor getEditor(String propName) {
-      PropertyEditor ret = null;
+            for (int i = 0; i < descs.length; i++) {
+                _propDescs.put(descs[i].getName(), descs[i]);
+            }
+        } catch (IntrospectionException e) {
+        }
+    }
 
-      if (!_isReadOnly) {
+    //-----------------------------------------------------------------
+    public static void main(String[] args) {
+        Debug.setDebug(true);
+        Debug.println("BeanModel test method");
+    }
 
-         // Look up property's editor in our editor collection 
-         try {
-            ret = (PropertyEditor)_editors.get(propName);
-         }
-         catch (Exception e) {
-         }
-   
-         if (ret == null) {
-            // Look up property's PropertyDescriptor, return its editor
+    //-----------------------------------------------------------------
+    public int getPropertyCount() {
+        return _propDescs.size();
+    }
+
+    //-----------------------------------------------------------------
+    public Enumeration propertyNames() {
+        return _propDescs.keys();
+    }
+
+    //-----------------------------------------------------------------
+    public String getPropertyDisplayName(String propName) {
+        String ret = null;
+        try {
+            PropertyDescriptor desc = (PropertyDescriptor) _propDescs.get(propName);
+            ret = desc.getDisplayName();
+        } catch (Exception e) {
+            //Debug.println("("+e+") in BeanModel.getProperty()");
+        }
+        return ret != null ? ret : propName;
+    }
+
+    //-----------------------------------------------------------------
+    public Object getProperty(String propName) {
+        Object ret = null;
+        try {
+            PropertyDescriptor desc = (PropertyDescriptor) _propDescs.get(propName);
+            ret = desc.getReadMethod().invoke(_bean, (Object[]) null);
+        } catch (Exception e) {
+            //Debug.println("("+e+") in BeanModel.getProperty()");
+        }
+        return ret;
+    }
+
+    //-----------------------------------------------------------------
+    public Object setProperty(String key, Object value) {
+        Object prevVal = null;
+        if (!_isReadOnly) {
             try {
-               PropertyDescriptor desc = (PropertyDescriptor)_propDescs.get(propName);
-               Class editorClass = desc.getPropertyEditorClass();
-               ret = (PropertyEditor)editorClass.newInstance();
+                PropertyDescriptor desc = (PropertyDescriptor) _propDescs.get(key);
+                Object[] values = new Object[1];
+                values[0] = value;
+                prevVal = desc.getWriteMethod().invoke(_bean, values);
+            } catch (Exception e) {
+                //Debug.println("("+e+") in BeanModel.setProperty()");
             }
-            catch (Exception e) {
-            }
-         }
-   
-         if (ret==null) {
-            // Use ProperyEditorManager to find editor for property
+        }
+        return prevVal;
+    }
+
+    //-----------------------------------------------------------------
+    public void setEditor(String propName, PropertyEditor editor) {
+        _editors.put(propName, editor);
+    }
+
+    //-----------------------------------------------------------------
+    public PropertyEditor getEditor(String propName) {
+        PropertyEditor ret = null;
+
+        if (!_isReadOnly) {
+
+            // Look up property's editor in our editor collection
             try {
-               Object propVal = getProperty(propName);
-               ret = PropertyEditorManager.findEditor(propVal.getClass());
+                ret = (PropertyEditor) _editors.get(propName);
+            } catch (Exception e) {
             }
-            catch (Exception e) {
+
+            if (ret == null) {
+                // Look up property's PropertyDescriptor, return its editor
+                try {
+                    PropertyDescriptor desc = (PropertyDescriptor) _propDescs.get(propName);
+                    Class editorClass = desc.getPropertyEditorClass();
+                    ret = (PropertyEditor) editorClass.newInstance();
+                } catch (Exception e) {
+                }
             }
-         }
-      }
 
-      if (ret == null) {
-         // Default to TextEditor
-         //Debug.println("BeanModel.getEditor: returning LabelEditor for "+propName);
-         ret = new LabelEditor();
-      }
+            if (ret == null) {
+                // Use ProperyEditorManager to find editor for property
+                try {
+                    Object propVal = getProperty(propName);
+                    ret = PropertyEditorManager.findEditor(propVal.getClass());
+                } catch (Exception e) {
+                }
+            }
+        }
 
-      return ret;
-   }
-   //-----------------------------------------------------------------
-   public static void main(String[] args) {
-      Debug.setDebug(true);
-      Debug.println("BeanModel test method");
-   }
+        if (ret == null) {
+            // Default to TextEditor
+            //Debug.println("BeanModel.getEditor: returning LabelEditor for "+propName);
+            ret = new LabelEditor();
+        }
+
+        return ret;
+    }
 }
 

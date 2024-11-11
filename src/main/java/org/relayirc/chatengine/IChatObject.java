@@ -11,8 +11,9 @@ package org.relayirc.chatengine;
 
 /**
  * Interface for a chat data object, created for use by PropDlg and PropPanel.
+ *
  * @author David M. Johnson.
- * @version $Revision: 1.1.2.1 $ 
+ * @version $Revision: 1.1.2.1 $
  *
  * <p>The contents of this file are subject to the Mozilla Public License
  * Version 1.0 (the "License"); you may not use this file except in
@@ -26,9 +27,13 @@ package org.relayirc.chatengine;
  */
 public interface IChatObject {
 
-   /** Get object's description. */
-   String getDescription();
+    /**
+     * Get object's description.
+     */
+    String getDescription();
 
-   /** Set object's description. */
-   void setDescription(String desc);
+    /**
+     * Set object's description.
+     */
+    void setDescription(String desc);
 }

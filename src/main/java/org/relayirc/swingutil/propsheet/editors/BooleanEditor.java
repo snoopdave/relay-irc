@@ -10,9 +10,10 @@ package org.relayirc.swingutil.propsheet.editors;
 import org.relayirc.swingutil.propsheet.PropSheet;
 
 //////////////////////////////////////////////////////////////////////////
+
 /**
  * PropertyEditor that provides custom editor for editing an integer.
- * @see PropSheet
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -26,23 +27,26 @@ import org.relayirc.swingutil.propsheet.PropSheet;
  * <br>
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
+ * @see PropSheet
  */
-               
-public class BooleanEditor extends ComboEditor { 
 
-   //---------------------------------------------------------------------
-   public BooleanEditor() {
-      super();
-	  String[] booleanTags = { "true","false" };
-	  setTags( booleanTags );
-   }
-   //---------------------------------------------------------------------
-   public String getAsText() {
-      return getValue().toString();
-   }
-   //---------------------------------------------------------------------
-   public void setAsText(String txt) {
-      setValue(Boolean.valueOf(txt));
-   }
+public class BooleanEditor extends ComboEditor {
+
+    //---------------------------------------------------------------------
+    public BooleanEditor() {
+        super();
+        String[] booleanTags = {"true", "false"};
+        setTags(booleanTags);
+    }
+
+    //---------------------------------------------------------------------
+    public String getAsText() {
+        return getValue().toString();
+    }
+
+    //---------------------------------------------------------------------
+    public void setAsText(String txt) {
+        setValue(Boolean.valueOf(txt));
+    }
 }
 

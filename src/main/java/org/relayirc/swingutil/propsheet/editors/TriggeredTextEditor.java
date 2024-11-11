@@ -10,8 +10,10 @@ package org.relayirc.swingutil.propsheet.editors;
 import javax.swing.*;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Editor wih a trigger button that launches a simple text editor dialog.
+ *
  * @author David M Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -28,14 +30,15 @@ import javax.swing.*;
  */
 public class TriggeredTextEditor extends TriggeredEditor {
 
-   //---------------------------------------------------------------------------
-   public TriggeredTextEditor() {
-      super();
-   }
-   //--------------------------------------------------------------------------
-   public void triggered() {
-      String inputValue = JOptionPane.showInputDialog("Please input a value"); 
-   }
+    //---------------------------------------------------------------------------
+    public TriggeredTextEditor() {
+        super();
+    }
+
+    //--------------------------------------------------------------------------
+    public void triggered() {
+        String inputValue = JOptionPane.showInputDialog("Please input a value");
+    }
 }
 
 

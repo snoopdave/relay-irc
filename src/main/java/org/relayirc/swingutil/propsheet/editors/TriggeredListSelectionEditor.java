@@ -14,8 +14,10 @@ import java.awt.*;
 import java.util.Vector;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Editor wih a trigger button that launches a simple list selection dialog.
+ *
  * @author David M Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -32,34 +34,37 @@ import java.util.Vector;
  */
 public class TriggeredListSelectionEditor extends TriggeredEditor {
 
-   Frame _parent;
-   Vector _allValues;
+    Frame _parent;
+    Vector _allValues;
 
-   //--------------------------------------------------------------------------
-   public TriggeredListSelectionEditor( Frame parent, Vector allValues ) {
-      super();
-	  _parent = parent;
-	  _allValues = allValues;
-   }
-   //--------------------------------------------------------------------------
-   public void triggered() {
-      Vector list = (Vector)getValue();
+    //--------------------------------------------------------------------------
+    public TriggeredListSelectionEditor(Frame parent, Vector allValues) {
+        super();
+        _parent = parent;
+        _allValues = allValues;
+    }
 
-      ListSelectionEditorDlg dlg = 
-	     new ListSelectionEditorDlg( _parent, _allValues, list);
+    //--------------------------------------------------------------------------
+    public void triggered() {
+        Vector list = (Vector) getValue();
 
-      if (dlg.isOk()) {
-		  Debug.println("Setting prop value = "+dlg.getSelection());
-	  	  setValue( dlg.getSelection() );
-      }
-   }
-   //--------------------------------------------------------------------------
-   public void setAsText( String str ) {
-	   // We can ignore this 
-   }
-   //---------------------------------------------------------------------------
-   public String getAsText() {
-	   return getValue().toString();
-   }
+        ListSelectionEditorDlg dlg =
+                new ListSelectionEditorDlg(_parent, _allValues, list);
+
+        if (dlg.isOk()) {
+            Debug.println("Setting prop value = " + dlg.getSelection());
+            setValue(dlg.getSelection());
+        }
+    }
+
+    //---------------------------------------------------------------------------
+    public String getAsText() {
+        return getValue().toString();
+    }
+
+    //--------------------------------------------------------------------------
+    public void setAsText(String str) {
+        // We can ignore this
+    }
 }
 

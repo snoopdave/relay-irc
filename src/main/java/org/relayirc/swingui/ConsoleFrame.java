@@ -26,6 +26,7 @@ import java.awt.event.MouseEvent;
 
 /**
  * Provides a display area for general messages from the IRC server.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -40,83 +41,95 @@ import java.awt.event.MouseEvent;
  * All Rights Reserved.
  */
 public class ConsoleFrame extends JInternalFrame implements MDIClientFrame {
-   private ChatPanel _chatPanel = null;
+    private ChatPanel _chatPanel = null;
 
-   public ChatPanel getChatPanel() {return _chatPanel;}
+    public ConsoleFrame(ChatPanel consolePanel) {
+        // closable, maximizable, iconifiable, resizable
+        super("Console", true, true, true, true);
+        setFrameIcon(IconManager.getIcon("Inform"));
 
-   public ConsoleFrame(ChatPanel consolePanel) {
-      // closable, maximizable, iconifiable, resizable
-      super("Console",true,true,true,true);
-      setFrameIcon(IconManager.getIcon("Inform"));
+        //setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-      //setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        _chatPanel = consolePanel;
+        _chatPanel.setDockState(MDIPanel.DOCK_BOTTOM);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(_chatPanel, BorderLayout.CENTER);
 
-      _chatPanel = consolePanel;
-      _chatPanel.setDockState(MDIPanel.DOCK_BOTTOM);
-      getContentPane().setLayout(new BorderLayout());
-      getContentPane().add(_chatPanel,BorderLayout.CENTER);
-
-      // Listen for popup menu clicks
-      _chatPanel.addMouseListener(new MouseAdapter() {
-         public void mouseClicked(MouseEvent e) {showPopup(e);}
-         public void mousePressed(MouseEvent e) {showPopup(e);}
-         public void mouseReleased(MouseEvent e) {showPopup(e);}
-
-         public void showPopup(MouseEvent e) {
-            if (e.isPopupTrigger()) {
-
-               final JPopupMenu popup = new JPopupMenu();
-
-               JMenuItem mi2 = new JMenuItem("Dock / Undock");
-               mi2.addActionListener( new ActionListener() {
-                  public void actionPerformed(ActionEvent ae) {
-
-                     // Set new dock state
-                     String dockState = _chatPanel.getDockState();
-                     if (dockState.equals(MDIPanel.DOCK_NONE))
-                        _chatPanel.setDockState(MDIPanel.DOCK_BOTTOM);
-                     else
-                        _chatPanel.setDockState(MDIPanel.DOCK_NONE);
-
-                     // And register it with the MDIPanel
-                     ChatApp.getChatApp().dock(_chatPanel);
-                  }
-               });
-               popup.add(mi2);
-
-               Point pt = SwingUtilities.convertPoint(
-                  (Component)e.getSource(),
-                  new Point(e.getX(),e.getY()),_chatPanel);
-
-               popup.show(_chatPanel,pt.x,pt.y);
+        // Listen for popup menu clicks
+        _chatPanel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                showPopup(e);
             }
-         }
-      });
 
-      // Add listener so we can become invisible on close
-      addInternalFrameListener( new InternalFrameAdapter() {
-         public void internalFrameClosing(InternalFrameEvent e) {
+            public void mousePressed(MouseEvent e) {
+                showPopup(e);
+            }
 
-            SwingUtilities.invokeLater(new Runnable() {
-               public void run() {
-                  ChatApp.getChatApp().setShowConsole(false);
-               }
-            });
+            public void mouseReleased(MouseEvent e) {
+                showPopup(e);
+            }
 
-         }
-      });
-      try {setSelected(true);} catch (Exception e) {
-         Debug.println("Internal Swing error");
-         Debug.printStackTrace(e);
-      }
-   }
+            public void showPopup(MouseEvent e) {
+                if (e.isPopupTrigger()) {
 
-   public MDIClientPanel getClientPanel() {
-      return _chatPanel;
-   }
+                    final JPopupMenu popup = new JPopupMenu();
 
-   public JInternalFrame getFrame() {
-      return this;
-   }
+                    JMenuItem mi2 = new JMenuItem("Dock / Undock");
+                    mi2.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent ae) {
+
+                            // Set new dock state
+                            String dockState = _chatPanel.getDockState();
+                            if (dockState.equals(MDIPanel.DOCK_NONE))
+                                _chatPanel.setDockState(MDIPanel.DOCK_BOTTOM);
+                            else
+                                _chatPanel.setDockState(MDIPanel.DOCK_NONE);
+
+                            // And register it with the MDIPanel
+                            ChatApp.getChatApp().dock(_chatPanel);
+                        }
+                    });
+                    popup.add(mi2);
+
+                    Point pt = SwingUtilities.convertPoint(
+                            (Component) e.getSource(),
+                            new Point(e.getX(), e.getY()), _chatPanel);
+
+                    popup.show(_chatPanel, pt.x, pt.y);
+                }
+            }
+        });
+
+        // Add listener so we can become invisible on close
+        addInternalFrameListener(new InternalFrameAdapter() {
+            public void internalFrameClosing(InternalFrameEvent e) {
+
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        ChatApp.getChatApp().setShowConsole(false);
+                    }
+                });
+
+            }
+        });
+        try {
+            setSelected(true);
+        } catch (Exception e) {
+            Debug.println("Internal Swing error");
+            Debug.printStackTrace(e);
+        }
+    }
+
+    public ChatPanel getChatPanel() {
+        return _chatPanel;
+    }
+
+    public MDIClientPanel getClientPanel() {
+        return _chatPanel;
+    }
+
+    public JInternalFrame getFrame() {
+        return this;
+    }
 }
 

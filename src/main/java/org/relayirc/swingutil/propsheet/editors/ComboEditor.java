@@ -19,9 +19,11 @@ import java.awt.event.ItemListener;
 import java.util.Hashtable;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
  * PropertyEditor that provides custom editor for editing a string value
  * by selecting from a list of possible values.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -37,95 +39,103 @@ import java.util.Hashtable;
  * All Rights Reserved.
  */
 public class ComboEditor extends PropSheetEditor {
-   private _ComboEditor _editor;
-   private GuiObject[] _tags = null;
-   private Hashtable _namesByValues = new Hashtable();
+    private _ComboEditor _editor;
+    private GuiObject[] _tags = null;
+    private Hashtable _namesByValues = new Hashtable();
 
-   //---------------------------------------------------------------------------
-   public ComboEditor() {
-      super();
-   }
-   //---------------------------------------------------------------------------
-   public boolean isPaintable() {
-      return true;
-   }
-   //---------------------------------------------------------------------------
-   public void paintValue(Graphics gfx, Rectangle rect) {
+    //---------------------------------------------------------------------------
+    public ComboEditor() {
+        super();
+    }
 
-      String text = (String)_namesByValues.get( getAsText() );
+    //---------------------------------------------------------------------------
+    public boolean isPaintable() {
+        return true;
+    }
 
-      // This seems to align perfectly with the ComboEditor's text
-      gfx.drawString(text,0,(int)(rect.height*0.8));
-   }
-   //---------------------------------------------------------------------------
-   public void setTags(GuiObject[] tags) {
-      _namesByValues = new Hashtable();
-      _tags = tags;
-      if (_editor != null) {
-         _editor.getComboBox().setModel(new DefaultComboBoxModel(_tags));
-      }
-      for (int i=0; i<tags.length; i++) {
-		  _namesByValues.put( _tags[i].getObject(), _tags[i].getString() );
-	  }
-   }
-   //---------------------------------------------------------------------------
-   public void setTags(String[] tags) {
-		GuiObject[] tagos = new GuiObject[tags.length];
-		for (int i=0; i<tags.length; i++) {
-			tagos[i] = new GuiObject(tags[i],tags[i]);
-		}
-		setTags( tagos );
-   }
-   //---------------------------------------------------------------------------
-   public Component getCustomEditor() {
+    //---------------------------------------------------------------------------
+    public void paintValue(Graphics gfx, Rectangle rect) {
 
-      if (_editor == null) {
+        String text = (String) _namesByValues.get(getAsText());
 
-         _editor = new _ComboEditor();
-         _editor.getComboBox().setSelectedItem(getAsText());
-		 _editor.setEnabled( isWritable() );
+        // This seems to align perfectly with the ComboEditor's text
+        gfx.drawString(text, 0, (int) (rect.height * 0.8));
+    }
 
-		 if (getToolTipText() != null) {
-			 _editor.setToolTipText(getToolTipText());
-		 }
-
-         if (_tags != null) {
+    //---------------------------------------------------------------------------
+    public void setTags(GuiObject[] tags) {
+        _namesByValues = new Hashtable();
+        _tags = tags;
+        if (_editor != null) {
             _editor.getComboBox().setModel(new DefaultComboBoxModel(_tags));
-         }
-      }
-      return _editor;
-   }
-   //===========================================================================
-   private class _ComboEditor extends JComponent {
-      private final JComboBox _combo;
+        }
+        for (int i = 0; i < tags.length; i++) {
+            _namesByValues.put(_tags[i].getObject(), _tags[i].getString());
+        }
+    }
 
-      public JComboBox getComboBox() {return _combo;}
+    //---------------------------------------------------------------------------
+    public void setTags(String[] tags) {
+        GuiObject[] tagos = new GuiObject[tags.length];
+        for (int i = 0; i < tags.length; i++) {
+            tagos[i] = new GuiObject(tags[i], tags[i]);
+        }
+        setTags(tagos);
+    }
 
-      public void setEnabled(boolean flag) {
-		  getComboBox().setEnabled(flag);
-      }
-      public void setToolTipText(String text) {
-		  getComboBox().setToolTipText(text);
-      }
+    //---------------------------------------------------------------------------
+    public Component getCustomEditor() {
 
-      public _ComboEditor() {
-         _combo = new JComboBox();
-         setLayout( new BorderLayout() );
-         add( _combo, BorderLayout.CENTER );
+        if (_editor == null) {
 
-         _combo.addItemListener(new ItemListener() {
-            public void itemStateChanged( ItemEvent event ) {
-               Object item = _combo.getSelectedItem();
-			   if (item != null && item instanceof GuiObject go) {
-                   ComboEditor.this.setAsText( go.getObject().toString() );
-               }
-               else {
-                  Debug.println("JComboBox listener: selected item is null");
-               }
-            } 
-         });
-      }
-   }
+            _editor = new _ComboEditor();
+            _editor.getComboBox().setSelectedItem(getAsText());
+            _editor.setEnabled(isWritable());
+
+            if (getToolTipText() != null) {
+                _editor.setToolTipText(getToolTipText());
+            }
+
+            if (_tags != null) {
+                _editor.getComboBox().setModel(new DefaultComboBoxModel(_tags));
+            }
+        }
+        return _editor;
+    }
+
+    //===========================================================================
+    private class _ComboEditor extends JComponent {
+        private final JComboBox _combo;
+
+        public _ComboEditor() {
+            _combo = new JComboBox();
+            setLayout(new BorderLayout());
+            add(_combo, BorderLayout.CENTER);
+
+            _combo.addItemListener(new ItemListener() {
+                public void itemStateChanged(ItemEvent event) {
+                    Object item = _combo.getSelectedItem();
+                    if (item != null && item instanceof GuiObject go) {
+                        ComboEditor.this.setAsText(go.getObject().toString());
+                    } else {
+                        Debug.println("JComboBox listener: selected item is null");
+                    }
+                }
+            });
+        }
+
+        public JComboBox getComboBox() {
+            return _combo;
+        }
+
+        public void setEnabled(boolean flag) {
+            getComboBox().setEnabled(flag);
+        }
+
+        public void setToolTipText(String text) {
+            getComboBox().setToolTipText(text);
+        }
+    }
 }
 
 /*

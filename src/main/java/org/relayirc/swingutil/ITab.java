@@ -9,7 +9,7 @@ package org.relayirc.swingutil;
 
 /**
  * Interface for a tab for use in a TabbedDialog.
- * @see org.relayirc.swingutil.TabbedDialog
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -22,19 +22,28 @@ package org.relayirc.swingutil;
  * Contributor(s): No contributors to this file <br>
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
+ * @see org.relayirc.swingutil.TabbedDialog
  */
 public interface ITab {
 
-   /** Returns name that should appear on tab. */
-   String getName();
+    /**
+     * Returns name that should appear on tab.
+     */
+    String getName();
 
-   /** Loads values into this tab's GUI. */
-   void loadValues();
+    /**
+     * Loads values into this tab's GUI.
+     */
+    void loadValues();
 
-   /** Saves values from this tab's GUI. */
-   void saveValues();
+    /**
+     * Saves values from this tab's GUI.
+     */
+    void saveValues();
 
-   /** Check values from this tab's GUI. */
-   boolean checkValues();
+    /**
+     * Check values from this tab's GUI.
+     */
+    boolean checkValues();
 }
 

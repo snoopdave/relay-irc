@@ -18,8 +18,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
- * PropertyEditor that provides custom editor for editing a string value. 
+ * PropertyEditor that provides custom editor for editing a string value.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -35,71 +37,81 @@ import java.awt.event.FocusListener;
  * All Rights Reserved.
  */
 public class TextEditor extends PropSheetEditor {
-   private _TextEditor _editor = null;
+    private _TextEditor _editor = null;
 
-   //---------------------------------------------------------------------------
-   public TextEditor() {
-      super();
-   }
-   //---------------------------------------------------------------------------
-   public boolean isPaintable() {
-      return true;
-   }
-   //---------------------------------------------------------------------------
-   public void paintValue(Graphics gfx, Rectangle rect) {
-      // This seems to align perfectly with the TextEditor's text
-      gfx.drawString(getAsText(),0,(int)(rect.height*0.8));
-   }
-   //---------------------------------------------------------------------------
-   public Component getCustomEditor() {
-      if (_editor == null) {
-         _editor = new _TextEditor();
-         _editor.getTextField().setText(getAsText());
-		 _editor.setEnabled( isWritable() );
-		 if (getToolTipText() != null) {
-			 _editor.setToolTipText(getToolTipText());
-		 }
-      }
-      return _editor;
-   }
-   //===========================================================================
-   private class _TextEditor extends JComponent {
+    //---------------------------------------------------------------------------
+    public TextEditor() {
+        super();
+    }
 
-      private final JTextField _field;
-      public JTextField getTextField() {return _field;}
+    //---------------------------------------------------------------------------
+    public boolean isPaintable() {
+        return true;
+    }
 
-      public void setEnabled(boolean flag) {
-		  getTextField().setEnabled(flag);
-      }
-      public void setToolTipText( String text) {
-		  getTextField().setToolTipText(text);
-	  }
+    //---------------------------------------------------------------------------
+    public void paintValue(Graphics gfx, Rectangle rect) {
+        // This seems to align perfectly with the TextEditor's text
+        gfx.drawString(getAsText(), 0, (int) (rect.height * 0.8));
+    }
 
-      public _TextEditor() {
-
-         _field = new JTextField();
-         _field.setText(getAsText());
-         _field.setBorder(null);
-         setLayout(new BorderLayout());
-         add( _field, BorderLayout.CENTER );
-
-         // Listen for caret changes, update property on each such change 
-         _field.addCaretListener(new CaretListener() {
-			 public void caretUpdate( CaretEvent event) {
-               TextEditor.this.setAsText( _field.getText() );
-			 }
-		 });
-
-         // Listen for focus changes, select whole string on focus gain
-         _field.addFocusListener(new FocusListener() {
-            public void focusGained( FocusEvent event ) {
-               _field.setText(getAsText());
-               _field.selectAll(); 
+    //---------------------------------------------------------------------------
+    public Component getCustomEditor() {
+        if (_editor == null) {
+            _editor = new _TextEditor();
+            _editor.getTextField().setText(getAsText());
+            _editor.setEnabled(isWritable());
+            if (getToolTipText() != null) {
+                _editor.setToolTipText(getToolTipText());
             }
-            public void focusLost( FocusEvent ignored ) {}
-         });
-      }
-   }
+        }
+        return _editor;
+    }
+
+    //===========================================================================
+    private class _TextEditor extends JComponent {
+
+        private final JTextField _field;
+
+        public _TextEditor() {
+
+            _field = new JTextField();
+            _field.setText(getAsText());
+            _field.setBorder(null);
+            setLayout(new BorderLayout());
+            add(_field, BorderLayout.CENTER);
+
+            // Listen for caret changes, update property on each such change
+            _field.addCaretListener(new CaretListener() {
+                public void caretUpdate(CaretEvent event) {
+                    TextEditor.this.setAsText(_field.getText());
+                }
+            });
+
+            // Listen for focus changes, select whole string on focus gain
+            _field.addFocusListener(new FocusListener() {
+                public void focusGained(FocusEvent event) {
+                    _field.setText(getAsText());
+                    _field.selectAll();
+                }
+
+                public void focusLost(FocusEvent ignored) {
+                }
+            });
+        }
+
+        public JTextField getTextField() {
+            return _field;
+        }
+
+        public void setEnabled(boolean flag) {
+            getTextField().setEnabled(flag);
+        }
+
+        public void setToolTipText(String text) {
+            getTextField().setToolTipText(text);
+        }
+    }
 }
 
 /*

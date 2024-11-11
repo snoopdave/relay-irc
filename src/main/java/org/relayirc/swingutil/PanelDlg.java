@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 //////////////////////////////////////////////////////////////////////////////
+
 /**
  * @author David M. Johnson
  * @version $Revision: 1.1.2.3 $
@@ -28,40 +29,40 @@ import java.awt.event.ActionListener;
  * All Rights Reserved.
  */
 public class PanelDlg extends JDialog {
-   private final IPanel _panel;
+    private final IPanel _panel;
 
-   public PanelDlg(Component parent, IPanel panel, String title) {
+    public PanelDlg(Component parent, IPanel panel, String title) {
 
-      super(
-	  	(Frame)SwingUtilities.getAncestorOfClass(Frame.class,parent),
-		title,
-		true);
+        super(
+                (Frame) SwingUtilities.getAncestorOfClass(Frame.class, parent),
+                title,
+                true);
 
-      _panel = panel;
-      getContentPane().setLayout(new BorderLayout());
-      getContentPane().add(panel.getPanel(),BorderLayout.CENTER);
+        _panel = panel;
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(panel.getPanel(), BorderLayout.CENTER);
 
-      panel.getOkButton().addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent ae) {
-            if (_panel.checkValues()) {
-               _panel.saveValues();
-               _panel.getOkButton().removeActionListener(this);
-               setVisible(false);
-               dispose();
+        panel.getOkButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                if (_panel.checkValues()) {
+                    _panel.saveValues();
+                    _panel.getOkButton().removeActionListener(this);
+                    setVisible(false);
+                    dispose();
+                }
             }
-         }
-      });
-      panel.getCancelButton().addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent ae) {
-            _panel.getCancelButton().removeActionListener(this);
-            _panel.onCancel();
-            setVisible(false);
-            dispose();
-         }
-      });
+        });
+        panel.getCancelButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                _panel.getCancelButton().removeActionListener(this);
+                _panel.onCancel();
+                setVisible(false);
+                dispose();
+            }
+        });
 
-      pack();
-      StandardDlg.centerOnScreen(this);
-   }
+        pack();
+        StandardDlg.centerOnScreen(this);
+    }
 }
 

@@ -14,8 +14,10 @@ import java.awt.*;
 import java.util.Vector;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
  * Editor wih a trigger button that launches a simple list editor dialog.
+ *
  * @author David M Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -32,31 +34,34 @@ import java.util.Vector;
  */
 public class TriggeredListEditor extends TriggeredEditor {
 
-   Frame _parent;
+    Frame _parent;
 
-   //--------------------------------------------------------------------------
-   public TriggeredListEditor( Frame parent ) {
-      super();
-	  _parent = parent;
-   }
-   //--------------------------------------------------------------------------
-   public void triggered() {
-      Vector list = (Vector)getValue();
+    //--------------------------------------------------------------------------
+    public TriggeredListEditor(Frame parent) {
+        super();
+        _parent = parent;
+    }
 
-      DefaultListEditorDlg dlg = new DefaultListEditorDlg( _parent, list );
+    //--------------------------------------------------------------------------
+    public void triggered() {
+        Vector list = (Vector) getValue();
 
-	  if (dlg.isOk()) {
-		  Debug.println("Setting prop value = "+dlg.getList());
-		  setValue( dlg.getList() );
-	  }
-   }
-   //--------------------------------------------------------------------------
-   public void setAsText( String str ) {
-	   // We can ignore this 
-   }
-   //---------------------------------------------------------------------------
-   public String getAsText() {
-	   return getValue().toString();
-   }
+        DefaultListEditorDlg dlg = new DefaultListEditorDlg(_parent, list);
+
+        if (dlg.isOk()) {
+            Debug.println("Setting prop value = " + dlg.getList());
+            setValue(dlg.getList());
+        }
+    }
+
+    //---------------------------------------------------------------------------
+    public String getAsText() {
+        return getValue().toString();
+    }
+
+    //--------------------------------------------------------------------------
+    public void setAsText(String str) {
+        // We can ignore this
+    }
 }
 

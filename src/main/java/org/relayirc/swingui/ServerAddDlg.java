@@ -13,9 +13,11 @@ import java.awt.*;
 import java.util.Vector;
 
 //////////////////////////////////////////////////////////////////////////////
+
 /**
  * Dialog for editing a new or existing server object via a server holder:
  * uses ServerAddPanel.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -30,31 +32,32 @@ import java.util.Vector;
  * All Rights Reserved.
  */
 public class ServerAddDlg extends StandardDlg {
-   private ServerAddPanel _serverAddPanel =  null;
+    private ServerAddPanel _serverAddPanel = null;
 
-   /**
-    * Construct dialog for editing a server held in a ServerHolder.
-    * @param holder server holder to be edited
-    * @param holders other servers to consider
-    */
-   public ServerAddDlg(String title,
-      ServerPanel.ServerHolder holder, Vector holders) {
+    /**
+     * Construct dialog for editing a server held in a ServerHolder.
+     *
+     * @param holder  server holder to be edited
+     * @param holders other servers to consider
+     */
+    public ServerAddDlg(String title,
+                        ServerPanel.ServerHolder holder, Vector holders) {
 
-      super(null,title,true,true);
-      _serverAddPanel = new ServerAddPanel(holder,holders);
-      getContentPane().add(_serverAddPanel, BorderLayout.CENTER);
-      pack();
-      centerOnScreen();
-   }
-   //----------------------------------------------------------------
-   public boolean onOk() {
-      if (_serverAddPanel.checkValues()) {
-         _serverAddPanel.saveValues();
-         return true;
-      }
-      else {
-         return false;
-      }
-   }
+        super(null, title, true, true);
+        _serverAddPanel = new ServerAddPanel(holder, holders);
+        getContentPane().add(_serverAddPanel, BorderLayout.CENTER);
+        pack();
+        centerOnScreen();
+    }
+
+    //----------------------------------------------------------------
+    public boolean onOk() {
+        if (_serverAddPanel.checkValues()) {
+            _serverAddPanel.saveValues();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

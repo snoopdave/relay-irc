@@ -16,6 +16,7 @@ import java.awt.*;
 
 /**
  * Displays WhoIs information for an IRC user.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -30,36 +31,40 @@ import java.awt.*;
  * All Rights Reserved.
  */
 public class UserDlg extends StandardDlg {
-   private User _user = null;
+    private User _user = null;
 
-   public UserDlg(Frame parent, User user) {
-      super(parent,"User Information",true);
-      _user = user;
-      getContentPane().add(new _UserPanel(_user));
-      setSize(350,350);
-      centerOnScreen();
-      setVisible(true);
-   }
-   /** For testing only. */
-   public static void main(String[] args) {
-      UserDlg dlg = new UserDlg(null,new User("fred"));
-   }
+    public UserDlg(Frame parent, User user) {
+        super(parent, "User Information", true);
+        _user = user;
+        getContentPane().add(new _UserPanel(_user));
+        setSize(350, 350);
+        centerOnScreen();
+        setVisible(true);
+    }
+
+    /**
+     * For testing only.
+     */
+    public static void main(String[] args) {
+        UserDlg dlg = new UserDlg(null, new User("fred"));
+    }
 }
 
 class _UserPanel extends JPanel {
-   private User _user = null;
-   private JTextArea _textArea = new JTextArea();
+    private User _user = null;
+    private JTextArea _textArea = new JTextArea();
 
-   public _UserPanel(User user) {
-      _user = user;
-      initGUI();
-   }
-   public void initGUI() {
-      setLayout(new BorderLayout());
-      _textArea = new JTextArea();
-      _textArea.setBorder(new BevelBorder(BevelBorder.LOWERED));
-      _textArea.setText(_user.toDescription());
-      add(new JScrollPane(_textArea),BorderLayout.CENTER);
-   }
+    public _UserPanel(User user) {
+        _user = user;
+        initGUI();
+    }
+
+    public void initGUI() {
+        setLayout(new BorderLayout());
+        _textArea = new JTextArea();
+        _textArea.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        _textArea.setText(_user.toDescription());
+        add(new JScrollPane(_textArea), BorderLayout.CENTER);
+    }
 }
 

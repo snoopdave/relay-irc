@@ -9,9 +9,7 @@ package org.relayirc.chatengine;
 
 /**
  * Provides a default do-nothing implementation of ServerListener.
- * @see Server
- * @see ServerEvent
- * @see ServerListener
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.4 $
  *
@@ -24,15 +22,35 @@ package org.relayirc.chatengine;
  * Contributor(s):    No contributors to this file <br>
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
+ * @see Server
+ * @see ServerEvent
+ * @see ServerListener
  */
 public class ServerAdapter implements ServerListener {
-   public void onConnect(     ServerEvent event) {}
-   public void onDisconnect(  ServerEvent event) {}
-   public void onChannelAdd(  ServerEvent event) {}
-   public void onChannelJoin( ServerEvent event) {}
-   public void onChannelPart( ServerEvent event) {}
-   public void onInvite(      ServerEvent event) {}
-   public void onIsOn(        ServerEvent event) {}
-   public void onStatus(      ServerEvent event) {}
-   public void onWhoIs(       ServerEvent event) {}
+    public void onConnect(ServerEvent event) {
+    }
+
+    public void onDisconnect(ServerEvent event) {
+    }
+
+    public void onChannelAdd(ServerEvent event) {
+    }
+
+    public void onChannelJoin(ServerEvent event) {
+    }
+
+    public void onChannelPart(ServerEvent event) {
+    }
+
+    public void onInvite(ServerEvent event) {
+    }
+
+    public void onIsOn(ServerEvent event) {
+    }
+
+    public void onStatus(ServerEvent event) {
+    }
+
+    public void onWhoIs(ServerEvent event) {
+    }
 }

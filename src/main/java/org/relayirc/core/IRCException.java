@@ -8,8 +8,10 @@
 package org.relayirc.core;
 
 //////////////////////////////////////////////////////////////////////////////
+
 /**
- * Exception that caused disconnection from IRC server. 
+ * Exception that caused disconnection from IRC server.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -25,9 +27,9 @@ package org.relayirc.core;
  */
 public class IRCException extends Exception {
 
-   public IRCException(String message) {
-      super(message);
-   }
+    public IRCException(String message) {
+        super(message);
+    }
 }
 
 

@@ -16,8 +16,10 @@ import javax.swing.event.InternalFrameEvent;
 import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////////
+
 /**
  * An MDI client frame that holds a PythonPanel.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  * <p>
@@ -33,55 +35,68 @@ import java.awt.*;
  */
 public class PythonFrame extends JInternalFrame implements MDIClientFrame {
 
-   private _PythonPanel _pythonPanel = null; //new _PythonPanel();
+    private _PythonPanel _pythonPanel = null; //new _PythonPanel();
 
-   // Ugh, we need a PythonPanel that implements MDIClientPanel
-   class _PythonPanel extends PythonPanel implements MDIClientPanel {
-      public _PythonPanel(PythonInterpreter pi) {super(pi);}
-      public String getDockState() {return MDIPanel.DOCK_NONE;}
-      public void   setDockState(String dockState) {}
-      public JPanel getPanel() {return _PythonPanel.this;}
-   }
+    //------------------------------------------------------------------
+    public PythonFrame(PythonInterpreter interp) {
+        // closable, maximizable, iconifiable, resizable
+        super("Interactive JPython Console", true, true, true, true);
 
-   //------------------------------------------------------------------
-   public PythonFrame(PythonInterpreter interp) {
-      // closable, maximizable, iconifiable, resizable
-      super("Interactive JPython Console",true,true,true,true);
+        _pythonPanel = new _PythonPanel(interp);
 
-      _pythonPanel = new _PythonPanel(interp);
+        setFrameIcon(IconManager.getIcon("Users"));
 
-      setFrameIcon(IconManager.getIcon("Users"));
+        // Despite this setting, this window gets closed
+        // when the user hits the close button
+        //setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
-      // Despite this setting, this window gets closed
-      // when the user hits the close button
-      //setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(_pythonPanel, BorderLayout.CENTER);
 
-      getContentPane().setLayout(new BorderLayout());
-      getContentPane().add(_pythonPanel,BorderLayout.CENTER);
+        // Listen for window close event
+        addInternalFrameListener(new InternalFrameAdapter() {
+            public void internalFrameClosed(InternalFrameEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        ChatApp.getChatApp().setShowPython(false);
+                    }
+                });
+            }
+        });
+        validate();
+    }
 
-      // Listen for window close event
-      addInternalFrameListener(new InternalFrameAdapter() {
-         public void internalFrameClosed(InternalFrameEvent e) {
-            SwingUtilities.invokeLater(new Runnable() {
-               public void run() {
-                  ChatApp.getChatApp().setShowPython(false);
-               }
-            });
-         }
-      });
-      validate();
-   }
-   //------------------------------------------------------------------
-   public MDIClientPanel getClientPanel() {
-      return _pythonPanel;
-   }
-   //------------------------------------------------------------------
-   public JInternalFrame getFrame() {
-      return this;
-   }
-   //------------------------------------------------------------------
-   public void setClientPanel(MDIClientPanel clientPanel) {
-      // We can safely ignore this
-   }
+    //------------------------------------------------------------------
+    public MDIClientPanel getClientPanel() {
+        return _pythonPanel;
+    }
+
+    //------------------------------------------------------------------
+    public void setClientPanel(MDIClientPanel clientPanel) {
+        // We can safely ignore this
+    }
+
+    //------------------------------------------------------------------
+    public JInternalFrame getFrame() {
+        return this;
+    }
+
+    // Ugh, we need a PythonPanel that implements MDIClientPanel
+    class _PythonPanel extends PythonPanel implements MDIClientPanel {
+        public _PythonPanel(PythonInterpreter pi) {
+            super(pi);
+        }
+
+        public String getDockState() {
+            return MDIPanel.DOCK_NONE;
+        }
+
+        public void setDockState(String dockState) {
+        }
+
+        public JPanel getPanel() {
+            return _PythonPanel.this;
+        }
+    }
 }
 

@@ -17,12 +17,13 @@ import java.awt.*;
 import java.awt.event.FocusEvent;
 
 //////////////////////////////////////////////////////////////////////////////
+
 /**
- * Generic property panel with a description field. 
- *
- * Currently, only the description field is editable, the property 
+ * Generic property panel with a description field.
+ * <p>
+ * Currently, only the description field is editable, the property
  * sheet component is read-only!
- * 
+ * <p>
  * Doesn't know about chatengine package or even IChatObject.
  *
  * @author David M. Johnson
@@ -40,125 +41,140 @@ import java.awt.event.FocusEvent;
  */
 public class PropPanel extends JPanel {
 
-   private Object _bean;
-   private static final String _prompt = "<enter your comments here>";
+    private static final String _prompt = "<enter your comments here>";
+    private final PropSheet _sheet = new PropSheet();
 
-   // JBuilder mess
+    // JBuilder mess
+    private final JTextArea _commentField = new JTextArea();
+    private final JPanel _topPanel = new JPanel();
+    private final JPanel _bottomPanel = new JPanel();
+    private final JScrollPane _scrollPane = new JScrollPane();
+    private final BorderLayout borderLayout1 = new BorderLayout();
+    private final BorderLayout borderLayout3 = new BorderLayout();
+    GridBagLayout gridBagLayout1 = new GridBagLayout();
+    private Object _bean;
+    private Border border1;
+    private Border border2;
+    private Border border3;
+    private TitledBorder titledBorder1;
+    private TitledBorder titledBorder2;
 
-   private final PropSheet    _sheet = new PropSheet();
-   private final JTextArea    _commentField = new JTextArea();
-   private final JPanel       _topPanel = new JPanel();
-   private final JPanel       _bottomPanel = new JPanel();
-   private final JScrollPane  _scrollPane = new JScrollPane();
-   private final BorderLayout borderLayout1 = new BorderLayout();
-   private final BorderLayout borderLayout3 = new BorderLayout();
-   private Border       border1;
-   private Border       border2;
-   private Border       border3;
-   private TitledBorder titledBorder1;
-   private TitledBorder titledBorder2;
-   GridBagLayout gridBagLayout1 = new GridBagLayout();
+    //---------------------------------------------------------------------
 
-   //---------------------------------------------------------------------
-   /** Default constructor facilitates use within GUI builder. */
-   public PropPanel() {
-      try {
-         jbInit();
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
-   //---------------------------------------------------------------------
-   /** Construct prop panel for editing a bean and its description. */
-   public PropPanel(Object bean, String desc) {
-      this();
-      setObject(bean);
-      setDescription(desc);
-   }
-   //---------------------------------------------------------------------
-   /** Set the object that is to appear in the property sheet. */
-   public void setObject(Object bean) {
-      _bean = bean;
-      _sheet.setPropModel(new BeanModel(bean));
-   }
-   //---------------------------------------------------------------------
-   /** Get the object that is currently in the property sheet. */
-   public Object getObject() {
-      return _bean;
-   }
-   //---------------------------------------------------------------------
-   /** Set description field. Only works if desc length is > 0. */
-   public void setDescription(String desc) {
-      if (desc!=null) {
-         if (desc.length() > 0) {
-            _commentField.setText(desc);
-         }
-      }
-   }
-   //-------------------------------------------------------------------------
-   /** 
-    * Get contents of description field. Returns empty string if 
-    * user has not set a description.
-    */
-   public String getDescription() {
-      String ret = "";
-      if (!_commentField.getText().equals(_prompt)) {
-         ret = _commentField.getText();
-      }
-      return ret;
-   }
-   //---------------------------------------------------------------------
-   private void jbInit() throws Exception {
+    /**
+     * Default constructor facilitates use within GUI builder.
+     */
+    public PropPanel() {
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //---------------------------------------------------------------------
 
-      // JBuilder mess
+    /**
+     * Construct prop panel for editing a bean and its description.
+     */
+    public PropPanel(Object bean, String desc) {
+        this();
+        setObject(bean);
+        setDescription(desc);
+    }
+    //---------------------------------------------------------------------
 
-      titledBorder1 = new TitledBorder(
-         BorderFactory.createEtchedBorder(
-            Color.white,new Color(134, 134, 134)),"Properties (Read-Only)");
+    /**
+     * Get the object that is currently in the property sheet.
+     */
+    public Object getObject() {
+        return _bean;
+    }
+    //---------------------------------------------------------------------
 
-      titledBorder2 = new TitledBorder(
-         BorderFactory.createEtchedBorder(
-            Color.white,new Color(134, 134, 134)),"Comments");
+    /**
+     * Set the object that is to appear in the property sheet.
+     */
+    public void setObject(Object bean) {
+        _bean = bean;
+        _sheet.setPropModel(new BeanModel(bean));
+    }
+    //---------------------------------------------------------------------
 
-      border1 = BorderFactory.createEmptyBorder();
+    /**
+     * Get contents of description field. Returns empty string if
+     * user has not set a description.
+     */
+    public String getDescription() {
+        String ret = "";
+        if (!_commentField.getText().equals(_prompt)) {
+            ret = _commentField.getText();
+        }
+        return ret;
+    }
+    //-------------------------------------------------------------------------
 
-      border2 = BorderFactory.createCompoundBorder(
-         titledBorder1,BorderFactory.createEmptyBorder(5,5,5,5));
+    /**
+     * Set description field. Only works if desc length is > 0.
+     */
+    public void setDescription(String desc) {
+        if (desc != null) {
+            if (desc.length() > 0) {
+                _commentField.setText(desc);
+            }
+        }
+    }
 
-      border3 = BorderFactory.createCompoundBorder(
-         titledBorder2,BorderFactory.createEmptyBorder(5,5,5,5));
+    //---------------------------------------------------------------------
+    private void jbInit() throws Exception {
 
-      this.setLayout(gridBagLayout1);
+        // JBuilder mess
 
-      _topPanel.setLayout(borderLayout1);
-      _topPanel.setBorder(border2);
-      _commentField.addFocusListener(new java.awt.event.FocusAdapter() {
+        titledBorder1 = new TitledBorder(
+                BorderFactory.createEtchedBorder(
+                        Color.white, new Color(134, 134, 134)), "Properties (Read-Only)");
 
-         public void focusGained(FocusEvent e) {
-            _commentField_focusGained(e);
-         }
-      });
-      _topPanel.add(_sheet, BorderLayout.CENTER);
+        titledBorder2 = new TitledBorder(
+                BorderFactory.createEtchedBorder(
+                        Color.white, new Color(134, 134, 134)), "Comments");
 
-      this.add(_topPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+        border1 = BorderFactory.createEmptyBorder();
 
-      _commentField.setColumns(20);
-      _commentField.setRows(4);
-      _commentField.setText(_prompt);
-      _scrollPane.setViewportView(_commentField);
+        border2 = BorderFactory.createCompoundBorder(
+                titledBorder1, BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-      _bottomPanel.setBorder(border3);
-      _bottomPanel.setLayout(borderLayout3);
-      _bottomPanel.add(_scrollPane, BorderLayout.CENTER);
-      this.add(_bottomPanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0
-            ,GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
-   }
+        border3 = BorderFactory.createCompoundBorder(
+                titledBorder2, BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-   //-------------------------------------------------------------------------
-   private void _commentField_focusGained(FocusEvent e) {
-      _commentField.selectAll();
-   }
+        this.setLayout(gridBagLayout1);
+
+        _topPanel.setLayout(borderLayout1);
+        _topPanel.setBorder(border2);
+        _commentField.addFocusListener(new java.awt.event.FocusAdapter() {
+
+            public void focusGained(FocusEvent e) {
+                _commentField_focusGained(e);
+            }
+        });
+        _topPanel.add(_sheet, BorderLayout.CENTER);
+
+        this.add(_topPanel, new GridBagConstraints(0, 0, 1, 1, 1.0, 1.0
+                , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+
+        _commentField.setColumns(20);
+        _commentField.setRows(4);
+        _commentField.setText(_prompt);
+        _scrollPane.setViewportView(_commentField);
+
+        _bottomPanel.setBorder(border3);
+        _bottomPanel.setLayout(borderLayout3);
+        _bottomPanel.add(_scrollPane, BorderLayout.CENTER);
+        this.add(_bottomPanel, new GridBagConstraints(0, 1, 1, 1, 1.0, 1.0
+                , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+    }
+
+    //-------------------------------------------------------------------------
+    private void _commentField_focusGained(FocusEvent e) {
+        _commentField.selectAll();
+    }
 }
 

@@ -14,71 +14,51 @@ import java.util.Vector;
 
 /**
  * Utility functions.
+ *
  * @author David M. Johnson.
  */
 public class Utilities {
 
-   //--------------------------------------------------------------------------
-   /** Convert string to integer array. */
-   public static String[] stringToStringArray(String instr, String delim) {
-      String[] sa = null;
+    //--------------------------------------------------------------------------
 
-      try {
-         // Tokenize string, build vector of tokens
-         StringTokenizer toker = new StringTokenizer(instr,delim);
-         Vector v = new Vector();
-         while (toker.hasMoreTokens()) {
-            String s = toker.nextToken();
-            v.addElement( s );
-         }
-   
-         // Allocate and fill array of ints
-         sa = new String[v.size()];
-         for (int i=0; i<v.size(); i++) {
-            sa[i] = (String)v.elementAt(i);
-         }
-	  }
-	  catch (Exception e) {
-		  e.printStackTrace();
-      }
-      return sa;
-   }
+    /**
+     * Convert string to integer array.
+     */
+    public static int[] stringToIntArray(String instr, String delim)
+            throws NoSuchElementException, NumberFormatException {
+        int[] intArray = null;
 
-   //--------------------------------------------------------------------------
-   /** Convert string to integer array. */
-   public static int[] stringToIntArray(String instr, String delim)
-      throws NoSuchElementException, NumberFormatException {
+        // Tokenize string, build vector of tokens
+        StringTokenizer toker = new StringTokenizer(instr, delim);
+        Vector<Integer> ints = new Vector<>();
+        while (toker.hasMoreTokens()) {
+            String sInt = toker.nextToken();
+            int nInt = Integer.parseInt(sInt);
+            ints.addElement(nInt);
+        }
 
-      int[] intArray = null;
+        // Allocate and fill array of ints
+        intArray = new int[ints.size()];
+        for (int i = 0; i < ints.size(); i++) {
+            intArray[i] = ints.elementAt(i);
+        }
+        return intArray;
+    }
+    //-------------------------------------------------------------------
 
-      // Tokenize string, build vector of tokens
-      StringTokenizer toker = new StringTokenizer(instr,delim);
-      Vector ints = new Vector();
-      while (toker.hasMoreTokens()) {
-         String sInt = toker.nextToken();
-         int nInt = Integer.parseInt(sInt);
-         ints.addElement(Integer.valueOf(nInt));
-      }
-
-      // Allocate and fill array of ints
-      intArray = new int[ints.size()];
-      for (int i=0; i<ints.size(); i++) {
-         intArray[i] = ((Integer)ints.elementAt(i)).intValue();
-      }
-      return intArray;
-   }
-   //-------------------------------------------------------------------
-   /** Convert integer array to a string. */
-   public static String intArrayToString(int[] intArray) {
-      String ret = "";
-      for (int i=0; i<intArray.length; i++) {
-         if (ret.length()>0)
-            ret = ret+","+ intArray[i];
-         else
-            ret = Integer.toString(intArray[i]);
-      }
-      return ret;
-   }
+    /**
+     * Convert integer array to a string.
+     */
+    public static String intArrayToString(int[] intArray) {
+        String ret = "";
+        for (int j : intArray) {
+            if (!ret.isEmpty())
+                ret = ret + "," + j;
+            else
+                ret = Integer.toString(j);
+        }
+        return ret;
+    }
 }
 
 

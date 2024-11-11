@@ -28,40 +28,45 @@ import java.awt.*;
 
 /**
  * Tabbed dialog that manages tabs that implement the ITab interface.
+ *
  * @see org.relayirc.swingutil.ITab
  */
 public class TabbedDialog extends StandardDlg {
 
-   private final JTabbedPane _tabbedPane = new JTabbedPane();
-   private final EmptyBorder _emptyBorder = new EmptyBorder(10,10,10,10);
+    private final JTabbedPane _tabbedPane = new JTabbedPane();
+    private final EmptyBorder _emptyBorder = new EmptyBorder(10, 10, 10, 10);
 
-   //---------------------------------------------------------------
-   public TabbedDialog() {
-      super(null,"Tabbed Dialog",true);
-   }
-   //---------------------------------------------------------------
-   public TabbedDialog( JFrame parent, String title, boolean modal ) {
-      super(parent,title,modal);
-      getContentPane().add(_tabbedPane,BorderLayout.CENTER);
-      _tabbedPane.setBorder(_emptyBorder);
-   }
-   //---------------------------------------------------------------
-   public void addTab(JComponent tab) {
-      addTab(tab,null);
-   }
-   //---------------------------------------------------------------
-   public void addTab(JComponent tab, ImageIcon icon) {
-      if (tab instanceof ITab itab) {
-          _tabbedPane.addTab(itab.getName(),icon,tab);
-         itab.loadValues();
-      }
-   }
-   //---------------------------------------------------------------
-   public boolean onOk() {
-      for (int i=0; i<_tabbedPane.getComponentCount(); i++) {
-         ITab itab = (ITab)_tabbedPane.getComponent(i);
-         itab.saveValues();
-      }
-      return true;
-   }
+    //---------------------------------------------------------------
+    public TabbedDialog() {
+        super(null, "Tabbed Dialog", true);
+    }
+
+    //---------------------------------------------------------------
+    public TabbedDialog(JFrame parent, String title, boolean modal) {
+        super(parent, title, modal);
+        getContentPane().add(_tabbedPane, BorderLayout.CENTER);
+        _tabbedPane.setBorder(_emptyBorder);
+    }
+
+    //---------------------------------------------------------------
+    public void addTab(JComponent tab) {
+        addTab(tab, null);
+    }
+
+    //---------------------------------------------------------------
+    public void addTab(JComponent tab, ImageIcon icon) {
+        if (tab instanceof ITab itab) {
+            _tabbedPane.addTab(itab.getName(), icon, tab);
+            itab.loadValues();
+        }
+    }
+
+    //---------------------------------------------------------------
+    public boolean onOk() {
+        for (int i = 0; i < _tabbedPane.getComponentCount(); i++) {
+            ITab itab = (ITab) _tabbedPane.getComponent(i);
+            itab.saveValues();
+        }
+        return true;
+    }
 }

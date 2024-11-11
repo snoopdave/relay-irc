@@ -31,11 +31,21 @@ public class SortedHeaderRenderer extends JLabel implements TableCellRenderer {
     public static final int UNSORTED = 1;
     public static final int SORTED_ASCENDING = 2;
     public static final int SORTED_DESCENDING = 3;
-
-    private int state = UNSORTED;
     private final Icon noIcon = IconManager.getIcon("noarrow");
     private final Icon upIcon = IconManager.getIcon("up");
     private final Icon downIcon = IconManager.getIcon("down");
+    private int state = UNSORTED;
+
+    public SortedHeaderRenderer() {
+        setBorder(UIManager.getBorder("TableHeader.cellBorder"));
+        setOpaque(true);
+        setHorizontalAlignment(SwingConstants.CENTER);
+    }
+
+    //---------------------------------------------------------------------------
+    public int getState() {
+        return state;
+    }
 
     //---------------------------------------------------------------------------
     public void setState(int state) {
@@ -54,17 +64,6 @@ public class SortedHeaderRenderer extends JLabel implements TableCellRenderer {
                     break;
             }
         }
-    }
-
-    //---------------------------------------------------------------------------
-    public int getState() {
-        return state;
-    }
-
-    public SortedHeaderRenderer() {
-        setBorder(UIManager.getBorder("TableHeader.cellBorder"));
-        setOpaque(true);
-        setHorizontalAlignment(SwingConstants.CENTER);
     }
 
     //---------------------------------------------------------------------------

@@ -31,65 +31,68 @@ import java.awt.*;
  * All Rights Reserved.
  */
 public class FontPanel extends JPanel implements ITab {
-   BorderLayout borderLayout1 = new BorderLayout();
-   FontChooser _fontChooser = new FontChooser();
+    BorderLayout borderLayout1 = new BorderLayout();
+    FontChooser _fontChooser = new FontChooser();
 
-   //---------------------------------------------------------------
-   public FontPanel() {
-      try {
-         jbInit();
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
-   //---------------------------------------------------------------
-   public FontPanel(ChatOptions options) {
-      try {
-         jbInit();
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
-   //---------------------------------------------------------------
-   public boolean checkValues() {
-      return true;
-   }
-   //---------------------------------------------------------------
-   public void loadValues() {
-      try {
-         ChatOptions opt = ChatApp.getChatApp().getOptions();
-         String fname = opt.getProperty("gui.channel.font.name");
-         int fstyle = Integer.parseInt(
-            opt.getProperty("gui.channel.font.style"));
-         int fsize = Integer.parseInt(
-            opt.getProperty("gui.channel.font.size"));
-         _fontChooser.setSelectedFont(new Font(fname,fstyle,fsize));
-      }
-      catch (Exception e) {
-         Debug.printStackTrace(e);
-      }
-   }
-   //---------------------------------------------------------------
-   public void saveValues() {
-      Font selFont = _fontChooser.getSelectedFont();
-      ChatOptions opt = ChatApp.getChatApp().getOptions();
-      opt.setProperty("gui.channel.font.name",selFont.getName() );
-      opt.setProperty("gui.channel.font.style",
-         Integer.toString(selFont.getStyle()) );
-      opt.setProperty("gui.channel.font.size",
-         Integer.toString(selFont.getSize()) );
-      ChatApp.setChatFont(selFont);
-   }
-   //---------------------------------------------------------------
-   public String getName() {
-      return "Font";
-   }
-   //---------------------------------------------------------------
-   public void jbInit() throws Exception {
-      this.setLayout(borderLayout1);
-      this.add(_fontChooser);
-   }
+    //---------------------------------------------------------------
+    public FontPanel() {
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //---------------------------------------------------------------
+    public FontPanel(ChatOptions options) {
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //---------------------------------------------------------------
+    public boolean checkValues() {
+        return true;
+    }
+
+    //---------------------------------------------------------------
+    public void loadValues() {
+        try {
+            ChatOptions opt = ChatApp.getChatApp().getOptions();
+            String fname = opt.getProperty("gui.channel.font.name");
+            int fstyle = Integer.parseInt(
+                    opt.getProperty("gui.channel.font.style"));
+            int fsize = Integer.parseInt(
+                    opt.getProperty("gui.channel.font.size"));
+            _fontChooser.setSelectedFont(new Font(fname, fstyle, fsize));
+        } catch (Exception e) {
+            Debug.printStackTrace(e);
+        }
+    }
+
+    //---------------------------------------------------------------
+    public void saveValues() {
+        Font selFont = _fontChooser.getSelectedFont();
+        ChatOptions opt = ChatApp.getChatApp().getOptions();
+        opt.setProperty("gui.channel.font.name", selFont.getName());
+        opt.setProperty("gui.channel.font.style",
+                Integer.toString(selFont.getStyle()));
+        opt.setProperty("gui.channel.font.size",
+                Integer.toString(selFont.getSize()));
+        ChatApp.setChatFont(selFont);
+    }
+
+    //---------------------------------------------------------------
+    public String getName() {
+        return "Font";
+    }
+
+    //---------------------------------------------------------------
+    public void jbInit() throws Exception {
+        this.setLayout(borderLayout1);
+        this.add(_fontChooser);
+    }
 }
 

@@ -17,8 +17,9 @@ import java.beans.SimpleBeanInfo;
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * BeanInfo for org.relayirc.chatengine.User class. Exposes only those 
- * properties that should be displayed the user's property dialog. 
+ * BeanInfo for org.relayirc.chatengine.User class. Exposes only those
+ * properties that should be displayed the user's property dialog.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -35,43 +36,47 @@ import java.beans.SimpleBeanInfo;
  */
 public class UserBeanInfo extends SimpleBeanInfo {
 
-   private final PropertyDescriptor[] _descriptors;
+    /**
+     * Collection of property names and display names.
+     */
+    private static final String[][] _propNames = {
+            {"nick", "Nick Name"},
+            {"hostName", "User Host Name"},
+            {"userName", "User Name"},
+            {"fullName", "Full Name"},
+            {"serverName", "Server Host Name"},
+            {"serverDesc", "Server Description"},
+            {"channels", "Channels"},
+            {"online", "Online"},
+            {"signonTime", "Sign-on Time"},
+            {"updateTime", "Time of last update"},
+            {"idleTime", "Idle Time"}
+            //{"favorite","Favorite"}
+    };
+    private final PropertyDescriptor[] _descriptors;
 
-   /** Collection of property names and display names. */
-   private static final String[][] _propNames = {
-      {"nick","Nick Name"},
-      {"hostName","User Host Name"},
-      {"userName","User Name"},
-      {"fullName","Full Name"},
-      {"serverName","Server Host Name"},
-      {"serverDesc","Server Description"},
-      {"channels","Channels"},
-      {"online","Online"},
-      {"signonTime","Sign-on Time"},
-      {"updateTime","Time of last update"},
-      {"idleTime","Idle Time"}
-      //{"favorite","Favorite"}
-   };
+    /**
+     * Construct BeanInfo by creating array of property descriptors.
+     */
+    public UserBeanInfo() {
+        _descriptors = new PropertyDescriptor[_propNames.length];
+        try {
+            for (int i = 0; i < _propNames.length; i++) {
+                PropertyDescriptor desc;
+                desc = new PropertyDescriptor(_propNames[i][0], User.class);
+                desc.setDisplayName(_propNames[i][1]);
+                _descriptors[i] = desc;
+            }
+        } catch (Exception e) {
+            Debug.println("<" + e + "> in UserBeanInfo ctor");
+        }
+    }
 
-   /** Construct BeanInfo by creating array of property descriptors. */
-   public UserBeanInfo() {
-      _descriptors = new PropertyDescriptor[_propNames.length]; 
-      try {
-         for (int i=0; i<_propNames.length; i++) {
-            PropertyDescriptor desc;
-            desc = new PropertyDescriptor(_propNames[i][0],User.class);
-            desc.setDisplayName(_propNames[i][1]);
-            _descriptors[i] = desc; 
-         }
-      }
-      catch (Exception e) {
-         Debug.println("<"+e+"> in UserBeanInfo ctor");
-      }
-   }
-
-   /** Return array of property descriptors. */ 
-   public PropertyDescriptor[] getPropertyDescriptors() {
-      return _descriptors;
-   }
+    /**
+     * Return array of property descriptors.
+     */
+    public PropertyDescriptor[] getPropertyDescriptors() {
+        return _descriptors;
+    }
 }
 

@@ -7,8 +7,10 @@
 
 package org.relayirc.swingui;
 ///////////////////////////////////////////////////////////////////////////////
-/** 
- * The interface that Relay-JFC plugins are expected to support. 
+
+/**
+ * The interface that Relay-JFC plugins are expected to support.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -22,8 +24,8 @@ package org.relayirc.swingui;
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
  */
-public interface IRelayRunnable  {
-   void run(Object context);
+public interface IRelayRunnable {
+    void run(Object context);
 }
 
 

@@ -14,8 +14,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 
-/** 
- * Simple status bar with a progress spinner, a timer and a clock display. 
+/**
+ * Simple status bar with a progress spinner, a timer and a clock display.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -31,112 +32,123 @@ import java.util.Calendar;
  */
 public class StatusBar extends JPanel {
 
-   private final TimerLabel _timer = new TimerLabel();
-   private final ClockLabel _clock = new ClockLabel();
-   private final PongSpinner _spinner = new PongSpinner(30,12);
+    private final TimerLabel _timer = new TimerLabel();
+    private final ClockLabel _clock = new ClockLabel();
+    private final PongSpinner _spinner = new PongSpinner(30, 12);
 
-   //-------------------------------------------------------------------
-   public StatusBar() {
+    //-------------------------------------------------------------------
+    public StatusBar() {
 
-      setLayout(new BorderLayout());
+        setLayout(new BorderLayout());
 
-      _spinner.setBorder(new BevelBorder(BevelBorder.LOWERED));
-      add(_spinner, BorderLayout.WEST);
+        _spinner.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        add(_spinner, BorderLayout.WEST);
 
-      _timer.setBorder(new BevelBorder(BevelBorder.LOWERED));
-      add(_timer, BorderLayout.CENTER);
+        _timer.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        add(_timer, BorderLayout.CENTER);
 
-      _clock.start();
-      _clock.setBorder(new BevelBorder(BevelBorder.LOWERED));
-      add(_clock, BorderLayout.EAST);
-   }
-   //-------------------------------------------------------------------
-   public void setStatusText(String text) {
-      _timer.setStatusText(text,false);
-   }
-   //-------------------------------------------------------------------
-   public void setStatusText(String text,boolean timer) {
-      _timer.setStatusText(text,timer);
-   }
-   //-------------------------------------------------------------------
-   public void startTimer() {
-      _timer.start();
-   }
-   //-------------------------------------------------------------------
-   public void stopTimer() {
-      _timer.stop();
-   }
-   //-------------------------------------------------------------------
-   public void startSpinner() {
-      _spinner.start();
-   }
-   //-------------------------------------------------------------------
-   public void stopSpinner() {
-      _spinner.stop();
-   }
-   //-------------------------------------------------------------------
-   public static void main(String[] args) {
+        _clock.start();
+        _clock.setBorder(new BevelBorder(BevelBorder.LOWERED));
+        add(_clock, BorderLayout.EAST);
+    }
 
-      StatusBar bar = null;
+    //-------------------------------------------------------------------
+    public static void main(String[] args) {
 
-      JFrame frm = new JFrame();
-		frm.getContentPane().setLayout(new BorderLayout());
-		frm.getContentPane().add(bar = new StatusBar(), BorderLayout.SOUTH);
-      bar.startTimer();
-      bar.setStatusText("Connected to IRC.SPRYNET.COM time:",true);
-		frm.setSize(500,500);
-      frm.setVisible(true);
-   }
+        StatusBar bar = null;
+
+        JFrame frm = new JFrame();
+        frm.getContentPane().setLayout(new BorderLayout());
+        frm.getContentPane().add(bar = new StatusBar(), BorderLayout.SOUTH);
+        bar.startTimer();
+        bar.setStatusText("Connected to IRC.SPRYNET.COM time:", true);
+        frm.setSize(500, 500);
+        frm.setVisible(true);
+    }
+
+    //-------------------------------------------------------------------
+    public void setStatusText(String text) {
+        _timer.setStatusText(text, false);
+    }
+
+    //-------------------------------------------------------------------
+    public void setStatusText(String text, boolean timer) {
+        _timer.setStatusText(text, timer);
+    }
+
+    //-------------------------------------------------------------------
+    public void startTimer() {
+        _timer.start();
+    }
+
+    //-------------------------------------------------------------------
+    public void stopTimer() {
+        _timer.stop();
+    }
+
+    //-------------------------------------------------------------------
+    public void startSpinner() {
+        _spinner.start();
+    }
+
+    //-------------------------------------------------------------------
+    public void stopSpinner() {
+        _spinner.stop();
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////
 
 class TimerLabel extends JLabel implements ActionListener {
-   protected long    _startTime = 0;
-   protected javax.swing.Timer   _timer = null;
-   protected String  _text = " ";
-   protected boolean _showTimer = false;
+    protected long _startTime = 0;
+    protected javax.swing.Timer _timer = null;
+    protected String _text = " ";
+    protected boolean _showTimer = false;
 
-   public TimerLabel() {
-      super(" ",SwingConstants.CENTER);
-      _timer = new javax.swing.Timer(1000,this);
-   }
-   public void start() {
-      _startTime = System.currentTimeMillis();
-      _timer.start();
-   }
-   public void stop() {
-      _timer.stop();
-      _startTime = 0;
-   }
-   public void setStatusText(String text, boolean timer) {
-      _text = text;
-      _showTimer = timer;
-   }
-   public void actionPerformed(ActionEvent e) {
-      if (_showTimer) {
-         long now = System.currentTimeMillis() - _startTime;
-         long hours = (now/(60*60*1000));
-         long minutes = (now - hours*(60*60*1000))/(60*1000); 
-         long seconds = (now - hours*(60*60*1000) - minutes*(60*1000))/1000; 
-         setHorizontalAlignment(SwingConstants.LEFT);
-         setText(_text+" "+hours+":"+minutes+":"+seconds);
-      }
-      else {
-         setText(_text);
-      }      
-   }
+    public TimerLabel() {
+        super(" ", SwingConstants.CENTER);
+        _timer = new javax.swing.Timer(1000, this);
+    }
+
+    public void start() {
+        _startTime = System.currentTimeMillis();
+        _timer.start();
+    }
+
+    public void stop() {
+        _timer.stop();
+        _startTime = 0;
+    }
+
+    public void setStatusText(String text, boolean timer) {
+        _text = text;
+        _showTimer = timer;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        if (_showTimer) {
+            long now = System.currentTimeMillis() - _startTime;
+            long hours = (now / (60 * 60 * 1000));
+            long minutes = (now - hours * (60 * 60 * 1000)) / (60 * 1000);
+            long seconds = (now - hours * (60 * 60 * 1000) - minutes * (60 * 1000)) / 1000;
+            setHorizontalAlignment(SwingConstants.LEFT);
+            setText(_text + " " + hours + ":" + minutes + ":" + seconds);
+        } else {
+            setText(_text);
+        }
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////
 
 class ClockLabel extends TimerLabel {
-   public ClockLabel() {
-      super();
-   }
-   public void actionPerformed(ActionEvent e) {
-      setHorizontalAlignment(SwingConstants.RIGHT);
-      setText(Calendar.getInstance().getTime().toString());   
-   }
+    public ClockLabel() {
+        super();
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        setHorizontalAlignment(SwingConstants.RIGHT);
+        setText(Calendar.getInstance().getTime().toString());
+    }
 }
 

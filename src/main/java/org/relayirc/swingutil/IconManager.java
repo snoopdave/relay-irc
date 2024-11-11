@@ -41,14 +41,7 @@ import java.util.HashMap;
  */
 public class IconManager {
 
-    /**
-     * Fetch icon by name.
-     */
-    public static ImageIcon getIcon(String name) {
-        ImageIcon icon = _icons.get(name.toLowerCase() + ".svg");
-        return icon;
-    }
-
+    private static final HashMap<String, ImageIcon> _icons = new HashMap<>();
     /**
      * Array of available icon names.
      */
@@ -84,8 +77,6 @@ public class IconManager {
             "workstation.svg"
     };
 
-    private static final HashMap<String, ImageIcon> _icons = new HashMap<>();
-
     static {
         for (String iconName : iconNames) {
             String fileName = "/svg/" + iconName.toLowerCase();
@@ -98,6 +89,14 @@ public class IconManager {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * Fetch icon by name.
+     */
+    public static ImageIcon getIcon(String name) {
+        ImageIcon icon = _icons.get(name.toLowerCase() + ".svg");
+        return icon;
     }
 
     public static ImageIcon svgToImageIcon(InputStream svgInputStream, float width, float height) throws TranscoderException, IOException {

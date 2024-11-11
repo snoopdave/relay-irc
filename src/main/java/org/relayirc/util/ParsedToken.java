@@ -11,42 +11,48 @@ import java.util.StringTokenizer;
 import java.util.Vector;
 
 /**
- * Super-simple string parser. 
+ * Super-simple string parser.
+ *
  * @author David M. Johnson.
  */
 public class ParsedToken {
-   
-   /** String token */
-   public String token;
 
-   /** Position that string token was found in string */
-   public int index;
+    /**
+     * String token
+     */
+    public String token;
 
-   /** Parse string into array of ParsedTokens */
-   public static ParsedToken[] stringToParsedTokens(String s, String delim) {
-      ParsedToken[] tokens = null;
-      try {
-         // Tokenize string, build vector of tokens
-		 int pos=0;
-         StringTokenizer toker = new StringTokenizer(s,delim);
-         Vector v = new Vector();
-         while (toker.hasMoreTokens()) {
-            ParsedToken tok = new ParsedToken();
-			tok.token = toker.nextToken();
-			tok.index = pos;
-			pos += tok.token.length()+1;
-            v.addElement( tok );
-         }
-   
-         // Allocate and fill array of tokens 
-         tokens = new ParsedToken[v.size()];
-         for (int i=0; i<v.size(); i++) {
-            tokens[i] = (ParsedToken)v.elementAt(i); 
-         }
-	  }
-	  catch (Exception e) {
-		  e.printStackTrace();
-      }
-      return tokens;
-   }
+    /**
+     * Position that string token was found in string
+     */
+    public int index;
+
+    /**
+     * Parse string into array of ParsedTokens
+     */
+    public static ParsedToken[] stringToParsedTokens(String s, String delim) {
+        ParsedToken[] tokens = null;
+        try {
+            // Tokenize string, build vector of tokens
+            int pos = 0;
+            StringTokenizer toker = new StringTokenizer(s, delim);
+            Vector<ParsedToken> v = new Vector<>();
+            while (toker.hasMoreTokens()) {
+                ParsedToken tok = new ParsedToken();
+                tok.token = toker.nextToken();
+                tok.index = pos;
+                pos += tok.token.length() + 1;
+                v.addElement(tok);
+            }
+
+            // Allocate and fill array of tokens
+            tokens = new ParsedToken[v.size()];
+            for (int i = 0; i < v.size(); i++) {
+                tokens[i] = v.elementAt(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return tokens;
+    }
 }

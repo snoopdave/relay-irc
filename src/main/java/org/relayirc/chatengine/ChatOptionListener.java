@@ -7,9 +7,10 @@
 
 package org.relayirc.chatengine;
 
-/** 
- * Currently not used: ChatOption provides standard beans property  
+/**
+ * Currently not used: ChatOption provides standard beans property
  * change support and thats good enough for now.
+ *
  * @author David M. Johnson.
  * @version $Revision: 1.1.2.1 $
  *
@@ -24,5 +25,5 @@ package org.relayirc.chatengine;
  * All Rights Reserved.
  */
 public interface ChatOptionListener {
-	void stateChanged();
+    void stateChanged();
 }

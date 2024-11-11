@@ -16,8 +16,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 //////////////////////////////////////////////////////////////////////////////
+
 /**
  * Displays a JoinPanel.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -32,70 +34,40 @@ import java.awt.event.WindowEvent;
  * All Rights Reserved.
  */
 public class JoinDlg extends JDialog {
-   JoinPanel _joinPanel = new JoinPanel();
+    JoinPanel _joinPanel = new JoinPanel();
 
-   private boolean _isOk = false;
-   public boolean isOk() {return _isOk;}
+    private boolean _isOk = false;
+
+    //-------------------------------------------------------------------------
+    public JoinDlg() {
+        this(null);
+    }
 
 
-   //-------------------------------------------------------------------------
-   public JoinDlg() {
-      this(null);
-   }
-   //-------------------------------------------------------------------------
-   public JoinDlg(Frame parent) {
-      super(parent,"Join Channel",true);
+    //-------------------------------------------------------------------------
+    public JoinDlg(Frame parent) {
+        super(parent, "Join Channel", true);
 
-      try {
-         jbInit();
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-      // Make it 10% larger than tightly packed
-      pack();
+        // Make it 10% larger than tightly packed
+        pack();
       /*setSize(
          (int)(getSize().getWidth()*1.1),
          (int)(getSize().getHeight()*1.1));*/
 
-      StandardDlg.centerOnScreen(this);
-      setVisible(true);
-   }
-   //-------------------------------------------------------------------------
-   public void onJoinButtonPressed() {
-      if (_joinPanel.checkValues()) {
-         _isOk = true;
-         _joinPanel.saveValues();
-         setVisible(false);
-         dispose();
-      }
-   }
-   //-------------------------------------------------------------------------
-   public String getSelectedChannel() {
-       return _joinPanel.getSelectedChannel();
-   }
-   //-------------------------------------------------------------------------
-   private void jbInit() throws Exception {
-      getContentPane().add(_joinPanel,BorderLayout.CENTER);
+        StandardDlg.centerOnScreen(this);
+        setVisible(true);
+    }
 
-      // Hitting the join button is the same as hitting OK
-      _joinPanel.getJoinButton().addActionListener( new ActionListener() {
-         public void actionPerformed( ActionEvent e ) {
-            onJoinButtonPressed();
-         }
-      });
-      addWindowListener(new java.awt.event.WindowAdapter() {
-         public void windowClosing(WindowEvent e) {
-            _isOk = false;
-            setVisible(false);
-            dispose();
-         }
-      });
-   }
-   //-------------------------------------------------------------------------
-   /** For testing only. */
-   public static void main(String[] args) {
+    /**
+     * For testing only.
+     */
+    public static void main(String[] args) {
 
       /*try {
          Debug.setDebug(true);
@@ -113,7 +85,46 @@ public class JoinDlg extends JDialog {
       catch (Exception e) {
          e.printStackTrace();
       }*/
-   }
+    }
+
+    public boolean isOk() {
+        return _isOk;
+    }
+
+    //-------------------------------------------------------------------------
+    public void onJoinButtonPressed() {
+        if (_joinPanel.checkValues()) {
+            _isOk = true;
+            _joinPanel.saveValues();
+            setVisible(false);
+            dispose();
+        }
+    }
+
+    //-------------------------------------------------------------------------
+    public String getSelectedChannel() {
+        return _joinPanel.getSelectedChannel();
+    }
+    //-------------------------------------------------------------------------
+
+    //-------------------------------------------------------------------------
+    private void jbInit() throws Exception {
+        getContentPane().add(_joinPanel, BorderLayout.CENTER);
+
+        // Hitting the join button is the same as hitting OK
+        _joinPanel.getJoinButton().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                onJoinButtonPressed();
+            }
+        });
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                _isOk = false;
+                setVisible(false);
+                dispose();
+            }
+        });
+    }
 }
 
 

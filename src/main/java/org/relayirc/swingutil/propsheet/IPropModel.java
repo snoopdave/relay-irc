@@ -14,10 +14,11 @@ import java.util.Enumeration;
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * Holder of properties and finder of property editors. The PropSheet 
+ * Holder of properties and finder of property editors. The PropSheet
  * component using this simple abstraction so that 1) it does not have to
  * deal with the complexity of the beans API and 2) so that objects that
- * are not beans may be edited. 
+ * are not beans may be edited.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -34,15 +35,18 @@ import java.util.Enumeration;
  */
 public interface IPropModel {
 
-   int getPropertyCount();
-   Enumeration propertyNames();
+    int getPropertyCount();
 
-   String getPropertyDisplayName(String key);
+    Enumeration propertyNames();
 
-   Object getProperty(String key);
-   Object setProperty(String key, Object value);
+    String getPropertyDisplayName(String key);
 
-   void setEditor(String propName, PropertyEditor editor);
-   PropertyEditor getEditor(String propName);
+    Object getProperty(String key);
+
+    Object setProperty(String key, Object value);
+
+    void setEditor(String propName, PropertyEditor editor);
+
+    PropertyEditor getEditor(String propName);
 }
 

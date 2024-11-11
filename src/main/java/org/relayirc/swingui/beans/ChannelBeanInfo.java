@@ -16,8 +16,9 @@ import java.beans.SimpleBeanInfo;
 //////////////////////////////////////////////////////////////////////////
 
 /**
- * BeanInfo for org.relayirc.chatengine.Channel class. Exposes only those 
- * properties that should be displayed the channel's property dialog. 
+ * BeanInfo for org.relayirc.chatengine.Channel class. Exposes only those
+ * properties that should be displayed the channel's property dialog.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -34,35 +35,39 @@ import java.beans.SimpleBeanInfo;
  */
 public class ChannelBeanInfo extends SimpleBeanInfo {
 
-   private final PropertyDescriptor[] _descriptors;
+    /**
+     * Collection of property names and display names.
+     */
+    private static final String[][] _propNames = {
+            {"name", "Name"},
+            {"topic", "Topic"},
+            {"userCount", "User Count"},
+            {"connected", "Connected"}
+    };
+    private final PropertyDescriptor[] _descriptors;
 
-   /** Collection of property names and display names. */
-   private static final String[][] _propNames = {
-      {"name","Name"},
-      {"topic","Topic"},
-      {"userCount","User Count"},
-      {"connected","Connected"}
-   };
+    /**
+     * Construct BeanInfo by creating array of property descriptors.
+     */
+    public ChannelBeanInfo() {
+        _descriptors = new PropertyDescriptor[_propNames.length];
+        try {
+            for (int i = 0; i < _propNames.length; i++) {
+                PropertyDescriptor desc;
+                desc = new PropertyDescriptor(_propNames[i][0], Channel.class);
+                desc.setDisplayName(_propNames[i][1]);
+                _descriptors[i] = desc;
+            }
+        } catch (Exception e) {
+            Debug.println("<" + e + "> in ChannelBeanInfo ctor");
+        }
+    }
 
-   /** Construct BeanInfo by creating array of property descriptors. */
-   public ChannelBeanInfo() {
-      _descriptors = new PropertyDescriptor[_propNames.length]; 
-      try {
-         for (int i=0; i<_propNames.length; i++) {
-            PropertyDescriptor desc;
-            desc = new PropertyDescriptor(_propNames[i][0],Channel.class);
-            desc.setDisplayName(_propNames[i][1]);
-            _descriptors[i] = desc; 
-         }
-      }
-      catch (Exception e) {
-         Debug.println("<"+e+"> in ChannelBeanInfo ctor");
-      }
-   }
-
-   /** Return array of property descriptors. */ 
-   public PropertyDescriptor[] getPropertyDescriptors() {
-      return _descriptors;
-   }
+    /**
+     * Return array of property descriptors.
+     */
+    public PropertyDescriptor[] getPropertyDescriptors() {
+        return _descriptors;
+    }
 }
 

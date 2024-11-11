@@ -9,10 +9,11 @@ package org.relayirc.chatengine;
 
 import java.util.Vector;
 
-/** 
- * Channel searcher. Works closely with a Server to search for channels 
- * that match the search criteria, notify listeners of each such matching 
+/**
+ * Channel searcher. Works closely with a Server to search for channels
+ * that match the search criteria, notify listeners of each such matching
  * channel as it is found and build a collection of matching channels.
+ *
  * @author David M. Johnson.
  * @version $Revision: 1.1.2.1 $
  *
@@ -28,94 +29,144 @@ import java.util.Vector;
  */
 public class ChannelSearch {
 
-	private Server       _server = null;
-	private String       _name = null;
-   private int          _minUsers = Integer.MIN_VALUE;
-   private int          _maxUsers = Integer.MAX_VALUE;
-   private Vector       _results = new Vector();
-   private boolean      _complete = false;
-   private final Vector       _listeners = new Vector();
+    private final Vector _listeners = new Vector();
+    private Server _server = null;
+    private String _name = null;
+    private int _minUsers = Integer.MIN_VALUE;
+    private int _maxUsers = Integer.MAX_VALUE;
+    private Vector _results = new Vector();
+    private boolean _complete = false;
 
-   /** Channel search needs a server. */
-   public ChannelSearch(Server server) {
-      _server = server;
-   }
+    /**
+     * Channel search needs a server.
+     */
+    public ChannelSearch(Server server) {
+        _server = server;
+    }
 
-   /** Get channel name search string. */ 
-   public String getName() {return _name;}
+    /**
+     * Get channel name search string.
+     */
+    public String getName() {
+        return _name;
+    }
 
-   /** Set channel name search string. */ 
-   public void setName(String name) {_name=name;}
+    /**
+     * Set channel name search string.
+     */
+    public void setName(String name) {
+        _name = name;
+    }
 
-   /** Get minimum user-count criteria. */
-   public int getMinUsers() {return _minUsers;}
+    /**
+     * Get minimum user-count criteria.
+     */
+    public int getMinUsers() {
+        return _minUsers;
+    }
 
-   /** Set minimum user-count criteria. */
-   public void setMinUsers(int min) {_minUsers=min;}
+    /**
+     * Set minimum user-count criteria.
+     */
+    public void setMinUsers(int min) {
+        _minUsers = min;
+    }
 
-   /** Get maximum user-count criteria. */
-   public int getMaxUsers() {return _maxUsers;}
-   
-	/** Set maximum user-count criteria. */
-   public void setMaxUsers(int min) {_maxUsers=min;}
+    /**
+     * Get maximum user-count criteria.
+     */
+    public int getMaxUsers() {
+        return _maxUsers;
+    }
 
-   /** Internal use. */
-   void setComplete(boolean complete) {_complete=complete;}
+    /**
+     * Set maximum user-count criteria.
+     */
+    public void setMaxUsers(int min) {
+        _maxUsers = min;
+    }
 
-   /** True if seach has completed. */
-   public boolean isComplete() {return _complete;}
+    /**
+     * True if seach has completed.
+     */
+    public boolean isComplete() {
+        return _complete;
+    }
 
-   /** Number of channels found in most recent search, or -1 on error. */ 
-   public int getChannelCount() {
-	   if (_results == null) return -1;
-	   return _results.size();
-	}
+    /**
+     * Internal use.
+     */
+    void setComplete(boolean complete) {
+        _complete = complete;
+    }
 
-   /** Number of channels found in most recent search, or null on error. */ 
-   public Channel getChannelAt(int index) {
-	   if (_results == null) return null;
-      return (Channel)_results.elementAt(index);
-   }
+    /**
+     * Number of channels found in most recent search, or -1 on error.
+     */
+    public int getChannelCount() {
+        if (_results == null) return -1;
+        return _results.size();
+    }
 
-   /** Start the channel search with the current criteria. */
-   public void start() {
-      _results = new Vector();
-      _server.startChannelSearch(this);
-   }
+    /**
+     * Number of channels found in most recent search, or null on error.
+     */
+    public Channel getChannelAt(int index) {
+        if (_results == null) return null;
+        return (Channel) _results.elementAt(index);
+    }
 
-   /** Add search listener. */
-   public void addChannelSearchListener(ChannelSearchListener listener) {
-      _listeners.addElement(listener);
-   }
+    /**
+     * Start the channel search with the current criteria.
+     */
+    public void start() {
+        _results = new Vector();
+        _server.startChannelSearch(this);
+    }
 
-   /** Remove search listener. */
-   public void removeChannelSearchListener(ChannelSearchListener listener) {
-      _listeners.removeElement(listener);
-   }
+    /**
+     * Add search listener.
+     */
+    public void addChannelSearchListener(ChannelSearchListener listener) {
+        _listeners.addElement(listener);
+    }
 
-   /** Internal use. */
-   void processChannel(Channel chan) {
-      if (chan.getUserCount()>_minUsers && chan.getUserCount()<_maxUsers) {
-         _results.addElement(chan);
-         for (int i=0; i<_listeners.size(); i++) {
-            ((ChannelSearchListener)_listeners.elementAt(i)).searchFound(chan);
-         }
-      }
-   }
+    /**
+     * Remove search listener.
+     */
+    public void removeChannelSearchListener(ChannelSearchListener listener) {
+        _listeners.removeElement(listener);
+    }
 
-   /** Internal use. */
-   void searchStarted(int channels) {
-      for (int i=0; i<_listeners.size(); i++) {
-         ((ChannelSearchListener)_listeners.elementAt(i)).searchStarted(channels);
-      }
-   }
+    /**
+     * Internal use.
+     */
+    void processChannel(Channel chan) {
+        if (chan.getUserCount() > _minUsers && chan.getUserCount() < _maxUsers) {
+            _results.addElement(chan);
+            for (int i = 0; i < _listeners.size(); i++) {
+                ((ChannelSearchListener) _listeners.elementAt(i)).searchFound(chan);
+            }
+        }
+    }
 
-   /** Internal use. */
-   void searchEnded() {
-      for (int i=0; i<_listeners.size(); i++) {
-         ((ChannelSearchListener)_listeners.elementAt(i)).searchEnded();
-      }
-   }
+    /**
+     * Internal use.
+     */
+    void searchStarted(int channels) {
+        for (int i = 0; i < _listeners.size(); i++) {
+            ((ChannelSearchListener) _listeners.elementAt(i)).searchStarted(channels);
+        }
+    }
+
+    /**
+     * Internal use.
+     */
+    void searchEnded() {
+        for (int i = 0; i < _listeners.size(); i++) {
+            ((ChannelSearchListener) _listeners.elementAt(i)).searchEnded();
+        }
+    }
 }
 
 

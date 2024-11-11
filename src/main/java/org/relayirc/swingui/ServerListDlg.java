@@ -12,9 +12,11 @@ import org.relayirc.swingutil.StandardDlg;
 import java.awt.*;
 
 ///////////////////////////////////////////////////////////////////////
+
 /**
  * Server list dialog allows user to edit the server list
  * using the ServerListPanel component.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -30,17 +32,18 @@ import java.awt.*;
  */
 public class ServerListDlg extends StandardDlg {
 
-   public ServerListDlg(Frame parent, ChatOptions.ServerList list) {
-      super(parent,"Server List",true,false);
+    public ServerListDlg(Frame parent, ChatOptions.ServerList list) {
+        super(parent, "Server List", true, false);
 
-      getContentPane().add(new ServerListPanel(list),BorderLayout.CENTER);
+        getContentPane().add(new ServerListPanel(list), BorderLayout.CENTER);
 
-      setSize(600,350);
-      centerOnScreen();
-      setVisible(true);
-   }
-   public boolean onOk() {
-      //ChatApp.getChatApp().getOptions().fireUpdate();
-      return super.onOk();
-   }
+        setSize(600, 350);
+        centerOnScreen();
+        setVisible(true);
+    }
+
+    public boolean onOk() {
+        //ChatApp.getChatApp().getOptions().fireUpdate();
+        return super.onOk();
+    }
 }

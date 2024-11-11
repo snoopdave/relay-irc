@@ -13,7 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Radar-style progress indicator with rotating chord inside circle. 
+ * Radar-style progress indicator with rotating chord inside circle.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -29,78 +30,82 @@ import java.awt.event.ActionListener;
  */
 public class RadarSpinner extends Spinner {
 
-   private double  _angle = 0.0;
-   private final double  _inc = (2.0*Math.PI)/30.0;
+    private final double _inc = (2.0 * Math.PI) / 30.0;
+    private double _angle = 0.0;
 
-   //--------------------------------------------------------------------------
-   public RadarSpinner(int delay) {
-      super(delay);
-   }
-   //--------------------------------------------------------------------------
-   /** Paint the offscreen image to the screen. */
-   public void paint(Graphics g) {
+    //--------------------------------------------------------------------------
+    public RadarSpinner(int delay) {
+        super(delay);
+    }
+    //--------------------------------------------------------------------------
 
-      double w = getSize().width;  // Width of component
-      double h = getSize().height;
-      int    xc = (int)(w/2.0);    // Center of component 
-      int    yc = (int)(h/2.0);
+    //--------------------------------------------------------------------------
+    public static void main(String[] args) {
 
-      // Black background
-      g.setColor(Color.black);
-      g.fillRect(0,0,(int)w,(int)h);
-      
-      // Draw green circle
-      double circle_sz = 0.70; 
-      double radius = w < h ? (w*circle_sz)/2.0: (h*circle_sz)/2.0; 
+        System.out.println("ProgressMeter test program");
 
-      int xo = (int)(xc - radius); // Top left corner of circle
-      int yo = (int)(yc - radius); 
-      int diameter = (int)(2.0*radius);
+        final RadarSpinner progMeter = new RadarSpinner(5);
 
-      g.setColor(Color.green);
-      g.drawOval(xo,yo,diameter,diameter);
+        JFrame frame = new JFrame();
+        frame.getContentPane().setLayout(new BorderLayout());
 
-      // Draw green square around circle
-      double square_sz = 0.90;  
-      double width = w < h ? (w*square_sz): (h*square_sz); 
-      int xb = (int)(xc - width/2.0);
-      int yb = (int)(yc - width/2.0);
-      g.setColor(Color.green);
-      g.drawRect(xb,yb,(int)width,(int)width);
+        frame.getContentPane().add(progMeter, BorderLayout.CENTER);
 
-      // Draw rotating line within circle
-      int ax = (int)(radius*Math.cos(_angle));
-      int ay = (int)(radius*Math.sin(_angle));
-      g.drawLine(xc,yc,xc+ax,yc+ay);
-      _angle = (_angle > 2.0*Math.PI) ? 0.0 : _angle + _inc;
-   }
-   //--------------------------------------------------------------------------
-   public static void main(String[] args) {
+        JButton toggleButton = new JButton("Start/Stop");
+        frame.getContentPane().add(toggleButton, BorderLayout.SOUTH);
+        toggleButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                if (progMeter.isRunning())
+                    progMeter.stop();
+                else
+                    progMeter.start();
+            }
+        });
 
-      System.out.println("ProgressMeter test program");
+        frame.setSize(400, 300);
+        StandardDlg.centerOnScreen(frame);
+        frame.setVisible(true);
+    }
 
-      final RadarSpinner progMeter = new RadarSpinner(5);
+    /**
+     * Paint the offscreen image to the screen.
+     */
+    public void paint(Graphics g) {
 
-      JFrame frame = new JFrame();
-      frame.getContentPane().setLayout(new BorderLayout());
+        double w = getSize().width;  // Width of component
+        double h = getSize().height;
+        int xc = (int) (w / 2.0);    // Center of component
+        int yc = (int) (h / 2.0);
 
-      frame.getContentPane().add(progMeter,BorderLayout.CENTER);
+        // Black background
+        g.setColor(Color.black);
+        g.fillRect(0, 0, (int) w, (int) h);
 
-      JButton toggleButton = new JButton("Start/Stop");
-      frame.getContentPane().add(toggleButton,BorderLayout.SOUTH);
-      toggleButton.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent event) {
-            if (progMeter.isRunning()) 
-               progMeter.stop();
-            else
-               progMeter.start();
-         }
-      });
+        // Draw green circle
+        double circle_sz = 0.70;
+        double radius = w < h ? (w * circle_sz) / 2.0 : (h * circle_sz) / 2.0;
 
-      frame.setSize(400,300);
-      StandardDlg.centerOnScreen(frame);
-      frame.setVisible(true);
-   }
+        int xo = (int) (xc - radius); // Top left corner of circle
+        int yo = (int) (yc - radius);
+        int diameter = (int) (2.0 * radius);
+
+        g.setColor(Color.green);
+        g.drawOval(xo, yo, diameter, diameter);
+
+        // Draw green square around circle
+        double square_sz = 0.90;
+        double width = w < h ? (w * square_sz) : (h * square_sz);
+        int xb = (int) (xc - width / 2.0);
+        int yb = (int) (yc - width / 2.0);
+        g.setColor(Color.green);
+        g.drawRect(xb, yb, (int) width, (int) width);
+
+        // Draw rotating line within circle
+        int ax = (int) (radius * Math.cos(_angle));
+        int ay = (int) (radius * Math.sin(_angle));
+        g.drawLine(xc, yc, xc + ax, yc + ay);
+        _angle = (_angle > 2.0 * Math.PI) ? 0.0 : _angle + _inc;
+    }
 }
 
 /*

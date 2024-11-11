@@ -8,11 +8,9 @@
 package org.relayirc.chatengine;
 
 /**
- * Implement this interface to listen for server connection and  
- * disconnection, channel joins and parts and status messages.  
- * @see Server
- * @see ServerEvent
- * @see ServerListener
+ * Implement this interface to listen for server connection and
+ * disconnection, channel joins and parts and status messages.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.5 $
  *
@@ -25,63 +23,66 @@ package org.relayirc.chatengine;
  * Contributor(s):    No contributors to this file <br>
  * Copyright (C) 1997-2024 by David M. Johnson <br>
  * All Rights Reserved.
+ * @see Server
+ * @see ServerEvent
+ * @see ServerListener
  */
 
 public interface ServerListener {
 
-   /** 
-    * Engine has connected to IRC server. 
-    * event.getServer() will be valid.
-    */
-   void onConnect(ServerEvent event);
+    /**
+     * Engine has connected to IRC server.
+     * event.getServer() will be valid.
+     */
+    void onConnect(ServerEvent event);
 
-   /** 
-    * Engine has disconnected from IRC server. 
-    * event.getServer() will be valid.
-    */
-   void onDisconnect(ServerEvent event);
+    /**
+     * Engine has disconnected from IRC server.
+     * event.getServer() will be valid.
+     */
+    void onDisconnect(ServerEvent event);
 
-   /** 
-    * Channel object has been added to list of those managed by Server object.
-    * May be followed by an onChannelJoin event. 
-    * event.getChannel() will be valid.
-	 */
-   void onChannelAdd(ServerEvent event);
+    /**
+     * Channel object has been added to list of those managed by Server object.
+     * May be followed by an onChannelJoin event.
+     * event.getChannel() will be valid.
+     */
+    void onChannelAdd(ServerEvent event);
 
-   /** 
-    * User has joined a channel.
-    * Will always follow an onChannelAdd event. 
-    * event.getUser() and event.getChannel() will be valid.
-	 */
-   void onChannelJoin(ServerEvent event);
+    /**
+     * User has joined a channel.
+     * Will always follow an onChannelAdd event.
+     * event.getUser() and event.getChannel() will be valid.
+     */
+    void onChannelJoin(ServerEvent event);
 
-   /** 
-    * Query results for an ISON query. 
-    * Use event.getUsers() to get an array of users that are online.
-    */
-   void onIsOn(ServerEvent event);
+    /**
+     * Query results for an ISON query.
+     * Use event.getUsers() to get an array of users that are online.
+     */
+    void onIsOn(ServerEvent event);
 
-   /** 
-    * User has invited us to join a channel. 
-    * event.getUser() and event.getChannel() will be valid.
-    */
-   void onInvite(ServerEvent event);
+    /**
+     * User has invited us to join a channel.
+     * event.getUser() and event.getChannel() will be valid.
+     */
+    void onInvite(ServerEvent event);
 
-   /** 
-    * User has parted from a channel. 
-    * event.getUser() and event.getChannel() will be valid.
-    */
-   void onChannelPart(ServerEvent event);
+    /**
+     * User has parted from a channel.
+     * event.getUser() and event.getChannel() will be valid.
+     */
+    void onChannelPart(ServerEvent event);
 
-   /** 
-    * Status message from engine. 
-    * event.getMessage() will be valid.
-    */
-   void onStatus(ServerEvent event);
+    /**
+     * Status message from engine.
+     * event.getMessage() will be valid.
+     */
+    void onStatus(ServerEvent event);
 
-   /** 
-    * Query result from an WHOIS query.
-    * event.getUser() will be valid and full of requested data. 
-    */
-   void onWhoIs(ServerEvent event);
+    /**
+     * Query result from an WHOIS query.
+     * event.getUser() will be valid and full of requested data.
+     */
+    void onWhoIs(ServerEvent event);
 }

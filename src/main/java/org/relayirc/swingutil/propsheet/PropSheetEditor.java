@@ -11,8 +11,10 @@ package org.relayirc.swingutil.propsheet;
 import java.beans.PropertyEditorSupport;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
- * Base class for property editors 
+ * Base class for property editors
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -29,14 +31,24 @@ import java.beans.PropertyEditorSupport;
  */
 public class PropSheetEditor extends PropertyEditorSupport {
 
-	protected boolean _isWritable = true;
-	protected String _toolTipText = null;
+    protected boolean _isWritable = true;
+    protected String _toolTipText = null;
 
-	public boolean isWritable() {return _isWritable;}
-	public void setWritable( boolean iswritable ) {_isWritable=iswritable;}
+    public boolean isWritable() {
+        return _isWritable;
+    }
 
-	public String getToolTipText() {return _toolTipText;}
-	public void setToolTipText( String text ) {_toolTipText=text;}
+    public void setWritable(boolean iswritable) {
+        _isWritable = iswritable;
+    }
+
+    public String getToolTipText() {
+        return _toolTipText;
+    }
+
+    public void setToolTipText(String text) {
+        _toolTipText = text;
+    }
 }
 
 /*

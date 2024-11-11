@@ -18,8 +18,10 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
- * TODO: PropertyEditor that provides custom editor for editing a password. 
+ * TODO: PropertyEditor that provides custom editor for editing a password.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -35,73 +37,83 @@ import java.awt.event.FocusListener;
  * All Rights Reserved.
  */
 public class PasswordEditor extends PropSheetEditor {
-   private _PasswordEditor _editor = null;
+    private _PasswordEditor _editor = null;
 
-   //---------------------------------------------------------------------------
-   public PasswordEditor() {
-      super();
-   }
-   //---------------------------------------------------------------------------
-   public boolean isPaintable() {
-      return true;
-   }
-   //---------------------------------------------------------------------------
-   public void paintValue(Graphics gfx, Rectangle rect) {
-      // This seems to align perfectly with the TextEditor's text
-      gfx.drawString(getAsText(),0,(int)(rect.height*0.8));
-   }
-   //---------------------------------------------------------------------------
-   public Component getCustomEditor() {
+    //---------------------------------------------------------------------------
+    public PasswordEditor() {
+        super();
+    }
 
-      if (_editor == null) {
+    //---------------------------------------------------------------------------
+    public boolean isPaintable() {
+        return true;
+    }
 
-         _editor = new _PasswordEditor();
-         _editor.getTextField().setText(getAsText());
-		 _editor.setEnabled( isWritable() );
-		 if (getToolTipText() != null) {
-			 _editor.setToolTipText(getToolTipText());
-		 }
-      }
-      return _editor;
-   }
-   //===========================================================================
-   private class _PasswordEditor extends JComponent {
+    //---------------------------------------------------------------------------
+    public void paintValue(Graphics gfx, Rectangle rect) {
+        // This seems to align perfectly with the TextEditor's text
+        gfx.drawString(getAsText(), 0, (int) (rect.height * 0.8));
+    }
 
-      private final JPasswordField _field;
-      public JPasswordField getTextField() {return _field;}
+    //---------------------------------------------------------------------------
+    public Component getCustomEditor() {
 
-      public void setToolTipText( String text) {
-		  getTextField().setToolTipText(text);
-      }
-      public void setEnabled(boolean flag) {
-		  getTextField().setEnabled(flag);
-      }
+        if (_editor == null) {
 
-      public _PasswordEditor() {
-
-         _field = new JPasswordField();
-         _field.setText(getAsText());
-         _field.setBorder(null);
-         setLayout(new BorderLayout());
-         add( _field, BorderLayout.CENTER );
-
-         // Listen for caret changes, update property on each such change 
-         _field.addCaretListener(new CaretListener() {
-			 public void caretUpdate( CaretEvent event) {
-               //TextEditor.this.setAsText( _field.getPassword() );
-			 }
-		 });
-
-         // Listen for focus changes, select whole string on focus gain
-         _field.addFocusListener(new FocusListener() {
-            public void focusGained( FocusEvent event ) {
-               _field.setText(getAsText());
-               _field.selectAll(); 
+            _editor = new _PasswordEditor();
+            _editor.getTextField().setText(getAsText());
+            _editor.setEnabled(isWritable());
+            if (getToolTipText() != null) {
+                _editor.setToolTipText(getToolTipText());
             }
-            public void focusLost( FocusEvent ignored ) {}
-         });
-      }
-   }
+        }
+        return _editor;
+    }
+
+    //===========================================================================
+    private class _PasswordEditor extends JComponent {
+
+        private final JPasswordField _field;
+
+        public _PasswordEditor() {
+
+            _field = new JPasswordField();
+            _field.setText(getAsText());
+            _field.setBorder(null);
+            setLayout(new BorderLayout());
+            add(_field, BorderLayout.CENTER);
+
+            // Listen for caret changes, update property on each such change
+            _field.addCaretListener(new CaretListener() {
+                public void caretUpdate(CaretEvent event) {
+                    //TextEditor.this.setAsText( _field.getPassword() );
+                }
+            });
+
+            // Listen for focus changes, select whole string on focus gain
+            _field.addFocusListener(new FocusListener() {
+                public void focusGained(FocusEvent event) {
+                    _field.setText(getAsText());
+                    _field.selectAll();
+                }
+
+                public void focusLost(FocusEvent ignored) {
+                }
+            });
+        }
+
+        public JPasswordField getTextField() {
+            return _field;
+        }
+
+        public void setToolTipText(String text) {
+            getTextField().setToolTipText(text);
+        }
+
+        public void setEnabled(boolean flag) {
+            getTextField().setEnabled(flag);
+        }
+    }
 }
 
 /*

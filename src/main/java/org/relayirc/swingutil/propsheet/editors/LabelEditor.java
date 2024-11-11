@@ -12,8 +12,10 @@ import java.awt.*;
 import java.beans.PropertyEditorSupport;
 
 ////////////////////////////////////////////////////////////////////////////////
+
 /**
  * PropertyEditor that provides custom editor for a read-only string value.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.1 $
  *
@@ -29,29 +31,32 @@ import java.beans.PropertyEditorSupport;
  * All Rights Reserved.
  */
 public class LabelEditor extends PropertyEditorSupport {
-   private JLabel _label = null; 
+    private JLabel _label = null;
 
-   //---------------------------------------------------------------------------
-   public LabelEditor() {
-      super();
-   }
-   //---------------------------------------------------------------------------
-   public boolean isPaintable() {
-      return true;
-   }
-   //---------------------------------------------------------------------------
-   public void paintValue(Graphics gfx, Rectangle rect) {
-      // This seems to align perfectly with the TextEditor's text
-      gfx.drawString(getAsText(),0,(int)(rect.height*0.8));
-   }
-   //---------------------------------------------------------------------------
-   public Component getCustomEditor() {
-      if (_label == null) {
-         _label = new JLabel();
-      }
-      _label.setText(getAsText());
-      return _label; 
-   }
+    //---------------------------------------------------------------------------
+    public LabelEditor() {
+        super();
+    }
+
+    //---------------------------------------------------------------------------
+    public boolean isPaintable() {
+        return true;
+    }
+
+    //---------------------------------------------------------------------------
+    public void paintValue(Graphics gfx, Rectangle rect) {
+        // This seems to align perfectly with the TextEditor's text
+        gfx.drawString(getAsText(), 0, (int) (rect.height * 0.8));
+    }
+
+    //---------------------------------------------------------------------------
+    public Component getCustomEditor() {
+        if (_label == null) {
+            _label = new JLabel();
+        }
+        _label.setText(getAsText());
+        return _label;
+    }
 }
 
 /*

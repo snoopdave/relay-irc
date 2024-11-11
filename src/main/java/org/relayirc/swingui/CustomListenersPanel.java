@@ -15,10 +15,12 @@ import java.awt.*;
 import java.util.Vector;
 
 /////////////////////////////////////////////////////////////////////////////
+
 /**
  * Provides UI for editing a collection of CustomListeners. Uses
  * a ListEditorPanel for editing the collection and a CustomListenerEditPanel
  * for editing the listeners in the collection.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -34,155 +36,216 @@ import java.util.Vector;
  */
 public class CustomListenersPanel extends JPanel implements ITab {
 
-   private String          _name = "CustomListenersPanel";
-   private Vector          _listeners = new Vector();
-   private final BorderLayout    _borderLayout = new BorderLayout();
+    private final BorderLayout _borderLayout = new BorderLayout();
+    private final _ListenerListEditorModel _model = new _ListenerListEditorModel();
+    private String _name = "CustomListenersPanel";
+    private Vector _listeners = new Vector();
+    private ListEditorPanel _editorPanel = new ListEditorPanel();
 
-   private ListEditorPanel _editorPanel = new ListEditorPanel();
-   private final _ListenerListEditorModel _model = new _ListenerListEditorModel();
+    //-----------------------------------------------------------------------
 
-   //-----------------------------------------------------------------------
-   /** Contruct UI for editing a collection of CustomListeners.
-    * @param parent Needed because panel launches a modal dialog 
-    * @param name   Display name of panel. 
-    * @param prompt Prompt string. 
-    * @param listeners Collection of CustomActions to be edited. 
-    */
-   public CustomListenersPanel(
-      JDialog parent,String name, String prompt, Vector listeners) {
+    /**
+     * Contruct UI for editing a collection of CustomListeners.
+     *
+     * @param parent    Needed because panel launches a modal dialog
+     * @param name      Display name of panel.
+     * @param prompt    Prompt string.
+     * @param listeners Collection of CustomActions to be edited.
+     */
+    public CustomListenersPanel(
+            JDialog parent, String name, String prompt, Vector listeners) {
 
-      _name = name;
-      _listeners = listeners;
-      _editorPanel = new ListEditorPanel(parent,prompt,_model);
+        _name = name;
+        _listeners = listeners;
+        _editorPanel = new ListEditorPanel(parent, prompt, _model);
 
-      try {
-         jbInit();
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
-   //-----------------------------------------------------------------------
-   /** @deprecated Only for design-time use! */
-   public CustomListenersPanel() {
-      try {
-         jbInit();
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
-   //-----------------------------------------------------------------------
-   private void jbInit() throws Exception {
-      this.setLayout(_borderLayout);
-      add(_editorPanel,BorderLayout.CENTER);
-   }
-   //-----------------------------------------------------------------------
-   /** ITab implementation. @see ITab */
-   public String getName() {
-      return _name;
-   }
-   //-----------------------------------------------------------------------
-   /** ITab implementation. @see ITab */
-   public boolean checkValues() {
-      return true;
-   }
-   //-----------------------------------------------------------------------
-   /** ITab implementation. @see ITab */
-   public void loadValues() {
-      _editorPanel.loadValues();
-   }
-   //-----------------------------------------------------------------------
-   /** ITab implementation. @see ITab */
-   public void saveValues() {
-      _editorPanel.saveValues();
-   }
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    //-----------------------------------------------------------------------
 
-   ////////////////////////////////////////////////////////////////////////
+    /**
+     * @deprecated Only for design-time use!
+     */
+    public CustomListenersPanel() {
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-   private class _ListenerListEditorModel implements ListEditorPanel.IModel {
+    //-----------------------------------------------------------------------
+    private void jbInit() throws Exception {
+        this.setLayout(_borderLayout);
+        add(_editorPanel, BorderLayout.CENTER);
+    }
+    //-----------------------------------------------------------------------
 
-      public _ListenerListEditorModel() {
-      }
-      public Vector getObjects() {
-         return _listeners;
-      }
-      public ListEditorPanel.IHolder createNewObjectHolder(Object obj) {
-         return new ListenerHolder( (CustomListener)obj );
-      }
-      public ListEditorPanel.IHolder createNewObjectHolder() {
-         CustomListener listener = new CustomListener(
-            "New Listener",CustomListener.JPYTHON_SCRIPT,"dummy","newscript.py","dummy");
-         return new ListenerHolder(listener);
-      }
-   }
+    /**
+     * ITab implementation. @see ITab
+     */
+    public String getName() {
+        return _name;
+    }
+    //-----------------------------------------------------------------------
 
-   ////////////////////////////////////////////////////////////////////////
+    /**
+     * ITab implementation. @see ITab
+     */
+    public boolean checkValues() {
+        return true;
+    }
+    //-----------------------------------------------------------------------
 
-   public class ListenerHolder implements ListEditorPanel.IHolder {
+    /**
+     * ITab implementation. @see ITab
+     */
+    public void loadValues() {
+        _editorPanel.loadValues();
+    }
+    //-----------------------------------------------------------------------
 
-      private CustomListener _listener = null; // the action
+    /**
+     * ITab implementation. @see ITab
+     */
+    public void saveValues() {
+        _editorPanel.saveValues();
+    }
 
-      private int    _state = ListEditorPanel.UNTOUCHED;
-      private int    _type;
-      private String _title;
-      private String _subject;
-      private String _listenerString;
+    ////////////////////////////////////////////////////////////////////////
 
-      public ListenerHolder(CustomListener listener) {
-         _type = listener.getType();
-         _title = listener.getTitle();
-         _subject = listener.getSubject();
-         _listenerString = listener.getListenerString();
-         _listener = listener;
-      }
+    private class _ListenerListEditorModel implements ListEditorPanel.IModel {
 
-      /** IHolder implementation. */
-      public void saveValues() {
-         _listener.setTitle(_title);
-         _listener.setType(_type);
-         _listener.setSubject(_subject);
-         _listener.setListenerString(_listenerString);
-      }
+        public _ListenerListEditorModel() {
+        }
 
-      /** IHolder implementation. */
-      public Object getObject() {return _listener;}
+        public Vector getObjects() {
+            return _listeners;
+        }
 
-      /** IHolder implementation. */
-      public String getName() {return _title;}
+        public ListEditorPanel.IHolder createNewObjectHolder(Object obj) {
+            return new ListenerHolder((CustomListener) obj);
+        }
 
-      /** IHolder implementation. */
-      public void setState(int s) {_state=s;}
+        public ListEditorPanel.IHolder createNewObjectHolder() {
+            CustomListener listener = new CustomListener(
+                    "New Listener", CustomListener.JPYTHON_SCRIPT, "dummy", "newscript.py", "dummy");
+            return new ListenerHolder(listener);
+        }
+    }
 
-      /** IHolder implementation. */
-      public boolean showDialog(Component parent) {
+    ////////////////////////////////////////////////////////////////////////
 
-         // Show edit dialog for this action holder, return result
-         CustomListenerEditPanel editor;
-         editor = new CustomListenerEditPanel(this);
-         return editor.showDialog(parent);
-      }
+    public class ListenerHolder implements ListEditorPanel.IHolder {
 
-      // Simple accessors
+        private CustomListener _listener = null; // the action
 
-      public CustomListener getCustomListener() {return _listener;}
+        private int _state = ListEditorPanel.UNTOUCHED;
+        private int _type;
+        private String _title;
+        private String _subject;
+        private String _listenerString;
 
-      public int getState() {return _state;}
+        public ListenerHolder(CustomListener listener) {
+            _type = listener.getType();
+            _title = listener.getTitle();
+            _subject = listener.getSubject();
+            _listenerString = listener.getListenerString();
+            _listener = listener;
+        }
 
-      public String toString() {return _title;}
+        /**
+         * IHolder implementation.
+         */
+        public void saveValues() {
+            _listener.setTitle(_title);
+            _listener.setType(_type);
+            _listener.setSubject(_subject);
+            _listener.setListenerString(_listenerString);
+        }
 
-      public String getTitle() {return _title;}
-      public void setTitle(String t) {_title=t;}
+        /**
+         * IHolder implementation.
+         */
+        public Object getObject() {
+            return _listener;
+        }
 
-      public String getSubject() {return _subject;}
-      public void setSubject(String s) {_subject=s;}
+        /**
+         * IHolder implementation.
+         */
+        public String getName() {
+            return _title;
+        }
 
-      public String getListenerString() {return _listenerString;}
-      public void setListenerString(String s) {_listenerString=s;}
+        /**
+         * IHolder implementation.
+         */
+        public boolean showDialog(Component parent) {
 
-      public int getType() {return _type;}
-      public void setType(int t) {_type=t;}
-   }
+            // Show edit dialog for this action holder, return result
+            CustomListenerEditPanel editor;
+            editor = new CustomListenerEditPanel(this);
+            return editor.showDialog(parent);
+        }
+
+        public CustomListener getCustomListener() {
+            return _listener;
+        }
+
+        // Simple accessors
+
+        public int getState() {
+            return _state;
+        }
+
+        /**
+         * IHolder implementation.
+         */
+        public void setState(int s) {
+            _state = s;
+        }
+
+        public String toString() {
+            return _title;
+        }
+
+        public String getTitle() {
+            return _title;
+        }
+
+        public void setTitle(String t) {
+            _title = t;
+        }
+
+        public String getSubject() {
+            return _subject;
+        }
+
+        public void setSubject(String s) {
+            _subject = s;
+        }
+
+        public String getListenerString() {
+            return _listenerString;
+        }
+
+        public void setListenerString(String s) {
+            _listenerString = s;
+        }
+
+        public int getType() {
+            return _type;
+        }
+
+        public void setType(int t) {
+            _type = t;
+        }
+    }
 
 }
 

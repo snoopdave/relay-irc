@@ -11,9 +11,10 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/** 
+/**
  * Pong-style progress indicator with little box that bounces from left
  * to right leaving a trail.
+ *
  * @author David M. Johnson
  * @version $Revision: 1.1.2.2 $
  *
@@ -28,44 +29,46 @@ import java.awt.event.ActionListener;
  * All Rights Reserved.
  */
 public class Spinner extends JPanel {
-   private Timer _timer = null;
-   private final int _delay;
+    private final int _delay;
+    private final ActionListener _timerListener = new ActionListener() {
+        public void actionPerformed(ActionEvent event) {
+            repaint(5);
+        }
+    };
+    private Timer _timer = null;
 
-   private final ActionListener _timerListener = new ActionListener() {
-      public void  actionPerformed(ActionEvent event) {
-         repaint(5);
-      }
-   };
+    //--------------------------------------------------------------------------
+    public Spinner(int delay) {
+        _delay = delay;
+    }
 
-   //--------------------------------------------------------------------------
-   public Spinner(int delay) {
-      _delay = delay;
-   }
-   //--------------------------------------------------------------------------
-   public boolean isRunning() {
-      if (_timer != null) 
-         return _timer.isRunning();
-      else 
-         return false;
-   }
-   //--------------------------------------------------------------------------
-   public synchronized void stop() {
-      if (_timer != null) {
-         _timer.removeActionListener(_timerListener);
-         _timer.stop();
-         _timer = null;
-         repaint(5);
-      }
-   }
-   //--------------------------------------------------------------------------
-   public synchronized void start() {
-      if (_timer == null) {
-         _timer = new Timer(20,_timerListener);
-         _timer.setDelay(_delay);
-         _timer.setRepeats(true);
-         _timer.start();
-      }
-   }
+    //--------------------------------------------------------------------------
+    public boolean isRunning() {
+        if (_timer != null)
+            return _timer.isRunning();
+        else
+            return false;
+    }
+
+    //--------------------------------------------------------------------------
+    public synchronized void stop() {
+        if (_timer != null) {
+            _timer.removeActionListener(_timerListener);
+            _timer.stop();
+            _timer = null;
+            repaint(5);
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    public synchronized void start() {
+        if (_timer == null) {
+            _timer = new Timer(20, _timerListener);
+            _timer.setDelay(_delay);
+            _timer.setRepeats(true);
+            _timer.start();
+        }
+    }
 }
 
 /*

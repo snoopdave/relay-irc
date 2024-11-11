@@ -33,167 +33,170 @@ import java.awt.*;
  */
 public class ColorPanel extends JPanel implements ITab {
 
-   private final ColorCombo _messages = new ColorCombo();
-   private final ColorCombo _actions  = new ColorCombo();
-   private final ColorCombo _joins    = new ColorCombo();
-   private final ColorCombo _parts    = new ColorCombo();
-   private final ColorCombo _ops      = new ColorCombo();
-   private final ColorCombo _kicks    = new ColorCombo();
-   private final ColorCombo _bans     = new ColorCombo();
-   private final ColorCombo _nicks    = new ColorCombo();
-   private final ChatOptions _options;
+    private final ColorCombo _messages = new ColorCombo();
+    private final ColorCombo _actions = new ColorCombo();
+    private final ColorCombo _joins = new ColorCombo();
+    private final ColorCombo _parts = new ColorCombo();
+    private final ColorCombo _ops = new ColorCombo();
+    private final ColorCombo _kicks = new ColorCombo();
+    private final ColorCombo _bans = new ColorCombo();
+    private final ColorCombo _nicks = new ColorCombo();
+    private final ChatOptions _options;
 
-   private final JLabel _nicksLabel = new JLabel("Nicks");
-   private final JLabel _bansLabel = new JLabel("Bans");
-   private final JLabel _kicksLabel = new JLabel("Kicks");
-   private final JLabel _opsLabel = new JLabel("Ops");
-   private final JLabel _partsLabel = new JLabel("Parts");
-   private final JLabel _joinsLabel = new JLabel("Joins");
-   private final JLabel _messagesLabel = new JLabel("Messages");
-   private final JLabel _actionsLabel = new JLabel("Actions");
+    private final JLabel _nicksLabel = new JLabel("Nicks");
+    private final JLabel _bansLabel = new JLabel("Bans");
+    private final JLabel _kicksLabel = new JLabel("Kicks");
+    private final JLabel _opsLabel = new JLabel("Ops");
+    private final JLabel _partsLabel = new JLabel("Parts");
+    private final JLabel _joinsLabel = new JLabel("Joins");
+    private final JLabel _messagesLabel = new JLabel("Messages");
+    private final JLabel _actionsLabel = new JLabel("Actions");
 
 
-   //---------------------------------------------------------------
-   public ColorPanel() {
-      _options = ChatApp.getChatApp().getOptions();
-      try {
-         jbInit();
-      }
-      catch(Exception e) {
-         e.printStackTrace();
-      }
-   }
-   //---------------------------------------------------------------
-   public boolean checkValues() {
-      return true;
-   }
-   //---------------------------------------------------------------
-   public void loadValues() {
+    //---------------------------------------------------------------
+    public ColorPanel() {
+        _options = ChatApp.getChatApp().getOptions();
+        try {
+            jbInit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-      _messages.setSelectedColorName( 
-         _options.getProperty("gui.channel.color.messages"));
+    //---------------------------------------------------------------
+    public boolean checkValues() {
+        return true;
+    }
 
-      _actions.setSelectedColorName(  
-         _options.getProperty("gui.channel.color.actions"));
+    //---------------------------------------------------------------
+    public void loadValues() {
 
-      _joins.setSelectedColorName(    
-         _options.getProperty("gui.channel.color.joins"));
+        _messages.setSelectedColorName(
+                _options.getProperty("gui.channel.color.messages"));
 
-      _parts.setSelectedColorName(    
-         _options.getProperty("gui.channel.color.parts"));
+        _actions.setSelectedColorName(
+                _options.getProperty("gui.channel.color.actions"));
 
-      _ops.setSelectedColorName(      
-         _options.getProperty("gui.channel.color.ops"));
+        _joins.setSelectedColorName(
+                _options.getProperty("gui.channel.color.joins"));
 
-      _kicks.setSelectedColorName(    
-         _options.getProperty("gui.channel.color.kicks"));
+        _parts.setSelectedColorName(
+                _options.getProperty("gui.channel.color.parts"));
 
-      _bans.setSelectedColorName(     
-         _options.getProperty("gui.channel.color.bans"));
+        _ops.setSelectedColorName(
+                _options.getProperty("gui.channel.color.ops"));
 
-      _nicks.setSelectedColorName(    
-         _options.getProperty("gui.channel.color.nicks"));
-   }
-   //---------------------------------------------------------------
+        _kicks.setSelectedColorName(
+                _options.getProperty("gui.channel.color.kicks"));
 
-      public void saveValues() {
+        _bans.setSelectedColorName(
+                _options.getProperty("gui.channel.color.bans"));
 
-      _options.setProperty(
-         "gui.channel.color.messages",_messages.getSelectedColorName());
+        _nicks.setSelectedColorName(
+                _options.getProperty("gui.channel.color.nicks"));
+    }
+    //---------------------------------------------------------------
 
-      _options.setProperty(
-         "gui.channel.color.actions", _actions.getSelectedColorName());
+    public void saveValues() {
 
-      _options.setProperty(
-         "gui.channel.color.joins",   _joins.getSelectedColorName());
+        _options.setProperty(
+                "gui.channel.color.messages", _messages.getSelectedColorName());
 
-      _options.setProperty(
-         "gui.channel.color.parts",   _parts.getSelectedColorName());
+        _options.setProperty(
+                "gui.channel.color.actions", _actions.getSelectedColorName());
 
-      _options.setProperty(
-         "gui.channel.color.ops",     _ops.getSelectedColorName());
+        _options.setProperty(
+                "gui.channel.color.joins", _joins.getSelectedColorName());
 
-      _options.setProperty(
-         "gui.channel.color.kicks",   _kicks.getSelectedColorName());
+        _options.setProperty(
+                "gui.channel.color.parts", _parts.getSelectedColorName());
 
-      _options.setProperty(
-         "gui.channel.color.bans",    _bans.getSelectedColorName());
+        _options.setProperty(
+                "gui.channel.color.ops", _ops.getSelectedColorName());
 
-      _options.setProperty(
-         "gui.channel.color.nicks",   _nicks.getSelectedColorName());
+        _options.setProperty(
+                "gui.channel.color.kicks", _kicks.getSelectedColorName());
 
-   }
-   //---------------------------------------------------------------
-   public String getName() {
-      return "Colors";
-   }
-   private void jbInit() throws Exception {
-      setBorder(new EmptyBorder(10,10,10,10)); // tlbr
-      setLayout(new GridBagLayout());
+        _options.setProperty(
+                "gui.channel.color.bans", _bans.getSelectedColorName());
 
-      add(_messages, new GridBagConstraints2(1,0,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        _options.setProperty(
+                "gui.channel.color.nicks", _nicks.getSelectedColorName());
 
-      add(_messagesLabel, new GridBagConstraints2(0,0,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+    }
 
-      add(_actions, new GridBagConstraints2(1,1,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+    //---------------------------------------------------------------
+    public String getName() {
+        return "Colors";
+    }
 
-      add(_actionsLabel, new GridBagConstraints2(0,1,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+    private void jbInit() throws Exception {
+        setBorder(new EmptyBorder(10, 10, 10, 10)); // tlbr
+        setLayout(new GridBagLayout());
 
-      add(_joins, new GridBagConstraints2(1,2,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_messages, new GridBagConstraints2(1, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_joinsLabel, new GridBagConstraints2(0,2,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_messagesLabel, new GridBagConstraints2(0, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_parts, new GridBagConstraints2(1,3,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_actions, new GridBagConstraints2(1, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_partsLabel, new GridBagConstraints2(0,3,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_actionsLabel, new GridBagConstraints2(0, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_ops, new GridBagConstraints2(3,0,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_joins, new GridBagConstraints2(1, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_opsLabel, new GridBagConstraints2(2,0,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_joinsLabel, new GridBagConstraints2(0, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_kicks, new GridBagConstraints2(3,1,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_parts, new GridBagConstraints2(1, 3, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_kicksLabel, new GridBagConstraints2(2,1,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_partsLabel, new GridBagConstraints2(0, 3, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_bans, new GridBagConstraints2(3,2,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_ops, new GridBagConstraints2(3, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_bansLabel, new GridBagConstraints2(2,2,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_opsLabel, new GridBagConstraints2(2, 0, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_nicks, new GridBagConstraints2(3,3,1,1,0.0,0.0,
-         GridBagConstraints.WEST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
+        add(_kicks, new GridBagConstraints2(3, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
 
-      add(_nicksLabel, new GridBagConstraints2(2,3,1,1,0.0,0.0,
-         GridBagConstraints.EAST,GridBagConstraints.NONE,
-         new Insets(3,3,3,3),0,0));
-   }
+        add(_kicksLabel, new GridBagConstraints2(2, 1, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
+
+        add(_bans, new GridBagConstraints2(3, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
+
+        add(_bansLabel, new GridBagConstraints2(2, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
+
+        add(_nicks, new GridBagConstraints2(3, 3, 1, 1, 0.0, 0.0,
+                GridBagConstraints.WEST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
+
+        add(_nicksLabel, new GridBagConstraints2(2, 3, 1, 1, 0.0, 0.0,
+                GridBagConstraints.EAST, GridBagConstraints.NONE,
+                new Insets(3, 3, 3, 3), 0, 0));
+    }
 }
 
